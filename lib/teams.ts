@@ -51,26 +51,45 @@ async function readTeamsFromBin(): Promise<TeamData | null> {
 
 async function writeTeamsToBin(data: TeamData): Promise<void> {
   try {
-    // Save to local file first
-    const dir = path.dirname(LOCAL_FILE)
-    if (!fs.existsSync(dir)) {
-      fs.mkdirSync(dir, { recursive: true })
+    // Save to local file only in development (Vercel has read-only filesystem)
+    if (process.env.NODE_ENV === 'development') {
+      try {
+        const dir = path.dirname(LOCAL_FILE)
+        if (!fs.existsSync(dir)) {
+          fs.mkdirSync(dir, { recursive: true })
+        }
+        fs.writeFileSync(LOCAL_FILE, JSON.stringify(data, null, 2))
+        console.log(`[Teams] Saved to local file`)
+      } catch (error) {
+        console.warn('[Teams] Failed to save to local file (this is normal on Vercel):', error)
+      }
     }
-    fs.writeFileSync(LOCAL_FILE, JSON.stringify(data, null, 2))
-    console.log(`[Teams] Saved to local file`)
     
-    // Try to save to JSONBin if configured
+    // Always try to save to JSONBin if configured (required for production/Vercel)
     if (JSONBIN_API_KEY) {
       try {
         await writeJsonToBin(TEAMS_BIN_ID, data)
         console.log(`[Teams] Saved to JSONBin.io`)
       } catch (error) {
-        console.warn('[Teams] Failed to save to JSONBin, but local file saved:', error)
+        console.error('[Teams] Failed to save to JSONBin:', error)
+        // If we're in production and JSONBin fails, throw error
+        if (process.env.NODE_ENV === 'production' || process.env.VERCEL) {
+          throw new Error(`Failed to save teams to JSONBin: ${error instanceof Error ? error.message : String(error)}`)
+        }
+        // In development, just warn if local file was saved
+        throw new Error(`Failed to save teams. JSONBin error: ${error instanceof Error ? error.message : String(error)}`)
       }
+    } else {
+      // In production/Vercel, JSONBin is required
+      if (process.env.NODE_ENV === 'production' || process.env.VERCEL) {
+        throw new Error('JSONBIN_API_KEY is required for saving teams in production. Please set it in Vercel environment variables.')
+      }
+      // In development, warn but allow local file save
+      console.warn('[Teams] JSONBIN_API_KEY not configured. Teams will only be saved locally.')
     }
   } catch (error) {
     console.error('Error saving teams:', error)
-    throw new Error('Failed to save teams')
+    throw error instanceof Error ? error : new Error('Failed to save teams')
   }
 }
 
