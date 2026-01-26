@@ -1,0 +1,153 @@
+[
+  {
+    "id": "coca-cola",
+    "slug": "coca-cola",
+    "name": "Coca-Cola",
+    "tagline": "Development, planning and implementation throughout Switzerland.",
+    "heroImage": "https://promopers.com/wp-content/uploads/2023/03/CocaCola.jpeg",
+    "logo": "/coca-cola-logo.png",
+    "description": [
+      "Our company is proud to work closely with The Coca-Cola Company and Hellenic Bottler on several experiential activations across the Coca-Cola brand spectrum. We execute both B2B and B2C events and ensure that TCCC partners such as Pathé, FIFA, Uber Eats, Migros, Aldi and others are showcased.",
+      "Our expertise lies in strengthening the Coca-Cola brand on various levels and underlining the brand message. This includes successful activations such as \"Ein Hoch auf Weniger\", the \"Valser Days @ Flumserberge & Urban Activation\" or the launch of the new Coke Zero \"Kaizen\".",
+      "We have set ourselves the goal of carrying out Mass Samplings throughout Switzerland in order to offer as many people as possible an unforgettable Coca-Cola experience. In addition, we have a central Coke event warehouse close to the city on over 200m², which offers online access for all stakeholders."
+    ],
+    "responsibilities": [
+      "The handling of worldwide imports of goods for the marketing and event team",
+      "Offer a comprehensive service in the settlement of invoices"
+    ],
+    "additionalText": "Our consultants who work at Coca-Cola and ensure that their events are successful receive HR and Payrolling services from us. Our goal is to always provide the best possible service to our customers and to continuously improve to ensure that they are satisfied at all times. We are fully passionate about what we do and are committed to achieving a high level of customer satisfaction.",
+    "client": "Coca-Cola",
+    "location": "whole Switzerland",
+    "date": "15 Mar 2023",
+    "tags": [],
+    "published": true,
+    "createdAt": "2023-03-15T00:00:00.000Z",
+    "updatedAt": "2023-03-15T00:00:00.000Z"
+  },
+  {
+    "id": "samsung",
+    "slug": "samsung",
+    "name": "Samsung",
+    "tagline": "Development, planning and implementation throughout Switzerland.",
+    "heroImage": "https://promopers.com/wp-content/uploads/2022/11/01_Unpacked_2020_press_release_main_image_1000x554.jpg",
+    "logo": "/images/playstation.png",
+    "description": [
+      "For more than a decade, we have maintained a successful partnership with Samsung Switzerland GmbH as an experienced retail marketing agency. Our team includes 29 sales staff (so-called Experience Consultants), 15 merchandisers with their own fleet of vehicles and 7 marketing consultants who work closely with Samsungs retail team in Switzerland."
+    ],
+    "services": [
+      "Sales promotions",
+      "Merchandising",
+      "Events",
+      "Ambassador Programs"
+    ],
+    "sectionTitle": "Multifaceted service catalog",
+    "additionalDescription": [
+      "Market research, data analysis and the Support for Samsung products in all categories and sales channels comprise our entire range of services. With around 15,000 annual store visits and over 1,500 regularly maintained stores in our database, we ensure that sales floors are always up-to-date and sales staff receive regular training."
+    ],
+    "responsibilitiesHeading": "Our responsibilities include:",
+    "responsibilities": [
+      "Support of already existing products",
+      "Introduction of new products",
+      "Offer first- and second-level support from our experienced Experience Consultants"
+    ],
+    "additionalText": [
+      "Thanks to our long-standing and successful cooperation with Samsung, we can continuously improve and expand our services to support our customers in the best possible way.",
+      "With great passion, we are committed to continue the successful partnership as part of the Samsung team. Our extensive knowledge of the market and the industry enables us to market and sell Samsung products in an excellent way. Our ambition is to maintain and further expand an authoritative position in the retail market in Switzerland for Samsung."
+    ],
+    "client": "Samsung Electronics Switzerland GmbH",
+    "location": "whole Switzerland",
+    "date": "10 Nov 2022",
+    "tags": ["Merchandising", "Retail Marketing", "Sales Promotion"],
+    "published": true,
+    "createdAt": "2022-11-10T00:00:00.000Z",
+    "updatedAt": "2022-11-10T00:00:00.000Z"
+  },
+  {
+    "id": "jbl",
+    "slug": "jbl",
+    "name": "JBL",
+    "tagline": "Development, planning and implementation throughout Switzerland.",
+    "heroImage": "https://promopers.com/wp-content/uploads/2022/11/story-03-m-EMEA.webp",
+    "logo": "/images/playstation.png",
+    "description": [
+      "As an experienced agency for brand experiences, we have maintained a successful collaboration with JBL for many years. Our team consists of 11 experience consultants (sales staff) and 2 merchandisers who work throughout Switzerland."
+    ],
+    "sectionTitle": "Bluetooth audio and TWS headphones as focus products",
+    "subheading": "Our offer:",
+    "services": [
+      "Planning and implementation of regular sales promotion activities in selected stores",
+      "Organization of several events per year"
+    ],
+    "additionalDescription": [
+      "With a particular focus on Bluetooth speakers and TWS headphones, we have been able to maintain a high level of POS availability in over 350 stores in Switzerland. We also plan to expand into the gaming space in the future. Thanks to our team of experts, we have significantly increased JBL's focus products.",
+      "We are proud to be involved with JBL and continue to make continuous efforts to ensure that our partnership is successful. Our years of experience and deep understanding of the industry allow us to market and sell JBL products in a first-class manner.",
+      "We look forward to continuing to play an important role in the presentation and marketing of JBL products in Switzerland."
+    ],
+    "client": "JBL",
+    "location": "whole Switzerland",
+    "date": "10 Nov 2022",
+    "tags": ["Merchandising", "Retail Marketing", "Sales Promotion"],
+    "published": true,
+    "createdAt": "2022-11-10T00:00:00.000Z",
+    "updatedAt": "2022-11-10T00:00:00.000Z"
+  },
+  {
+    "id": "arlo",
+    "slug": "arlo",
+    "name": "Arlo",
+    "tagline": "Development, planning and implementation throughout Switzerland.",
+    "heroImage": "https://promopers.com/wp-content/uploads/2022/11/category-desktop-camera-outdoor.jpeg",
+    "logo": "/images/playstation.png",
+    "description": [
+      "Since the end of 2020, we have been allowed to play the home security product category in our channels together with Arlo. With our team of two dedicated merchandisers, who are active throughout Switzerland, we take care of the optimal presentation and marketing of the Arlo products."
+    ],
+    "subheading": "Our services include:",
+    "services": [
+      "The support of POS displays",
+      "The organization of events to increase awareness of the brand and its products among customers"
+    ],
+    "additionalDescription": [
+      "With our expertise and experience in home security, we are able to present and sell Arlo products in an effective way.",
+      "As part of the Arlo team, we work hard to make our long-term partnership successful. Our experienced merchandisers are committed to ensuring that Arlo products are always presented in the best possible way and that availability in retail stores is kept at a high level.",
+      "We appreciate playing a significant role in marketing and showcasing Arlo products in Switzerland and are confident that our collaboration will be successful in the future."
+    ],
+    "client": "Arlo Europe Sarl",
+    "location": "whole Switzerland",
+    "date": "10 Nov 2022",
+    "tags": ["Merchandising", "Retail Marketing"],
+    "published": true,
+    "createdAt": "2022-11-10T00:00:00.000Z",
+    "updatedAt": "2022-11-10T00:00:00.000Z"
+  },
+  {
+    "id": "asus",
+    "slug": "asus",
+    "name": "Asus",
+    "tagline": "Development, planning and implementation throughout Switzerland.",
+    "heroImage": "https://promopers.com/wp-content/uploads/2022/11/kv.jpg",
+    "logo": "/images/playstation.png",
+    "description": [
+      "Our long-term partnership with ASUS, a well-known brand in the field of consumer electronics, is a success thanks to the close cooperation with our experienced agency team. Our 2 merchandisers cover the whole of Switzerland, one focusing on the French speaking part and the other on the German speaking part."
+    ],
+    "subheading": "Our focus is:",
+    "services": [
+      "The image of ASUS in the various channels by means of support and maintenance of POS displays",
+      "Monitoring of product availability",
+      "To optimize a relgemässig CRM"
+    ],
+    "additionalDescription": [
+      "Our experience and deep understanding of the market allow us to effectively sell and present ASUS products.",
+      "We are honored to be part of the ASUS team and we are committed to successfully maintaining our long-standing partnership.",
+      "Our experienced merchandisers ensure that ASUS products are presented to a high standard in retail stores in both regions, French and German, and that availability is maintained.",
+      "We are enthusiastically committed to continuing to play an active role in the presentation and marketing of ASUS products in Switzerland."
+    ],
+    "client": "Asus Switzerland GmbH",
+    "location": "whole Switzerland",
+    "date": "10 Nov 2022",
+    "tags": ["Merchandising", "Retail Marketing"],
+    "published": true,
+    "createdAt": "2022-11-10T00:00:00.000Z",
+    "updatedAt": "2022-11-10T00:00:00.000Z"
+  }
+]
+

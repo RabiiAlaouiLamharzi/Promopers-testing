@@ -1,0 +1,238 @@
+{
+  "id": "home-1",
+  "hero": {
+  "videoUrl": "/video/promopers.mp4",
+  "titleLine1": "ELEVATE YOUR",
+  "titleLine2": "",
+  "titleLine3": "",
+  "description": "Through strategic retail activations and data-driven marketing solutions, we help Swiss brands achieve exceptional growth and market presence.",
+  "buttonText": "Get Started",
+  "buttonLink": "#features",
+  "overlayOpacity": 70,
+  "logos": [
+    "/new-images/logo-n2.png",
+    "/new-images/logo-n3.png",
+    "/new-images/logo-n4.png",
+    "/new-images/logo-n5.png",
+    "/new-images/logo-n9.png",
+    "/new-images/logo-n10.png",
+    "/new-images/logo-n11.png",
+    "/new-images/logo-n12.png",
+    "/new-images/logo-n13.png",
+    "/new-images/logo-n14.png",
+    "/new-images/logo-n15.png",
+    "/new-images/logo-n16.png",
+    "/new-images/logo-n19.png"
+  ],
+  "translations": {
+    "fr": {
+      "titleLine1": "ÉLEVEZ VOTRE",
+      "titleLine2": "",
+      "titleLine3": "",
+      "description": "Grâce à des activations retail stratégiques et des solutions marketing basées sur les données, nous aidons les marques suisses à atteindre une croissance exceptionnelle et une présence sur le marché.",
+      "buttonText": "Commencer"
+    },
+    "de": {
+      "titleLine1": "HEBEN SIE IHRE",
+      "titleLine2": "",
+      "titleLine3": "",
+      "description": "Durch strategische Retail-Aktivierungen und datengesteuerte Marketinglösungen helfen wir Schweizer Marken, aussergewöhnliches Wachstum und Marktpräsenz zu erreichen.",
+      "buttonText": "Loslegen"
+    },
+    "it": {
+      "titleLine1": "PORTA IL TUO",
+      "titleLine2": "",
+      "titleLine3": "",
+      "description": "Attraverso attivazioni retail strategiche e soluzioni di marketing basate sui dati, aiutiamo i brand svizzeri a raggiungere una crescita eccezionale e una presenza sul mercato.",
+      "buttonText": "Inizia"
+    }
+  }
+  },
+  "floatingFeatures": {
+    "title": "MINIMIZE RISK,",
+    "titleHighlight": "MAXIMIZE GAINS.",
+    "description": "Get access to premium retail activations with PromoPers, backed by our expertise, a globally recognized Swiss marketing agency.",
+    "features": [
+      {
+        "icon": "TrendingUp",
+        "title": "Increase Revenue",
+        "description": "Drive significant growth through strategic retail activations"
+      },
+      {
+        "icon": "Shield",
+        "title": "Feel Confident",
+        "description": "Trust in our proven track record and expertise"
+      },
+      {
+        "icon": "Sparkles",
+        "title": "Impress Clients",
+        "description": "Deliver exceptional brand experiences that wow"
+      },
+      {
+        "icon": "CreditCard",
+        "title": "Accept Online Payments",
+        "description": "Seamless payment integration for modern commerce"
+      },
+      {
+        "icon": "Cloud",
+        "title": "Cloud based API",
+        "description": "Access your data anywhere, anytime"
+      },
+      {
+        "icon": "Settings",
+        "title": "Easily Customised",
+        "description": "Flexible solutions tailored to your needs"
+      }
+    ],
+    "translations": {
+      "fr": {
+        "title": "MINIMISEZ LES RISQUES,",
+        "titleHighlight": "MAXIMISEZ LES GAINS.",
+        "description": "Accédez à des activations retail premium avec PromoPers, soutenus par notre expertise, une agence de marketing suisse reconnue mondialement."
+      },
+      "de": {
+        "title": "RISIKEN MINIMIEREN,",
+        "titleHighlight": "GEWINNE MAXIMIEREN.",
+        "description": "Erhalten Sie Zugang zu Premium-Retail-Aktivierungen mit PromoPers, unterstützt durch unsere Expertise, einer weltweit anerkannten Schweizer Marketingagentur."
+      },
+      "it": {
+        "title": "MINIMIZZA I RISCHI,",
+        "titleHighlight": "MASSIMIZZA I GUADAGNI.",
+        "description": "Accedi a attivazioni retail premium con PromoPers, supportato dalla nostra competenza, un'agenzia di marketing svizzera riconosciuta a livello mondiale."
+      }
+    }
+  },
+  "about": {
+    "title": "Our Success",
+    "titleHighlight": "Factors",
+    "description": "Discover the key factors that drive our success in retail marketing and brand activations across Switzerland.",
+    "buttonText": "Schedule Call",
+    "factors": [
+      {
+        "icon": "Code",
+        "title": "In-House Development",
+        "description": "RetailDashboard.io is our own trade marketing software suite. Developed in cooperation with our customers, ready for your projects.",
+        "badge": "Custom software solutions"
+      },
+      {
+        "icon": "GraduationCap",
+        "title": "Products & Sales Training",
+        "description": "Combined with a unique bonus system for sales promoters, we thus guarantee optimal sales consultations and correctly set incentives for the highest customer benefit.",
+        "badge": "Optimal sales consultations"
+      },
+      {
+        "icon": "Database",
+        "title": "Big Data vs. Smart Data",
+        "description": "Updated daily, available at any time.",
+        "badge": "Daily data updates"
+      },
+      {
+        "icon": "Map",
+        "title": "Optimal route planning",
+        "description": "Which store should be visited and how often? What has strategic relevance? Switzerland has 4 national languages?! We know the answers and are happy to help out.",
+        "badge": "Strategic store visits"
+      },
+      {
+        "icon": "Truck",
+        "title": "Last Minute Logistics",
+        "description": "On over 500m2 near the city we are prepared for (almost) everything. Use our own online warehouse & ordering solution and have everything delivered to your home at the touch of a button.",
+        "badge": "500m2 warehouse"
+      },
+      {
+        "icon": "ShoppingBag",
+        "title": "Stationary Trade vs. E-commerce",
+        "description": "The core topic in retail. Experience our multichannel solutions up close.",
+        "badge": "Multichannel solutions"
+      }
+    ],
+    "translations": {
+      "fr": {
+        "title": "Notre Succès",
+        "titleHighlight": "Facteurs",
+        "description": "Découvrez les facteurs clés qui motivent notre succès dans le marketing retail et les activations de marque à travers la Suisse.",
+        "buttonText": "Planifier un Appel"
+      },
+      "de": {
+        "title": "Unsere Erfolgs",
+        "titleHighlight": "Faktoren",
+        "description": "Entdecken Sie die Schlüsselfaktoren, die unseren Erfolg im Retail-Marketing und bei Markenaktivierungen in der Schweiz antreiben.",
+        "buttonText": "Anruf Planen"
+      },
+      "it": {
+        "title": "I Nostri Fattori",
+        "titleHighlight": "di Successo",
+        "description": "Scopri i fattori chiave che guidano il nostro successo nel marketing retail e nelle attivazioni di marca in tutta la Svizzera.",
+        "buttonText": "Prenota una Chiamata"
+      }
+    }
+  },
+  "stats": {
+    "stats": [
+      {
+        "number": "25,000",
+        "label": "Branches",
+        "description": "in our internal\ndatabase"
+      },
+      {
+        "number": "200,000",
+        "label": "Sales promotions",
+        "description": "in the last 10 years"
+      },
+      {
+        "number": "50+",
+        "label": "Satisfied customers",
+        "description": "in long-term customer relationship"
+      }
+    ],
+    "translations": {
+      "fr": {
+        "stat1Label": "Succursales",
+        "stat1Desc": "dans notre base de données interne",
+        "stat2Label": "Promotions",
+        "stat2Desc": "au cours des 10 dernières années",
+        "stat3Label": "Clients satisfaits",
+        "stat3Desc": "dans une relation client à long terme"
+      },
+      "de": {
+        "stat1Label": "Filialen",
+        "stat1Desc": "in unserer internen Datenbank",
+        "stat2Label": "Verkaufsaktionen",
+        "stat2Desc": "in den letzten 10 Jahren",
+        "stat3Label": "Zufriedene Kunden",
+        "stat3Desc": "in langfristiger Kundenbeziehung"
+      },
+      "it": {
+        "stat1Label": "Filiali",
+        "stat1Desc": "nel nostro database interno",
+        "stat2Label": "Promozioni",
+        "stat2Desc": "negli ultimi 10 anni",
+        "stat3Label": "Clienti soddisfatti",
+        "stat3Desc": "in una relazione cliente a lungo termine"
+      }
+    }
+  },
+  "contactCTA": {
+    "title": "Ready to Elevate Your Brand?",
+    "description": "Let's discuss how we can help your brand achieve exceptional growth through strategic retail activations.",
+    "buttonText": "Schedule Call",
+    "buttonLink": "/contact",
+    "translations": {
+      "fr": {
+        "title": "Prêt à Élever Votre Marque ?",
+        "description": "Discutons de la façon dont nous pouvons aider votre marque à réaliser une croissance exceptionnelle grâce à des activations retail stratégiques.",
+        "buttonText": "Planifier un Appel"
+      },
+      "de": {
+        "title": "Bereit, Ihre Marke zu Erhöhen?",
+        "description": "Lassen Sie uns besprechen, wie wir Ihrer Marke helfen können, durch strategische Retail-Aktivierungen außergewöhnliches Wachstum zu erzielen.",
+        "buttonText": "Anruf Planen"
+      },
+      "it": {
+        "title": "Pronto a Elevare il Tuo Brand?",
+        "description": "Discutiamo di come possiamo aiutare il tuo brand a raggiungere una crescita eccezionale attraverso attivazioni retail strategiche.",
+        "buttonText": "Prenota una Chiamata"
+      }
+    }
+  },
+  "updatedAt": "2025-01-01T00:00:00.000Z"
+}

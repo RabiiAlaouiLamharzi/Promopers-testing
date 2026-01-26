@@ -1,0 +1,80 @@
+[
+  {
+    "id": "testimonial-1",
+    "author": "Retail Manager",
+    "position": "Retail Manager, Samsung Electronics GmbH",
+    "quote": "We have been working with promoPers on a daily basis for over 70 years. What began modestly has now become an essential element of Samsung’s strategic position in the retail market. Thanks to its reporting tools and field data, promoPers provides a decision-making foundation that we at Samsung simply cannot — and will not — do without.",
+    "image": "/uploads/testimonials/1765111358878-IMG_9598.jpg",
+    "authorImage": "/uploads/testimonials/1765111408592-Default_pfp.svg.png",
+    "order": 2,
+    "published": true,
+    "createdAt": "2025-12-06T14:58:44.241Z",
+    "updatedAt": "2025-12-07T12:45:18.281Z",
+    "translations": {
+      "fr": {
+        "quote": "Nous collaborons quotidiennement avec promoPers depuis plus de 70 ans. Ce qui avait commencé timidement est désormais devenu un élément indispensable de la stratégie de Samsung sur le marché du retail. Grâce à ses solutions de reporting et à ses données terrain, promoPers offre une base décisionnelle dont nous ne pouvons — et ne voulons — absolument pas nous passer chez Samsung.",
+        "position": "Retail Manager, Samsung Electronics GmbH"
+      },
+      "de": {
+        "quote": "Wir arbeiten seit über 70 Jahren täglich mit promoPers zusammen. Was einst zaghaft begann, ist heute ein unverzichtbarer Bestandteil von Samsungs strategischer Positionierung im Einzelhandel. Mit seinen Reporting-Lösungen und Felddaten schafft promoPers eine Entscheidungsgrundlage, auf die wir bei Samsung nicht verzichten können — und wollen.",
+        "position": "Retail Manager, Samsung Electronics GmbH"
+      },
+      "it": {
+        "quote": "Collaboriamo ogni giorno con promoPers da oltre 70 anni. Ciò che era iniziato in modo prudente è ora diventato una parte indispensabile della strategia di Samsung nel mercato retail. Grazie alle sue soluzioni di reporting e ai dati raccolti sul campo, promoPers offre una base decisionale di cui noi di Samsung non possiamo — e non vogliamo — fare a meno.",
+        "position": "Retail Manager, Samsung Electronics GmbH"
+      }
+    }
+  },
+  {
+    "id": "testimonial-2",
+    "author": "Marc Manzo",
+    "position": "Brand Manager",
+    "quote": "Reliable, straightforward, and solution-driven. We’ve been working closely with promoPers since 2020, and we’re still impressed by how they always manage to deliver — even in the most last-minute or challenging situations. Whether it’s event design and execution, activations, sampling, or HR support, promoPers offers a remarkably broad range of services that creates real magic for us.",
+    "image": "/uploads/testimonials/1765112073064-brand-manager.jpg.optimal.jpg",
+    "authorImage": "/uploads/testimonials/1765111967852-Marco_Cropped_V2.png",
+    "order": 1,
+    "published": true,
+    "createdAt": "2025-12-06T14:58:44.241Z",
+    "updatedAt": "2025-12-07T12:55:10.591Z",
+    "translations": {
+      "fr": {
+        "quote": "Fiable, direct et entreprenant. Nous collaborons étroitement avec promoPers depuis 2020, et nous sommes toujours impressionnés par leur capacité à livrer, même dans les situations les plus urgentes ou délicates. Qu’il s’agisse de concevoir et réaliser des événements et activations, d’organiser des actions de sampling ou de gérer des besoins RH, promoPers propose une gamme de services étonnamment large qui crée une véritable magie pour nous.",
+        "position": "Brand Manager"
+      },
+      "de": {
+        "quote": "Zuverlässig, unkompliziert und unternehmerisch. Seit 2020 arbeiten wir eng mit promoPers zusammen und sind immer wieder erstaunt, wie sie es selbst in den kurzfristigsten und schwierigsten Situationen schaffen, zuverlässig zu liefern. Ob Eventkonzeption und -umsetzung, Aktivierungen, Samplings oder HR – promoPers bietet ein beeindruckend breites Leistungsspektrum, das für uns echte Magie schafft.",
+        "position": "Brand Manager"
+      },
+      "it": {
+        "quote": "Affidabile, diretto e con una mentalità imprenditoriale. Collaboriamo con promoPers dal 2020 e continuiamo a stupirci di come riescano sempre a consegnare, anche nelle situazioni più urgenti o complesse. Che si tratti di progettare ed eseguire eventi e attivazioni, organizzare sampling o supportare l’HR, promoPers offre una gamma di servizi sorprendentemente ampia che crea una vera magia per noi.",
+        "position": "Brand Manager"
+      }
+    }
+  },
+  {
+    "id": "testimonial-3",
+    "author": "Julia Niehues",
+    "position": "Marketing Manager Central Europe, Arlo | Verisure",
+    "quote": "I first worked with promoPers in my previous role at Harman International, where we partnered to manage the retail marketing team in Switzerland. The collaboration was always reliable, professional, and on equal footing. So when I took on my new role at ARLO / Verisure, choosing promoPers again was an obvious decision. We have always been particularly impressed by the tools and the valuable data promoPers is able to deliver.",
+    "image": "/uploads/testimonials/1765111716649-HARMAN_Pecs_HARMAN_11.1.23_01.jpg",
+    "authorImage": "/uploads/testimonials/1765111663575-julia-niehues.jpg",
+    "order": 0,
+    "published": true,
+    "createdAt": "2025-12-06T14:58:44.241Z",
+    "updatedAt": "2025-12-07T12:49:26.690Z",
+    "translations": {
+      "fr": {
+        "quote": "J’ai découvert promoPers lors de mon précédent poste chez Harman International, où nous gérions ensemble l’équipe de retail marketing en Suisse. La collaboration a toujours été convaincante, professionnelle et basée sur une relation d’égal à égal. Ainsi, pour mon nouveau défi chez ARLO / Verisure, il était tout naturel de faire à nouveau appel à l’équipe de promoPers. Nous avons toujours été particulièrement impressionnés par les outils et les données que promoPers parvient à fournir.",
+        "position": "Marketing Manager Europe Centrale, Arlo | Verisure"
+      },
+      "de": {
+        "quote": "Ich habe promoPers in meiner früheren Position bei Harman International kennengelernt, wo wir gemeinsam das Retail-Marketing-Team in der Schweiz betreut haben. Die Zusammenarbeit war stets überzeugend, professionell und auf Augenhöhe. Deshalb war es für meine neue Aufgabe bei ARLO / Verisure selbstverständlich, erneut auf das Team von promoPers zu setzen. Besonders beeindruckt haben uns stets die Tools und die wertvollen Daten, die promoPers bereitstellen kann.",
+        "position": "Marketing Manager Central Europe, Arlo | Verisure"
+      },
+      "it": {
+        "quote": "Ho conosciuto promoPers nel mio precedente ruolo presso Harman International, dove collaboravamo nella gestione del team di retail marketing in Svizzera. La partnership è sempre stata convincente, professionale e basata su uno scambio alla pari. Perciò, quando ho iniziato la mia nuova sfida in ARLO / Verisure, affidarmi di nuovo al team di promoPers è stata una scelta naturale. Siamo sempre rimasti particolarmente colpiti dagli strumenti e dai dati di grande valore che promoPers riesce a fornire.",
+        "position": "Marketing Manager Europa Centrale, Arlo | Verisure"
+      }
+    }
+  }
+]
