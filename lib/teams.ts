@@ -4,7 +4,8 @@ import fs from 'fs'
 
 const LOCAL_FILE = path.join(process.cwd(), 'data', 'teams.json')
 const JSONBIN_API_KEY = process.env.JSONBIN_API_KEY
-const TEAMS_BIN_ID = process.env.JSONBIN_TEAMS_BIN_ID || 'default-teams'
+// Use the actual bin ID if provided, otherwise use the bin name to find it
+const TEAMS_BIN_ID = process.env.JSONBIN_TEAMS_BIN_ID || 'website-changes-teams'
 
 export interface TeamMember {
   id: string
@@ -29,19 +30,18 @@ async function readTeamsFromBin(): Promise<TeamData | null> {
   try {
     if (JSONBIN_API_KEY) {
       const data = await readJsonFromBin<TeamData>(TEAMS_BIN_ID)
-      // Validate that data is a proper TeamData object (not an array or invalid structure)
-      if (data && typeof data === 'object' && !Array.isArray(data) && 
-          ('officeTeam' in data || 'experienceConsultants' in data)) {
+      // Validate that data is a proper TeamData object (not an array)
+      if (data && typeof data === 'object' && !Array.isArray(data)) {
         // Ensure it has the proper structure
         const teamData: TeamData = {
           officeTeam: Array.isArray(data.officeTeam) ? data.officeTeam : [],
           experienceConsultants: Array.isArray(data.experienceConsultants) ? data.experienceConsultants : [],
           updatedAt: data.updatedAt || new Date().toISOString()
         }
-        console.log('[Teams] Loaded from JSONBin')
+        console.log(`[Teams] Loaded from JSONBin (${teamData.officeTeam.length} office, ${teamData.experienceConsultants.length} consultants)`)
         return teamData
       } else {
-        console.warn('[Teams] JSONBin returned invalid data structure (array or missing properties), treating as empty')
+        console.warn('[Teams] JSONBin returned invalid data structure (array or missing properties)')
       }
     }
   } catch (error) {
@@ -53,9 +53,7 @@ async function readTeamsFromBin(): Promise<TeamData | null> {
     try {
       const fileContent = fs.readFileSync(LOCAL_FILE, 'utf8')
       const data = JSON.parse(fileContent)
-      // Validate structure
-      if (data && typeof data === 'object' && !Array.isArray(data) &&
-          ('officeTeam' in data || 'experienceConsultants' in data)) {
+      if (data && typeof data === 'object' && !Array.isArray(data)) {
         console.log('[Teams] Loaded from local file')
         return {
           officeTeam: Array.isArray(data.officeTeam) ? data.officeTeam : [],
@@ -87,26 +85,67 @@ async function writeTeamsToBin(data: TeamData): Promise<void> {
       }
     }
     
-    // Always try to save to JSONBin if configured (required for production/Vercel)
+    // Always save to JSONBin if configured (required for production/Vercel)
     if (JSONBIN_API_KEY) {
       try {
-        await writeJsonToBin(TEAMS_BIN_ID, data)
-        console.log(`[Teams] Saved to JSONBin.io`)
+        // Direct write to JSONBin using PUT to update existing bin
+        // This ensures we always update the same bin, never create new ones
+        const url = `https://api.jsonbin.io/v3/b/${TEAMS_BIN_ID}`
+        
+        const response = await fetch(url, {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+            'X-Master-Key': JSONBIN_API_KEY,
+          },
+          body: JSON.stringify(data),
+        })
+
+        if (!response.ok) {
+          // If bin doesn't exist (404), try to create it with POST
+          if (response.status === 404) {
+            console.log(`[Teams] Bin not found, creating new bin: ${TEAMS_BIN_ID}`)
+            const createResponse = await fetch('https://api.jsonbin.io/v3/b', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+                'X-Master-Key': JSONBIN_API_KEY,
+                'X-Bin-Name': 'website-changes-teams',
+              },
+              body: JSON.stringify(data),
+            })
+            
+            if (!createResponse.ok) {
+              const errorText = await createResponse.text()
+              throw new Error(`JSONBin API error: ${createResponse.status} ${createResponse.statusText} - ${errorText}`)
+            }
+            
+            const result = await createResponse.json()
+            console.log(`[Teams] Created new bin: ${result.metadata?.id || TEAMS_BIN_ID}`)
+            // Update environment variable hint for future use
+            if (result.metadata?.id && result.metadata.id !== TEAMS_BIN_ID) {
+              console.log(`[Teams] Note: Actual bin ID is ${result.metadata.id}. Set JSONBIN_TEAMS_BIN_ID=${result.metadata.id} in Vercel`)
+            }
+          } else {
+            const errorText = await response.text()
+            throw new Error(`JSONBin API error: ${response.status} ${response.statusText} - ${errorText}`)
+          }
+        } else {
+          console.log(`[Teams] Updated JSONBin.io bin: ${TEAMS_BIN_ID} (${data.officeTeam.length} office, ${data.experienceConsultants.length} consultants)`)
+        }
       } catch (error) {
         console.error('[Teams] Failed to save to JSONBin:', error)
-        // If we're in production and JSONBin fails, throw error
+        // In production/Vercel, JSONBin is required
         if (process.env.NODE_ENV === 'production' || process.env.VERCEL) {
           throw new Error(`Failed to save teams to JSONBin: ${error instanceof Error ? error.message : String(error)}`)
         }
-        // In development, just warn if local file was saved
-        throw new Error(`Failed to save teams. JSONBin error: ${error instanceof Error ? error.message : String(error)}`)
+        throw error
       }
     } else {
       // In production/Vercel, JSONBin is required
       if (process.env.NODE_ENV === 'production' || process.env.VERCEL) {
         throw new Error('JSONBIN_API_KEY is required for saving teams in production. Please set it in Vercel environment variables.')
       }
-      // In development, warn but allow local file save
       console.warn('[Teams] JSONBIN_API_KEY not configured. Teams will only be saved locally.')
     }
   } catch (error) {
@@ -131,19 +170,6 @@ export async function getTeamData(): Promise<TeamData> {
 }
 
 export async function saveTeamData(teamData: TeamData): Promise<void> {
-  // Ensure data structure is valid before saving
-  if (!teamData || typeof teamData !== 'object' || Array.isArray(teamData)) {
-    throw new Error('Invalid team data: must be an object with officeTeam and experienceConsultants arrays')
-  }
-  
-  // Ensure arrays exist and are arrays
-  if (!Array.isArray(teamData.officeTeam)) {
-    teamData.officeTeam = []
-  }
-  if (!Array.isArray(teamData.experienceConsultants)) {
-    teamData.experienceConsultants = []
-  }
-  
   teamData.updatedAt = new Date().toISOString()
   await writeTeamsToBin(teamData)
 }
@@ -185,12 +211,7 @@ export async function updateTeamMember(id: string, updates: Partial<TeamMember>)
   
   // Validate data structure
   if (!data || !Array.isArray(data.officeTeam) || !Array.isArray(data.experienceConsultants)) {
-    console.error('[Teams] Invalid data structure in updateTeamMember:', {
-      hasData: !!data,
-      officeTeamType: Array.isArray(data?.officeTeam),
-      consultantsType: Array.isArray(data?.experienceConsultants),
-      dataKeys: data ? Object.keys(data) : 'no data'
-    })
+    console.error('[Teams] Invalid data structure in updateTeamMember')
     throw new Error('Invalid team data structure. Please ensure JSONBin has the correct data format.')
   }
   
@@ -203,19 +224,16 @@ export async function updateTeamMember(id: string, updates: Partial<TeamMember>)
   if (memberIndex !== -1) {
     teamArray = data.officeTeam
     member = data.officeTeam[memberIndex]
-    console.log(`[Teams] Found member in office team: ${id}`)
   } else {
     // Find in consultants
     memberIndex = data.experienceConsultants.findIndex(m => m.id === id)
     if (memberIndex !== -1) {
       teamArray = data.experienceConsultants
       member = data.experienceConsultants[memberIndex]
-      console.log(`[Teams] Found member in consultants: ${id}`)
     }
   }
   
   if (!member || !teamArray || memberIndex === -1) {
-    console.warn(`[Teams] Member not found for update: ${id}. Office team: ${data.officeTeam.length}, Consultants: ${data.experienceConsultants.length}`)
     return null
   }
   
@@ -226,7 +244,6 @@ export async function updateTeamMember(id: string, updates: Partial<TeamMember>)
   }
   
   await saveTeamData(data)
-  console.log(`[Teams] Successfully updated member: ${id}`)
   return teamArray[memberIndex]
 }
 
@@ -235,12 +252,7 @@ export async function deleteTeamMember(id: string): Promise<boolean> {
   
   // Validate data structure
   if (!data || !Array.isArray(data.officeTeam) || !Array.isArray(data.experienceConsultants)) {
-    console.error('[Teams] Invalid data structure in deleteTeamMember:', {
-      hasData: !!data,
-      officeTeamType: Array.isArray(data?.officeTeam),
-      consultantsType: Array.isArray(data?.experienceConsultants),
-      dataKeys: data ? Object.keys(data) : 'no data'
-    })
+    console.error('[Teams] Invalid data structure in deleteTeamMember')
     throw new Error('Invalid team data structure. Please ensure JSONBin has the correct data format.')
   }
   
@@ -251,22 +263,17 @@ export async function deleteTeamMember(id: string): Promise<boolean> {
   if (officeIndex !== -1) {
     data.officeTeam.splice(officeIndex, 1)
     found = true
-    console.log(`[Teams] Deleted member from office team: ${id}`)
   } else {
     // Try consultants
     const consultantIndex = data.experienceConsultants.findIndex(m => m.id === id)
     if (consultantIndex !== -1) {
       data.experienceConsultants.splice(consultantIndex, 1)
       found = true
-      console.log(`[Teams] Deleted member from consultants: ${id}`)
     }
   }
   
   if (found) {
     await saveTeamData(data)
-    console.log(`[Teams] Successfully deleted member: ${id}`)
-  } else {
-    console.warn(`[Teams] Member not found for deletion: ${id}. Office team: ${data.officeTeam.length}, Consultants: ${data.experienceConsultants.length}`)
   }
   
   return found
