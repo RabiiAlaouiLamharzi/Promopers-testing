@@ -42,6 +42,9 @@ The code has been updated to:
 - ✅ Always use JSONBin.io for storage in production/Vercel
 - ✅ Provide clear error messages if JSONBin is not configured
 - ✅ Handle Vercel's read-only filesystem gracefully
+- ✅ **Fixed data structure validation** - ensures JSONBin always stores proper TeamData object (not arrays)
+- ✅ **Added validation for update/delete operations** - prevents errors when data structure is invalid
+- ✅ **Better error logging** - helps debug issues in production
 
 ### Testing
 
@@ -66,6 +69,22 @@ After adding the environment variables and redeploying:
 - Make sure you redeployed after adding the environment variable
 - Check Vercel function logs for errors
 - Verify the JSONBin API key has write permissions
+
+**Can create but can't update/delete team members**
+- This was a data structure issue - the fix ensures proper validation
+- If you still have issues, check Vercel logs for "Invalid data structure" errors
+- You may need to manually fix the JSONBin data structure:
+  1. Go to https://jsonbin.io/
+  2. Find your teams bin
+  3. Ensure it has this structure:
+     ```json
+     {
+       "officeTeam": [],
+       "experienceConsultants": [],
+       "updatedAt": "2025-01-XX..."
+     }
+     ```
+  4. If it's an empty array `[]`, replace it with the structure above
 
 ## Summary
 

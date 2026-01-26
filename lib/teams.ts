@@ -29,9 +29,19 @@ async function readTeamsFromBin(): Promise<TeamData | null> {
   try {
     if (JSONBIN_API_KEY) {
       const data = await readJsonFromBin<TeamData>(TEAMS_BIN_ID)
-      if (data) {
+      // Validate that data is a proper TeamData object (not an array or invalid structure)
+      if (data && typeof data === 'object' && !Array.isArray(data) && 
+          ('officeTeam' in data || 'experienceConsultants' in data)) {
+        // Ensure it has the proper structure
+        const teamData: TeamData = {
+          officeTeam: Array.isArray(data.officeTeam) ? data.officeTeam : [],
+          experienceConsultants: Array.isArray(data.experienceConsultants) ? data.experienceConsultants : [],
+          updatedAt: data.updatedAt || new Date().toISOString()
+        }
         console.log('[Teams] Loaded from JSONBin')
-        return data
+        return teamData
+      } else {
+        console.warn('[Teams] JSONBin returned invalid data structure (array or missing properties), treating as empty')
       }
     }
   } catch (error) {
@@ -40,10 +50,22 @@ async function readTeamsFromBin(): Promise<TeamData | null> {
   
   // Fallback to local file
   if (fs.existsSync(LOCAL_FILE)) {
-    const fileContent = fs.readFileSync(LOCAL_FILE, 'utf8')
-    const data = JSON.parse(fileContent)
-    console.log('[Teams] Loaded from local file')
-    return data
+    try {
+      const fileContent = fs.readFileSync(LOCAL_FILE, 'utf8')
+      const data = JSON.parse(fileContent)
+      // Validate structure
+      if (data && typeof data === 'object' && !Array.isArray(data) &&
+          ('officeTeam' in data || 'experienceConsultants' in data)) {
+        console.log('[Teams] Loaded from local file')
+        return {
+          officeTeam: Array.isArray(data.officeTeam) ? data.officeTeam : [],
+          experienceConsultants: Array.isArray(data.experienceConsultants) ? data.experienceConsultants : [],
+          updatedAt: data.updatedAt || new Date().toISOString()
+        }
+      }
+    } catch (error) {
+      console.warn('[Teams] Failed to parse local file:', error)
+    }
   }
   
   return null
@@ -109,6 +131,19 @@ export async function getTeamData(): Promise<TeamData> {
 }
 
 export async function saveTeamData(teamData: TeamData): Promise<void> {
+  // Ensure data structure is valid before saving
+  if (!teamData || typeof teamData !== 'object' || Array.isArray(teamData)) {
+    throw new Error('Invalid team data: must be an object with officeTeam and experienceConsultants arrays')
+  }
+  
+  // Ensure arrays exist and are arrays
+  if (!Array.isArray(teamData.officeTeam)) {
+    teamData.officeTeam = []
+  }
+  if (!Array.isArray(teamData.experienceConsultants)) {
+    teamData.experienceConsultants = []
+  }
+  
   teamData.updatedAt = new Date().toISOString()
   await writeTeamsToBin(teamData)
 }
@@ -147,6 +182,18 @@ export async function createTeamMember(member: Omit<TeamMember, 'id' | 'createdA
 
 export async function updateTeamMember(id: string, updates: Partial<TeamMember>): Promise<TeamMember | null> {
   const data = await getTeamData()
+  
+  // Validate data structure
+  if (!data || !Array.isArray(data.officeTeam) || !Array.isArray(data.experienceConsultants)) {
+    console.error('[Teams] Invalid data structure in updateTeamMember:', {
+      hasData: !!data,
+      officeTeamType: Array.isArray(data?.officeTeam),
+      consultantsType: Array.isArray(data?.experienceConsultants),
+      dataKeys: data ? Object.keys(data) : 'no data'
+    })
+    throw new Error('Invalid team data structure. Please ensure JSONBin has the correct data format.')
+  }
+  
   let member: TeamMember | null = null
   let memberIndex = -1
   let teamArray: TeamMember[] | null = null
@@ -156,16 +203,19 @@ export async function updateTeamMember(id: string, updates: Partial<TeamMember>)
   if (memberIndex !== -1) {
     teamArray = data.officeTeam
     member = data.officeTeam[memberIndex]
+    console.log(`[Teams] Found member in office team: ${id}`)
   } else {
     // Find in consultants
     memberIndex = data.experienceConsultants.findIndex(m => m.id === id)
     if (memberIndex !== -1) {
       teamArray = data.experienceConsultants
       member = data.experienceConsultants[memberIndex]
+      console.log(`[Teams] Found member in consultants: ${id}`)
     }
   }
   
   if (!member || !teamArray || memberIndex === -1) {
+    console.warn(`[Teams] Member not found for update: ${id}. Office team: ${data.officeTeam.length}, Consultants: ${data.experienceConsultants.length}`)
     return null
   }
   
@@ -176,11 +226,24 @@ export async function updateTeamMember(id: string, updates: Partial<TeamMember>)
   }
   
   await saveTeamData(data)
+  console.log(`[Teams] Successfully updated member: ${id}`)
   return teamArray[memberIndex]
 }
 
 export async function deleteTeamMember(id: string): Promise<boolean> {
   const data = await getTeamData()
+  
+  // Validate data structure
+  if (!data || !Array.isArray(data.officeTeam) || !Array.isArray(data.experienceConsultants)) {
+    console.error('[Teams] Invalid data structure in deleteTeamMember:', {
+      hasData: !!data,
+      officeTeamType: Array.isArray(data?.officeTeam),
+      consultantsType: Array.isArray(data?.experienceConsultants),
+      dataKeys: data ? Object.keys(data) : 'no data'
+    })
+    throw new Error('Invalid team data structure. Please ensure JSONBin has the correct data format.')
+  }
+  
   let found = false
   
   // Try office team
@@ -188,17 +251,22 @@ export async function deleteTeamMember(id: string): Promise<boolean> {
   if (officeIndex !== -1) {
     data.officeTeam.splice(officeIndex, 1)
     found = true
+    console.log(`[Teams] Deleted member from office team: ${id}`)
   } else {
     // Try consultants
     const consultantIndex = data.experienceConsultants.findIndex(m => m.id === id)
     if (consultantIndex !== -1) {
       data.experienceConsultants.splice(consultantIndex, 1)
       found = true
+      console.log(`[Teams] Deleted member from consultants: ${id}`)
     }
   }
   
   if (found) {
     await saveTeamData(data)
+    console.log(`[Teams] Successfully deleted member: ${id}`)
+  } else {
+    console.warn(`[Teams] Member not found for deletion: ${id}. Office team: ${data.officeTeam.length}, Consultants: ${data.experienceConsultants.length}`)
   }
   
   return found
