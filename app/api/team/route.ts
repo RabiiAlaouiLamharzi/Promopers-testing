@@ -3,6 +3,7 @@ import {
   getTeamData, 
   getOfficeTeam, 
   getExperienceConsultants,
+  getFieldForce,
   createTeamMember,
   updateTeamMember,
   deleteTeamMember,
@@ -14,7 +15,7 @@ import type { TeamMember } from '@/lib/teams'
 export async function GET(request: NextRequest) {
   try {
     const searchParams = request.nextUrl.searchParams
-    const type = searchParams.get('type') as 'office' | 'consultant' | null
+    const type = searchParams.get('type') as 'office' | 'consultant' | 'field' | null
     
     if (type === 'office') {
       const team = await getOfficeTeam()
@@ -22,6 +23,9 @@ export async function GET(request: NextRequest) {
     } else if (type === 'consultant') {
       const consultants = await getExperienceConsultants()
       return NextResponse.json(consultants)
+    } else if (type === 'field') {
+      const fieldForce = await getFieldForce()
+      return NextResponse.json(fieldForce)
     } else {
       // Return all team data
       const data = await getTeamData()
@@ -55,7 +59,7 @@ export async function POST(request: NextRequest) {
         funImage: funImage || '/new-images/logo.png',
         linkedin: linkedin || '#',
         order: order ?? 0,
-        type: type as 'office' | 'consultant'
+        type: type as 'office' | 'consultant' | 'field'
       })
 
       return NextResponse.json(newMember, { status: 201 })
@@ -107,7 +111,7 @@ export async function POST(request: NextRequest) {
         )
       }
 
-      await reorderTeamMembers(memberIds, type as 'office' | 'consultant')
+      await reorderTeamMembers(memberIds, type as 'office' | 'consultant' | 'field')
       return NextResponse.json({ success: true })
     } else {
       return NextResponse.json(

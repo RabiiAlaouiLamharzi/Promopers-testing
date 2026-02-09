@@ -15,7 +15,7 @@ export interface TeamMember {
   funImage: string
   linkedin: string
   order: number
-  type: 'office' | 'consultant'
+  type: 'office' | 'consultant' | 'field'
   createdAt: string
   updatedAt: string
 }
@@ -23,7 +23,47 @@ export interface TeamMember {
 export interface TeamData {
   officeTeam: TeamMember[]
   experienceConsultants: TeamMember[]
+  fieldForce: TeamMember[]
   updatedAt: string
+}
+
+/** Original field force list – seeded when API has none so you don't lose existing people */
+function getDefaultFieldForce(): TeamMember[] {
+  const now = new Date().toISOString()
+  const defaults: { name: string; roleKey: string }[] = [
+    { name: "Chao Victor", roleKey: "fieldForceManager" },
+    { name: "Cioffi Elvis", roleKey: "fieldForceAreaManager" },
+    { name: "Conese Cristian", roleKey: "fieldForceAreaManager" },
+    { name: "Dia Abou", roleKey: "fieldForceManager" },
+    { name: "Di Caro Antonio", roleKey: "fieldForceAreaManager" },
+    { name: "Estevez Alberto", roleKey: "fieldForceManager" },
+    { name: "Fleischmann Bryan", roleKey: "fieldForceManager" },
+    { name: "Gerber Nathalie", roleKey: "fieldForceManager" },
+    { name: "Khateeb Damir", roleKey: "fieldForceManager" },
+    { name: "Kleber Dave", roleKey: "fieldForceManager" },
+    { name: "Maglie Mattia", roleKey: "fieldForceManager" },
+    { name: "Moeri Vincent", roleKey: "fieldForceManager" },
+    { name: "Nikolic Stefan", roleKey: "fieldForceManager" },
+    { name: "Scelza Leo", roleKey: "fieldForceManager" },
+    { name: "Tedesco Michele", roleKey: "fieldForceManager" },
+    { name: "Zala Claudio", roleKey: "fieldForceManager" },
+    { name: "Jonuzi Jasin", roleKey: "fieldForceManager" },
+    { name: "Matpan Fatih", roleKey: "fieldForceManager" },
+    { name: "Tavares Claudino", roleKey: "experienceConsultant" },
+    { name: "Tahery Shoeib", roleKey: "fieldForceManager" },
+  ]
+  return defaults.map((m, i) => ({
+    id: `field-${Date.now()}-${i}`,
+    name: m.name,
+    roleKey: m.roleKey,
+    image: '/new-images/logo.png',
+    funImage: '/new-images/logo.png',
+    linkedin: '#',
+    order: i,
+    type: 'field' as const,
+    createdAt: now,
+    updatedAt: now,
+  }))
 }
 
 async function readTeamsFromBin(): Promise<TeamData | null> {
@@ -49,9 +89,10 @@ async function readTeamsFromBin(): Promise<TeamData | null> {
           const teamData: TeamData = {
             officeTeam: Array.isArray(data.officeTeam) ? data.officeTeam : [],
             experienceConsultants: Array.isArray(data.experienceConsultants) ? data.experienceConsultants : [],
+            fieldForce: Array.isArray(data.fieldForce) ? data.fieldForce : [],
             updatedAt: data.updatedAt || new Date().toISOString()
           }
-          console.log(`[Teams] Loaded from JSONBin bin ${TEAMS_BIN_ID} (${teamData.officeTeam.length} office, ${teamData.experienceConsultants.length} consultants)`)
+          console.log(`[Teams] Loaded from JSONBin bin ${TEAMS_BIN_ID} (${teamData.officeTeam.length} office, ${teamData.fieldForce.length} field, ${teamData.experienceConsultants.length} consultants)`)
           return teamData
         } else if (data) {
           console.warn('[Teams] JSONBin returned invalid data structure (array or missing properties)')
@@ -77,6 +118,7 @@ async function readTeamsFromBin(): Promise<TeamData | null> {
         return {
           officeTeam: Array.isArray(data.officeTeam) ? data.officeTeam : [],
           experienceConsultants: Array.isArray(data.experienceConsultants) ? data.experienceConsultants : [],
+          fieldForce: Array.isArray(data.fieldForce) ? data.fieldForce : [],
           updatedAt: data.updatedAt || new Date().toISOString()
         }
       }
@@ -115,6 +157,7 @@ async function writeTeamsToBin(data: TeamData): Promise<void> {
         const teamData: TeamData = {
           officeTeam: Array.isArray(data.officeTeam) ? data.officeTeam : [],
           experienceConsultants: Array.isArray(data.experienceConsultants) ? data.experienceConsultants : [],
+          fieldForce: Array.isArray(data.fieldForce) ? data.fieldForce : [],
           updatedAt: data.updatedAt || new Date().toISOString()
         }
         
@@ -159,7 +202,7 @@ async function writeTeamsToBin(data: TeamData): Promise<void> {
             throw new Error(`JSONBin API error: ${response.status} ${response.statusText} - ${errorText}`)
           }
         } else {
-          console.log(`[Teams] Updated JSONBin.io bin ${TEAMS_BIN_ID} (${teamData.officeTeam.length} office, ${teamData.experienceConsultants.length} consultants)`)
+          console.log(`[Teams] Updated JSONBin.io bin ${TEAMS_BIN_ID} (${teamData.officeTeam.length} office, ${teamData.fieldForce.length} field, ${teamData.experienceConsultants.length} consultants)`)
         }
       } catch (error) {
         console.error('[Teams] Failed to save to JSONBin:', error)
@@ -186,6 +229,13 @@ export async function getTeamData(): Promise<TeamData> {
   const data = await readTeamsFromBin()
   
   if (data) {
+    // If fieldForce was never stored (empty), seed with original list and save so you don't lose people
+    if (data.fieldForce.length === 0) {
+      data.fieldForce = getDefaultFieldForce()
+      data.updatedAt = new Date().toISOString()
+      await writeTeamsToBin(data)
+      console.log(`[Teams] Seeded ${data.fieldForce.length} default field force members`)
+    }
     return data
   }
   
@@ -193,6 +243,7 @@ export async function getTeamData(): Promise<TeamData> {
   return {
     officeTeam: [],
     experienceConsultants: [],
+    fieldForce: [],
     updatedAt: new Date().toISOString()
   }
 }
@@ -212,6 +263,11 @@ export async function getExperienceConsultants(): Promise<TeamMember[]> {
   return data.experienceConsultants.sort((a, b) => a.order - b.order)
 }
 
+export async function getFieldForce(): Promise<TeamMember[]> {
+  const data = await getTeamData()
+  return data.fieldForce.sort((a, b) => a.order - b.order)
+}
+
 export async function createTeamMember(member: Omit<TeamMember, 'id' | 'createdAt' | 'updatedAt'>): Promise<TeamMember> {
   const data = await getTeamData()
   const id = `team-${Date.now()}`
@@ -226,6 +282,8 @@ export async function createTeamMember(member: Omit<TeamMember, 'id' | 'createdA
   
   if (member.type === 'office') {
     data.officeTeam.push(newMember)
+  } else if (member.type === 'field') {
+    data.fieldForce.push(newMember)
   } else {
     data.experienceConsultants.push(newMember)
   }
@@ -238,7 +296,7 @@ export async function updateTeamMember(id: string, updates: Partial<TeamMember>)
   const data = await getTeamData()
   
   // Validate data structure
-  if (!data || !Array.isArray(data.officeTeam) || !Array.isArray(data.experienceConsultants)) {
+  if (!data || !Array.isArray(data.officeTeam) || !Array.isArray(data.experienceConsultants) || !Array.isArray(data.fieldForce)) {
     console.error('[Teams] Invalid data structure in updateTeamMember')
     throw new Error('Invalid team data structure. Please ensure JSONBin has the correct data format.')
   }
@@ -247,17 +305,21 @@ export async function updateTeamMember(id: string, updates: Partial<TeamMember>)
   let memberIndex = -1
   let teamArray: TeamMember[] | null = null
   
-  // Find member in office team
   memberIndex = data.officeTeam.findIndex(m => m.id === id)
   if (memberIndex !== -1) {
     teamArray = data.officeTeam
     member = data.officeTeam[memberIndex]
   } else {
-    // Find in consultants
-    memberIndex = data.experienceConsultants.findIndex(m => m.id === id)
+    memberIndex = data.fieldForce.findIndex(m => m.id === id)
     if (memberIndex !== -1) {
-      teamArray = data.experienceConsultants
-      member = data.experienceConsultants[memberIndex]
+      teamArray = data.fieldForce
+      member = data.fieldForce[memberIndex]
+    } else {
+      memberIndex = data.experienceConsultants.findIndex(m => m.id === id)
+      if (memberIndex !== -1) {
+        teamArray = data.experienceConsultants
+        member = data.experienceConsultants[memberIndex]
+      }
     }
   }
   
@@ -279,24 +341,27 @@ export async function deleteTeamMember(id: string): Promise<boolean> {
   const data = await getTeamData()
   
   // Validate data structure
-  if (!data || !Array.isArray(data.officeTeam) || !Array.isArray(data.experienceConsultants)) {
+  if (!data || !Array.isArray(data.officeTeam) || !Array.isArray(data.experienceConsultants) || !Array.isArray(data.fieldForce)) {
     console.error('[Teams] Invalid data structure in deleteTeamMember')
     throw new Error('Invalid team data structure. Please ensure JSONBin has the correct data format.')
   }
   
   let found = false
-  
-  // Try office team
   const officeIndex = data.officeTeam.findIndex(m => m.id === id)
   if (officeIndex !== -1) {
     data.officeTeam.splice(officeIndex, 1)
     found = true
   } else {
-    // Try consultants
-    const consultantIndex = data.experienceConsultants.findIndex(m => m.id === id)
-    if (consultantIndex !== -1) {
-      data.experienceConsultants.splice(consultantIndex, 1)
+    const fieldIndex = data.fieldForce.findIndex(m => m.id === id)
+    if (fieldIndex !== -1) {
+      data.fieldForce.splice(fieldIndex, 1)
       found = true
+    } else {
+      const consultantIndex = data.experienceConsultants.findIndex(m => m.id === id)
+      if (consultantIndex !== -1) {
+        data.experienceConsultants.splice(consultantIndex, 1)
+        found = true
+      }
     }
   }
   
@@ -307,9 +372,9 @@ export async function deleteTeamMember(id: string): Promise<boolean> {
   return found
 }
 
-export async function reorderTeamMembers(memberIds: string[], type: 'office' | 'consultant'): Promise<void> {
+export async function reorderTeamMembers(memberIds: string[], type: 'office' | 'consultant' | 'field'): Promise<void> {
   const data = await getTeamData()
-  const teamArray = type === 'office' ? data.officeTeam : data.experienceConsultants
+  const teamArray = type === 'office' ? data.officeTeam : type === 'field' ? data.fieldForce : data.experienceConsultants
   
   memberIds.forEach((id, index) => {
     const member = teamArray.find(m => m.id === id)

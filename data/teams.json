@@ -2,27 +2,27 @@
   "officeTeam": [
     {
       "id": "team-1",
-      "name": "Feissli Fritz",
+      "name": "Hazeen Omar",
       "roleKey": "coCeoFinance",
-      "image": "/new-images/logo.png",
-      "funImage": "/new-images/logo.png",
-      "linkedin": "#",
-      "order": 0,
+      "image": "https://eorvbrdsqw4usaa4.public.blob.vercel-storage.com/images/team/1769498072520-Bald_und_bald_erh_ltlich.png",
+      "funImage": "https://eorvbrdsqw4usaa4.public.blob.vercel-storage.com/images/team/1769498076433-Bald_und_bald_erh_ltlich.png",
+      "linkedin": "",
+      "order": 1,
       "type": "office",
       "createdAt": "2024-01-01T00:00:00.000Z",
-      "updatedAt": "2024-01-01T00:00:00.000Z"
+      "updatedAt": "2026-01-27T07:19:52.257Z"
     },
     {
       "id": "team-2",
       "name": "Purpura Nicolas",
-      "roleKey": "coCeoIt",
+      "roleKey": "Co-CEO & IT",
       "image": "/new-images/purpura-nicolas.jpg",
       "funImage": "/new-images/purpura-nicolas-funny.jpg",
-      "linkedin": "#",
-      "order": 1,
+      "linkedin": "",
+      "order": 0,
       "type": "office",
       "createdAt": "2024-01-01T00:00:00.000Z",
-      "updatedAt": "2024-01-01T00:00:00.000Z"
+      "updatedAt": "2026-02-08T23:39:43.963Z"
     },
     {
       "id": "team-3",
@@ -62,75 +62,39 @@
     },
     {
       "id": "team-6",
-      "name": "Kevin Zanotta",
+      "name": "Zanotta Kevin",
       "roleKey": "seniorProjectManager",
       "image": "/new-images/kevin-zanotta.jpg",
       "funImage": "/new-images/kevin-zanotta-funny.jpg",
-      "linkedin": "#",
+      "linkedin": "",
       "order": 5,
       "type": "office",
       "createdAt": "2024-01-01T00:00:00.000Z",
-      "updatedAt": "2024-01-01T00:00:00.000Z"
-    },
-    {
-      "id": "team-7",
-      "name": "Jessica Makwala",
-      "roleKey": "projectManager",
-      "image": "/new-images/jessica-makwala.jpg",
-      "funImage": "/new-images/jessica-makwala-funny.jpg",
-      "linkedin": "#",
-      "order": 6,
-      "type": "office",
-      "createdAt": "2024-01-01T00:00:00.000Z",
-      "updatedAt": "2024-01-01T00:00:00.000Z"
-    },
-    {
-      "id": "team-8",
-      "name": "Benammar Samir",
-      "roleKey": "projectManager",
-      "image": "/new-images/benammar-samir.jpg",
-      "funImage": "/new-images/benammar-samir-funny.jpg",
-      "linkedin": "#",
-      "order": 7,
-      "type": "office",
-      "createdAt": "2024-01-01T00:00:00.000Z",
-      "updatedAt": "2024-01-01T00:00:00.000Z"
+      "updatedAt": "2026-01-27T07:21:12.724Z"
     },
     {
       "id": "team-9",
       "name": "Santos Cristina",
-      "roleKey": "juniorProjectManager",
+      "roleKey": "Junior Project Manager",
       "image": "/new-images/santos-cristina.jpg",
       "funImage": "/new-images/santos-cristina-funny.jpg",
-      "linkedin": "#",
-      "order": 8,
+      "linkedin": "",
+      "order": 6,
       "type": "office",
       "createdAt": "2024-01-01T00:00:00.000Z",
-      "updatedAt": "2024-01-01T00:00:00.000Z"
-    },
-    {
-      "id": "team-10",
-      "name": "Müller Paula",
-      "roleKey": "backOffice",
-      "image": "/new-images/müller-paula.jpg",
-      "funImage": "/new-images/müller-paula-funny.jpg",
-      "linkedin": "#",
-      "order": 9,
-      "type": "office",
-      "createdAt": "2024-01-01T00:00:00.000Z",
-      "updatedAt": "2024-01-01T00:00:00.000Z"
+      "updatedAt": "2026-02-08T23:46:00.436Z"
     },
     {
       "id": "team-11",
       "name": "Berger Lukas",
       "roleKey": "juniorProjectManager",
-      "image": "/new-images/lukas-berger.jpg",
+      "image": "https://eorvbrdsqw4usaa4.public.blob.vercel-storage.com/images/team/1769497411776-PromoPers_2025_S-25.jpg",
       "funImage": "/new-images/lukas-berger-funny.jpg",
-      "linkedin": "#",
+      "linkedin": "",
       "order": 10,
       "type": "office",
       "createdAt": "2024-01-01T00:00:00.000Z",
-      "updatedAt": "2024-01-01T00:00:00.000Z"
+      "updatedAt": "2026-01-27T07:03:51.652Z"
     },
     {
       "id": "team-12",
@@ -143,6 +107,42 @@
       "type": "office",
       "createdAt": "2024-01-01T00:00:00.000Z",
       "updatedAt": "2024-01-01T00:00:00.000Z"
+    },
+    {
+      "name": "Decker Ines",
+      "roleKey": "projectManager",
+      "image": "https://eorvbrdsqw4usaa4.public.blob.vercel-storage.com/images/team/1769498133474-Bald_und_bald_erh_ltlich.png",
+      "funImage": "https://eorvbrdsqw4usaa4.public.blob.vercel-storage.com/images/team/1769498137131-Bald_und_bald_erh_ltlich.png",
+      "linkedin": "",
+      "order": 7,
+      "type": "office",
+      "id": "team-1769498140472",
+      "createdAt": "2026-01-27T07:15:40.472Z",
+      "updatedAt": "2026-01-27T07:20:08.114Z"
+    },
+    {
+      "name": "Kaufmann Louisa",
+      "roleKey": "projectManager",
+      "image": "https://eorvbrdsqw4usaa4.public.blob.vercel-storage.com/images/team/1769498177719-Bald_und_bald_erh_ltlich.png",
+      "funImage": "https://eorvbrdsqw4usaa4.public.blob.vercel-storage.com/images/team/1769498181662-Bald_und_bald_erh_ltlich.png",
+      "linkedin": "",
+      "order": 8,
+      "type": "office",
+      "id": "team-1769498191525",
+      "createdAt": "2026-01-27T07:16:31.525Z",
+      "updatedAt": "2026-01-27T07:20:44.135Z"
+    },
+    {
+      "name": "Trachsel Jane",
+      "roleKey": "Project Manager",
+      "image": "https://eorvbrdsqw4usaa4.public.blob.vercel-storage.com/images/team/1769498232482-PromoPers_2025_S-29.jpg",
+      "funImage": "https://eorvbrdsqw4usaa4.public.blob.vercel-storage.com/images/team/1769498239425-PromoPers_2025_S-30.jpg",
+      "linkedin": "",
+      "order": 9,
+      "type": "office",
+      "id": "team-1769498243311",
+      "createdAt": "2026-01-27T07:17:23.311Z",
+      "updatedAt": "2026-02-08T23:31:24.304Z"
     }
   ],
   "experienceConsultants": [
@@ -375,5 +375,247 @@
       "updatedAt": "2024-01-01T00:00:00.000Z"
     }
   ],
-  "updatedAt": "2026-01-26T04:39:29.308Z"
+  "fieldForce": [
+    {
+      "id": "field-1770594860827-0",
+      "name": "Chao Victor",
+      "roleKey": "Field Force Manager",
+      "image": "/new-images/logo.png",
+      "funImage": "/new-images/logo.png",
+      "linkedin": "",
+      "order": 0,
+      "type": "field",
+      "createdAt": "2026-02-08T23:54:20.827Z",
+      "updatedAt": "2026-02-08T23:55:15.226Z"
+    },
+    {
+      "id": "field-1770594860827-1",
+      "name": "Cioffi Elvis",
+      "roleKey": "fieldForceAreaManager",
+      "image": "/new-images/logo.png",
+      "funImage": "/new-images/logo.png",
+      "linkedin": "#",
+      "order": 1,
+      "type": "field",
+      "createdAt": "2026-02-08T23:54:20.827Z",
+      "updatedAt": "2026-02-08T23:54:20.827Z"
+    },
+    {
+      "id": "field-1770594860827-2",
+      "name": "Conese Cristian",
+      "roleKey": "fieldForceAreaManager",
+      "image": "/new-images/logo.png",
+      "funImage": "/new-images/logo.png",
+      "linkedin": "#",
+      "order": 2,
+      "type": "field",
+      "createdAt": "2026-02-08T23:54:20.827Z",
+      "updatedAt": "2026-02-08T23:54:20.827Z"
+    },
+    {
+      "id": "field-1770594860827-3",
+      "name": "Dia Abou",
+      "roleKey": "fieldForceManager",
+      "image": "/new-images/logo.png",
+      "funImage": "/new-images/logo.png",
+      "linkedin": "#",
+      "order": 3,
+      "type": "field",
+      "createdAt": "2026-02-08T23:54:20.827Z",
+      "updatedAt": "2026-02-08T23:54:20.827Z"
+    },
+    {
+      "id": "field-1770594860827-4",
+      "name": "Di Caro Antonio",
+      "roleKey": "fieldForceAreaManager",
+      "image": "/new-images/logo.png",
+      "funImage": "/new-images/logo.png",
+      "linkedin": "#",
+      "order": 4,
+      "type": "field",
+      "createdAt": "2026-02-08T23:54:20.827Z",
+      "updatedAt": "2026-02-08T23:54:20.827Z"
+    },
+    {
+      "id": "field-1770594860827-5",
+      "name": "Estevez Alberto",
+      "roleKey": "fieldForceManager",
+      "image": "/new-images/logo.png",
+      "funImage": "/new-images/logo.png",
+      "linkedin": "#",
+      "order": 5,
+      "type": "field",
+      "createdAt": "2026-02-08T23:54:20.827Z",
+      "updatedAt": "2026-02-08T23:54:20.827Z"
+    },
+    {
+      "id": "field-1770594860827-6",
+      "name": "Fleischmann Bryan",
+      "roleKey": "fieldForceManager",
+      "image": "/new-images/logo.png",
+      "funImage": "/new-images/logo.png",
+      "linkedin": "#",
+      "order": 6,
+      "type": "field",
+      "createdAt": "2026-02-08T23:54:20.827Z",
+      "updatedAt": "2026-02-08T23:54:20.827Z"
+    },
+    {
+      "id": "field-1770594860827-7",
+      "name": "Gerber Nathalie",
+      "roleKey": "fieldForceManager",
+      "image": "/new-images/logo.png",
+      "funImage": "/new-images/logo.png",
+      "linkedin": "#",
+      "order": 7,
+      "type": "field",
+      "createdAt": "2026-02-08T23:54:20.827Z",
+      "updatedAt": "2026-02-08T23:54:20.827Z"
+    },
+    {
+      "id": "field-1770594860827-8",
+      "name": "Khateeb Damir",
+      "roleKey": "fieldForceManager",
+      "image": "/new-images/logo.png",
+      "funImage": "/new-images/logo.png",
+      "linkedin": "#",
+      "order": 8,
+      "type": "field",
+      "createdAt": "2026-02-08T23:54:20.827Z",
+      "updatedAt": "2026-02-08T23:54:20.827Z"
+    },
+    {
+      "id": "field-1770594860827-9",
+      "name": "Kleber Dave",
+      "roleKey": "fieldForceManager",
+      "image": "/new-images/logo.png",
+      "funImage": "/new-images/logo.png",
+      "linkedin": "#",
+      "order": 9,
+      "type": "field",
+      "createdAt": "2026-02-08T23:54:20.827Z",
+      "updatedAt": "2026-02-08T23:54:20.827Z"
+    },
+    {
+      "id": "field-1770594860827-10",
+      "name": "Maglie Mattia",
+      "roleKey": "fieldForceManager",
+      "image": "/new-images/logo.png",
+      "funImage": "/new-images/logo.png",
+      "linkedin": "#",
+      "order": 10,
+      "type": "field",
+      "createdAt": "2026-02-08T23:54:20.827Z",
+      "updatedAt": "2026-02-08T23:54:20.827Z"
+    },
+    {
+      "id": "field-1770594860827-11",
+      "name": "Moeri Vincent",
+      "roleKey": "fieldForceManager",
+      "image": "/new-images/logo.png",
+      "funImage": "/new-images/logo.png",
+      "linkedin": "#",
+      "order": 11,
+      "type": "field",
+      "createdAt": "2026-02-08T23:54:20.827Z",
+      "updatedAt": "2026-02-08T23:54:20.827Z"
+    },
+    {
+      "id": "field-1770594860827-12",
+      "name": "Nikolic Stefan",
+      "roleKey": "fieldForceManager",
+      "image": "/new-images/logo.png",
+      "funImage": "/new-images/logo.png",
+      "linkedin": "#",
+      "order": 12,
+      "type": "field",
+      "createdAt": "2026-02-08T23:54:20.827Z",
+      "updatedAt": "2026-02-08T23:54:20.827Z"
+    },
+    {
+      "id": "field-1770594860827-13",
+      "name": "Scelza Leo",
+      "roleKey": "fieldForceManager",
+      "image": "/new-images/logo.png",
+      "funImage": "/new-images/logo.png",
+      "linkedin": "#",
+      "order": 13,
+      "type": "field",
+      "createdAt": "2026-02-08T23:54:20.827Z",
+      "updatedAt": "2026-02-08T23:54:20.827Z"
+    },
+    {
+      "id": "field-1770594860827-14",
+      "name": "Tedesco Michele",
+      "roleKey": "fieldForceManager",
+      "image": "/new-images/logo.png",
+      "funImage": "/new-images/logo.png",
+      "linkedin": "#",
+      "order": 14,
+      "type": "field",
+      "createdAt": "2026-02-08T23:54:20.827Z",
+      "updatedAt": "2026-02-08T23:54:20.827Z"
+    },
+    {
+      "id": "field-1770594860827-15",
+      "name": "Zala Claudio",
+      "roleKey": "fieldForceManager",
+      "image": "/new-images/logo.png",
+      "funImage": "/new-images/logo.png",
+      "linkedin": "#",
+      "order": 15,
+      "type": "field",
+      "createdAt": "2026-02-08T23:54:20.827Z",
+      "updatedAt": "2026-02-08T23:54:20.827Z"
+    },
+    {
+      "id": "field-1770594860827-16",
+      "name": "Jonuzi Jasin",
+      "roleKey": "fieldForceManager",
+      "image": "/new-images/logo.png",
+      "funImage": "/new-images/logo.png",
+      "linkedin": "#",
+      "order": 16,
+      "type": "field",
+      "createdAt": "2026-02-08T23:54:20.827Z",
+      "updatedAt": "2026-02-08T23:54:20.827Z"
+    },
+    {
+      "id": "field-1770594860827-17",
+      "name": "Matpan Fatih",
+      "roleKey": "fieldForceManager",
+      "image": "/new-images/logo.png",
+      "funImage": "/new-images/logo.png",
+      "linkedin": "#",
+      "order": 17,
+      "type": "field",
+      "createdAt": "2026-02-08T23:54:20.827Z",
+      "updatedAt": "2026-02-08T23:54:20.827Z"
+    },
+    {
+      "id": "field-1770594860827-18",
+      "name": "Tavares Claudino",
+      "roleKey": "experienceConsultant",
+      "image": "/new-images/logo.png",
+      "funImage": "/new-images/logo.png",
+      "linkedin": "#",
+      "order": 18,
+      "type": "field",
+      "createdAt": "2026-02-08T23:54:20.827Z",
+      "updatedAt": "2026-02-08T23:54:20.827Z"
+    },
+    {
+      "id": "field-1770594860827-19",
+      "name": "Tahery Shoeib",
+      "roleKey": "fieldForceManager",
+      "image": "/new-images/logo.png",
+      "funImage": "/new-images/logo.png",
+      "linkedin": "#",
+      "order": 19,
+      "type": "field",
+      "createdAt": "2026-02-08T23:54:20.827Z",
+      "updatedAt": "2026-02-08T23:54:20.827Z"
+    }
+  ],
+  "updatedAt": "2026-02-08T23:55:15.226Z"
 }

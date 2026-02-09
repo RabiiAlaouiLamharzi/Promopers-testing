@@ -6,6 +6,7 @@ import { Footer } from "@/components/footer"
 import { ArrowRight, Users, Car, Map, Target, Zap, Award, Heart, CheckCircle2, Sparkles, TrendingUp, Shield, Linkedin } from "lucide-react"
 import Link from "next/link"
 import { useLanguage } from "@/contexts/language-context"
+import { getRoleDisplayLabel } from "@/lib/team-role-display"
 
 export default function AboutPage() {
   const [mediaOverrides, setMediaOverrides] = useState<Record<string, string>>({})
@@ -602,9 +603,10 @@ function CompanyHistoryTimeline({ mediaOverrides, mediaLoaded }: { mediaOverride
 function TeamStatsSection() {
   const [activeTab, setActiveTab] = useState("office")
   const sectionRef = useRef<HTMLElement>(null)
-  const { t } = useLanguage()
+  const { t, language } = useLanguage()
   const [officeTeam, setOfficeTeam] = useState<any[]>([])
   const [experienceConsultants, setExperienceConsultants] = useState<any[]>([])
+  const [fieldForce, setFieldForce] = useState<any[]>([])
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
@@ -618,6 +620,7 @@ function TeamStatsSection() {
         const data = await response.json()
         setOfficeTeam(data.officeTeam?.sort((a: any, b: any) => a.order - b.order) || [])
         setExperienceConsultants(data.experienceConsultants?.sort((a: any, b: any) => a.order - b.order) || [])
+        setFieldForce(data.fieldForce?.sort((a: any, b: any) => a.order - b.order) || [])
       } else {
         // Fallback to default data if API fails
         setOfficeTeam([
@@ -641,6 +644,7 @@ function TeamStatsSection() {
           "Ylli Karakushi", "Kaan Özoguz", "Ghada Jouahri", "Hadj-Arab Samy",
           "Muanza Milton", "Singer Barbara", "Wuhrmann Kevin",
         ])
+        setFieldForce([])
       }
     } catch (error) {
       console.error('Error fetching team data:', error)
@@ -649,6 +653,7 @@ function TeamStatsSection() {
         { name: "Feissli Fritz", roleKey: "coCeoFinance", image: "/new-images/logo.png", funImage: "/new-images/logo.png", linkedin: "#" },
       ])
       setExperienceConsultants([])
+      setFieldForce([])
     } finally {
       setLoading(false)
     }
@@ -673,29 +678,6 @@ function TeamStatsSection() {
       label: t("aboutPage.vehicleFleet"),
       description: t("aboutPage.vehicleFleetDesc")
     }
-  ]
-
-  const fieldForce = [
-    { name: "Chao Victor", roleKey: "fieldForceManager" },
-    { name: "Cioffi Elvis", roleKey: "fieldForceAreaManager" },
-    { name: "Conese Cristian", roleKey: "fieldForceAreaManager" },
-    { name: "Dia Abou", roleKey: "fieldForceManager" },
-    { name: "Di Caro Antonio", roleKey: "fieldForceAreaManager" },
-    { name: "Estevez Alberto", roleKey: "fieldForceManager" },
-    { name: "Fleischmann Bryan", roleKey: "fieldForceManager" },
-    { name: "Gerber Nathalie", roleKey: "fieldForceManager" },
-    { name: "Khateeb Damir", roleKey: "fieldForceManager" },
-    { name: "Kleber Dave", roleKey: "fieldForceManager" },
-    { name: "Maglie Mattia", roleKey: "fieldForceManager" },
-    { name: "Moeri Vincent", roleKey: "fieldForceManager" },
-    { name: "Nikolic Stefan", roleKey: "fieldForceManager" },
-    { name: "Scelza Leo", roleKey: "fieldForceManager" },
-    { name: "Tedesco Michele", roleKey: "fieldForceManager" },
-    { name: "Zala Claudio", roleKey: "fieldForceManager" },
-    { name: "Jonuzi Jasin", roleKey: "fieldForceManager" },
-    { name: "Matpan Fatih", roleKey: "fieldForceManager" },
-    { name: "Tavares Claudino", roleKey: "experienceConsultant" },
-    { name: "Tahery Shoeib", roleKey: "fieldForceManager" },
   ]
 
   const tabs = [
@@ -811,7 +793,7 @@ function TeamStatsSection() {
                   <h3 className="text-base font-black text-[#002855] mb-1">
                     {member.name}
                   </h3>
-                  <p className="text-xs text-[#003D7A]">{t(`aboutPage.${member.roleKey}`)}</p>
+                  <p className="text-xs text-[#003D7A]">{getRoleDisplayLabel(member.roleKey, t, language)}</p>
                 </div>
 
                 {/* Image Card Style for Screens >= 400px */}
@@ -828,7 +810,7 @@ function TeamStatsSection() {
                       <h3 className="text-2xl md:text-3xl font-black text-white mb-2 uppercase leading-tight">
                         {member.name}
                       </h3>
-                      <p className="text-sm md:text-base text-white/90 font-semibold">{t(`aboutPage.${member.roleKey}`)}</p>
+                      <p className="text-sm md:text-base text-white/90 font-semibold">{getRoleDisplayLabel(member.roleKey, t, language)}</p>
                     </div>
                   </div>
 
@@ -865,17 +847,17 @@ function TeamStatsSection() {
         {activeTab === "field" && (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 gap-6 max-w-7xl mx-auto">
             {fieldForce.map((member, index) => (
-              <div key={index} className="group">
+              <div key={member.id ?? index} className="group">
                 <div className="glass-effect rounded-2xl p-6 text-center luxury-border luxury-hover">
                   <div className="w-20 h-20 rounded-2xl bg-gradient-to-br from-[#002855] to-[#003D7A] mx-auto mb-4 flex items-center justify-center group-hover:scale-110 transition-transform duration-500">
                     <span className="text-3xl font-black text-white">
-                      {member.name.split(' ')[0].charAt(0)}{member.name.split(' ')[1].charAt(0)}
+                      {member.name?.split(' ')[0]?.charAt(0) ?? ''}{member.name?.split(' ')[1]?.charAt(0) ?? ''}
                     </span>
                   </div>
                   <h3 className="text-base font-black text-[#002855] mb-1">
                     {member.name}
                   </h3>
-                  <p className="text-xs text-[#003D7A]">{t(`aboutPage.${member.roleKey}`)}</p>
+                  <p className="text-xs text-[#003D7A]">{getRoleDisplayLabel(member.roleKey, t, language)}</p>
                 </div>
               </div>
             ))}
@@ -900,7 +882,7 @@ function TeamStatsSection() {
                       <h3 className="text-base font-black text-[#002855]">
                         {name}
                       </h3>
-                      <p className="text-xs text-[#003D7A] mt-1">{t(`aboutPage.${roleKey}`)}</p>
+                      <p className="text-xs text-[#003D7A] mt-1">{getRoleDisplayLabel(roleKey, t, language)}</p>
                     </div>
                   </div>
                 )

@@ -31,7 +31,7 @@ export function HeroStatsSectionEditable() {
 
   const stats = [
     {
-      number: 1937,
+      number: 1978,
       label: stat1Label,
       description: stat1Desc,
       setLabel: setStat1Label,
@@ -40,7 +40,7 @@ export function HeroStatsSectionEditable() {
       translationKeyDesc: "hero.branchesDesc"
     },
     {
-      number: 44320,
+      number: 52360,
       label: stat2Label,
       description: stat2Desc,
       setLabel: setStat2Label,
@@ -49,7 +49,7 @@ export function HeroStatsSectionEditable() {
       translationKeyDesc: "hero.salesPromotionsDesc"
     },
     {
-      number: 53,
+      number: 61,
       label: stat3Label,
       description: stat3Desc,
       setLabel: setStat3Label,

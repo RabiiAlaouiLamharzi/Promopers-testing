@@ -11,17 +11,17 @@ export function HeroStatsSection() {
 
   const stats = [
     {
-      number: 1937,
+      number: 1978,
       label: t("hero.branches"),
       description: t("hero.branchesDesc"),
     },
     {
-      number: 44320,
+      number: 52360,
       label: t("hero.salesPromotions"),
       description: t("hero.salesPromotionsDesc"),
     },
     {
-      number: 53,
+      number: 61,
       label: t("hero.satisfiedCustomers"),
       description: t("hero.satisfiedCustomersDesc"),
     },

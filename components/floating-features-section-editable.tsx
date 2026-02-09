@@ -13,13 +13,11 @@ export function FloatingFeaturesSectionEditable() {
   const { editMode } = useEdit()
   
   const [title, setTitle] = useState(t("floatingFeatures.title"))
-  const [titleHighlight, setTitleHighlight] = useState(t("floatingFeatures.titleHighlight"))
   const [description, setDescription] = useState(t("floatingFeatures.description"))
 
   // Update translations when language changes
   useEffect(() => {
     setTitle(t("floatingFeatures.title"))
-    setTitleHighlight(t("floatingFeatures.titleHighlight"))
     setDescription(t("floatingFeatures.description"))
   }, [t, language, revision])
 
@@ -127,18 +125,11 @@ export function FloatingFeaturesSectionEditable() {
                 translationKey="floatingFeatures.title"
                 editMode={editMode}
               />
-              <br />
-              <EditableText
-                value={titleHighlight}
-                onChange={setTitleHighlight}
-                translationKey="floatingFeatures.titleHighlight"
-                editMode={editMode}
-              />
             </h2>
             <EditableText
               value={description}
               onChange={setDescription}
-              translationKey="floatingFeatures.subtitle"
+              translationKey="floatingFeatures.description"
               as="p"
               multiline
               className="text-luxury-large text-[#003D7A] max-w-3xl mx-auto leading-relaxed"

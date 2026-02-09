@@ -66,6 +66,77 @@ nextjs-portal {
   animation: fadeIn 0.5s ease-out;
 }
 
+/* Loading screen – white, centered logo with zoom in/out until page load */
+@keyframes loadingLogoZoom {
+  0%,
+  100% {
+    transform: scale(0.92);
+  }
+  50% {
+    transform: scale(1.08);
+  }
+}
+
+.loading-screen-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 999999;
+  background: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.4s ease-out;
+}
+
+.loading-screen-overlay[data-fade-out="true"] {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.loading-screen-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+}
+
+/* Logo: site blue (#002855) via mask */
+.loading-screen-logo-wrap {
+  width: 72px;
+  height: 36px;
+  background: #002855;
+  mask: url("/images/logo-pp.png") center/contain no-repeat;
+  -webkit-mask: url("/images/logo-pp.png") center/contain no-repeat;
+  animation: loadingLogoZoom 2s ease-in-out infinite;
+}
+
+/* Smooth loading bar – bigger, same blue */
+@keyframes loadingBarSlide {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(400%);
+  }
+}
+
+.loading-screen-bar {
+  width: 120px;
+  height: 4px;
+  background: rgba(0, 40, 85, 0.12);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.loading-screen-bar-fill {
+  width: 30%;
+  height: 100%;
+  background: #002855;
+  border-radius: 2px;
+  animation: loadingBarSlide 1.4s ease-in-out infinite;
+}
+
 .dark {
   --background: oklch(0.145 0 0);
   --foreground: oklch(0.985 0 0);

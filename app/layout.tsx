@@ -7,6 +7,7 @@ import "./globals.css"
 import "../lib/suppress-errors"
 import { Toaster } from "@/components/ui/toaster"
 import { LanguageProvider } from "@/contexts/language-context"
+import { LoadingScreen } from "@/components/loading-screen"
 
 const archivo = Archivo({
   subsets: ["latin"],
@@ -115,6 +116,7 @@ export default function RootLayout({
         />
       </head>
       <body className={`font-sans ${archivo.variable} ${robotoCondensed.variable} antialiased overflow-x-hidden`}>
+        <LoadingScreen />
         <LanguageProvider>
           <Suspense fallback={null}>{children}</Suspense>
           <Analytics />

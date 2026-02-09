@@ -51,6 +51,14 @@ const getTranslationValue = (key: string, lang: Language, overrides: any = {}): 
     return typeof value === 'string' ? value : key
   }
   
+  // Floating features description: also accept overrides saved under floatingFeatures.subtitle (legacy)
+  if (key === 'floatingFeatures.description') {
+    const descOverride = overrides[lang]?.['floatingFeatures.description']
+    const subtitleOverride = overrides[lang]?.['floatingFeatures.subtitle']
+    if (descOverride) return descOverride
+    if (subtitleOverride) return subtitleOverride
+  }
+
   // AGGRESSIVE FIX: Map contactCta.* to contact.* keys
   const contactCtaMapping: Record<string, string> = {
     'contact.readyToWork': 'contactCta.title',

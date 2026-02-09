@@ -112,8 +112,6 @@ export function FloatingFeaturesSection() {
           >
             <h2 className="text-headline text-[#002855] mb-8 uppercase px-0 md:px-[20%]">
               {t("floatingFeatures.title")}
-              <br />
-              {t("floatingFeatures.titleHighlight")}
             </h2>
             <p className="text-luxury-large text-[#003D7A] max-w-3xl mx-auto leading-relaxed">
               {t("floatingFeatures.description")}

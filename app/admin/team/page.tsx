@@ -6,31 +6,19 @@ import { Footer } from "@/components/footer"
 import { Save, Trash2, Edit, Plus, X, Upload, GripVertical } from "lucide-react"
 import { useToast } from "@/hooks/use-toast"
 import { useLanguage } from "@/contexts/language-context"
+import { getRoleDisplayLabel } from "@/lib/team-role-display"
 import type { TeamMember } from "@/lib/teams"
 
-const ROLE_KEYS = [
-  'coCeoFinance',
-  'coCeoIt',
-  'finance',
-  'teamLeaderMerchandising',
-  'headOfPromotion',
-  'seniorProjectManager',
-  'projectManager',
-  'juniorProjectManager',
-  'backOffice',
-  'logisticsManager',
-  'experienceConsultant'
-]
-
 export default function AdminTeamPage() {
-  const [activeTab, setActiveTab] = useState<'office' | 'consultant'>('office')
+  const [activeTab, setActiveTab] = useState<'office' | 'consultant' | 'field'>('office')
   const [officeTeam, setOfficeTeam] = useState<TeamMember[]>([])
   const [consultants, setConsultants] = useState<TeamMember[]>([])
+  const [fieldForce, setFieldForce] = useState<TeamMember[]>([])
   const [editingMember, setEditingMember] = useState<TeamMember | null>(null)
   const [isCreating, setIsCreating] = useState(false)
   const [loading, setLoading] = useState(true)
   const { toast } = useToast()
-  const { t } = useLanguage()
+  const { t, language } = useLanguage()
 
   const [formData, setFormData] = useState<Partial<TeamMember>>({
     name: '',
@@ -52,6 +40,7 @@ export default function AdminTeamPage() {
       const data = await response.json()
       setOfficeTeam(data.officeTeam?.sort((a: TeamMember, b: TeamMember) => a.order - b.order) || [])
       setConsultants(data.experienceConsultants?.sort((a: TeamMember, b: TeamMember) => a.order - b.order) || [])
+      setFieldForce(data.fieldForce?.sort((a: TeamMember, b: TeamMember) => a.order - b.order) || [])
       setLoading(false)
     } catch (error) {
       console.error('Error fetching teams:', error)
@@ -179,9 +168,10 @@ export default function AdminTeamPage() {
   }
 
   const handleEdit = (member: TeamMember) => {
+    const roleDisplayLabel = getRoleDisplayLabel(member.roleKey, t, language)
     setFormData({
       name: member.name,
-      roleKey: member.roleKey,
+      roleKey: roleDisplayLabel,
       image: member.image,
       funImage: member.funImage,
       linkedin: member.linkedin,
@@ -218,7 +208,7 @@ export default function AdminTeamPage() {
     }
   }
 
-  const currentTeam = activeTab === 'office' ? officeTeam : consultants
+  const currentTeam = activeTab === 'office' ? officeTeam : activeTab === 'field' ? fieldForce : consultants
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -253,6 +243,19 @@ export default function AdminTeamPage() {
               }`}
             >
               Office Team ({officeTeam.length})
+            </button>
+            <button
+              onClick={() => {
+                setActiveTab('field')
+                resetForm()
+              }}
+              className={`px-6 py-3 font-semibold transition-colors ${
+                activeTab === 'field'
+                  ? 'text-[#002855] border-b-2 border-[#FFC72C]'
+                  : 'text-gray-500 hover:text-[#002855]'
+              }`}
+            >
+              Field Force ({fieldForce.length})
             </button>
             <button
               onClick={() => {
@@ -299,18 +302,14 @@ export default function AdminTeamPage() {
 
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">Role</label>
-                  <select
+                  <input
+                    type="text"
                     value={formData.roleKey}
                     onChange={(e) => setFormData({ ...formData, roleKey: e.target.value })}
+                    placeholder="e.g. Project Manager, Co-CEO Finance"
                     className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#FFC72C] focus:border-transparent"
                     required
-                  >
-                    {ROLE_KEYS.map((key) => (
-                      <option key={key} value={key}>
-                        {t(`aboutPage.${key}`) || key}
-                      </option>
-                    ))}
-                  </select>
+                  />
                 </div>
               </div>
 
@@ -450,7 +449,9 @@ export default function AdminTeamPage() {
                 </div>
                 <div className="p-4">
                   <h3 className="font-bold text-lg text-[#002855] mb-1">{member.name}</h3>
-                  <p className="text-sm text-[#003D7A]">{t(`aboutPage.${member.roleKey}`) || member.roleKey}</p>
+                  <p className="text-sm text-[#003D7A]">
+                    {getRoleDisplayLabel(member.roleKey, t, language)}
+                  </p>
                   <div className="mt-2 text-xs text-gray-500">Order: {member.order}</div>
                 </div>
               </div>
@@ -460,7 +461,7 @@ export default function AdminTeamPage() {
 
         {currentTeam.length === 0 && !loading && (
           <div className="text-center py-12 text-gray-500">
-            No {activeTab === 'office' ? 'office team' : 'consultants'} members yet. Click "Add Team Member" to get started.
+            No {activeTab === 'office' ? 'office team' : activeTab === 'field' ? 'field force' : 'consultants'} members yet. Click "Add Team Member" to get started.
           </div>
         )}
       </div>
