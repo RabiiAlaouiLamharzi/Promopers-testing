@@ -49,7 +49,7 @@ export function HeroStatsSection() {
   }, [hasAnimated])
 
   return (
-    <section ref={sectionRef} className="w-full bg-[#002855] py-16 md:py-24">
+    <section ref={sectionRef} className="w-full bg-[#002855] py-16 md:py-24 mt-32">
       <div className="luxury-container">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-16">
           {stats.map((stat, index) => (

@@ -273,6 +273,22 @@ export default function AdminHomePage() {
             </div>
           </Link>
           <Link 
+            href="/admin/edit/job"
+            className="block bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow border-l-4 border-teal-500"
+          >
+            <div className="flex items-center gap-4">
+              <FileText className="w-6 h-6 text-teal-500" />
+              <div>
+                <h2 className="text-xl font-bold text-[#002855] mb-1">
+                  Add/Update/Delete Job Offers
+                </h2>
+                <p className="text-gray-600 text-sm">
+                  Manage office job listings shown on the career page
+                </p>
+              </div>
+            </div>
+          </Link>
+          <Link 
             href="/admin/team"
             className="block bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow border-l-4 border-green-500"
           >

@@ -3,11 +3,9 @@
 import { useEffect, useRef, useState } from "react"
 import { Navigation } from "@/components/navigation"
 import { Footer } from "@/components/footer"
-import { ArrowRight, Users, Car, Map, Target, Zap, Award, Heart, CheckCircle2, Sparkles, TrendingUp, Shield, Linkedin } from "lucide-react"
+import { ArrowRight, Target, Zap, Award, Heart, CheckCircle2, Sparkles, Shield, ChevronLeft, ChevronRight } from "lucide-react"
 import Link from "next/link"
 import { useLanguage } from "@/contexts/language-context"
-import { getRoleDisplayLabel } from "@/lib/team-role-display"
-
 export default function AboutPage() {
   const [mediaOverrides, setMediaOverrides] = useState<Record<string, string>>({})
   const [mediaLoaded, setMediaLoaded] = useState(false)
@@ -19,9 +17,8 @@ export default function AboutPage() {
     
     const loadMediaOverrides = async () => {
       try {
-        // Use a shorter timeout for faster failure
         const timeoutPromise = new Promise((_, reject) => 
-          setTimeout(() => reject(new Error('Request timeout')), 1500)
+          setTimeout(() => reject(new Error('Request timeout')), 15000)
         )
         
         // Fetch with cache control - browser will cache based on API response headers
@@ -67,7 +64,6 @@ export default function AboutPage() {
         <IntroSection mediaOverrides={mediaOverrides} mediaLoaded={mediaLoaded} />
         <VisionCommitmentSection />
         <CompanyHistoryTimeline mediaOverrides={mediaOverrides} mediaLoaded={mediaLoaded} />
-        <TeamStatsSection />
         <CTASection />
       </main>
       <Footer />
@@ -122,168 +118,137 @@ function IntroSection({ mediaOverrides, mediaLoaded }: { mediaOverrides: Record<
 
   useEffect(() => {
     const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true)
-        }
-      },
-      { threshold: 0.2 },
+      ([entry]) => { if (entry.isIntersecting) setIsVisible(true) },
+      { threshold: 0.1 },
     )
-
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current)
-    }
-
+    if (sectionRef.current) observer.observe(sectionRef.current)
     return () => observer.disconnect()
   }, [])
 
-  const features = [
-    {
-      icon: <Target className="w-8 h-8" />,
-      title: t("aboutPage.projectManagement"),
-      description: t("aboutPage.projectManagementDesc")
-    },
-    {
-      icon: <Users className="w-8 h-8" />,
-      title: t("aboutPage.hrOutsourcing"),
-      description: t("aboutPage.hrOutsourcingDesc")
-    },
-    {
-      icon: <TrendingUp className="w-8 h-8" />,
-      title: t("aboutPage.marketingSales"),
-      description: t("aboutPage.marketingSalesDesc")
-    },
-    {
-      icon: <Shield className="w-8 h-8" />,
-      title: t("aboutPage.customReporting"),
-      description: t("aboutPage.customReportingDesc")
-    }
+  const services = [
+    { num: "01", label: t("aboutPage.introService1"), desc: t("aboutPage.introService1Desc") },
+    { num: "02", label: t("aboutPage.introService2"), desc: t("aboutPage.introService2Desc") },
+    { num: "03", label: t("aboutPage.introService3"), desc: t("aboutPage.introService3Desc") },
+    { num: "04", label: t("aboutPage.introService4"), desc: t("aboutPage.introService4Desc") },
   ]
 
   return (
-    <section ref={sectionRef} className="luxury-section bg-white -mb-24 relative overflow-hidden">
-      {/* Background Pattern */}
-      <div className="absolute inset-0 opacity-5">
-        <div className="absolute inset-0" style={{
-          backgroundImage: 'radial-gradient(circle at 2px 2px, #002855 1px, transparent 0)',
-          backgroundSize: '40px 40px'
-        }} />
-      </div>
+    <section ref={sectionRef} className="luxury-section bg-white">
+      <div className="luxury-container">
 
-      <div className="luxury-container relative z-10">
-        <div className="grid lg:grid-cols-2 gap-16 items-center mb-20">
-          {/* Left: Text Content */}
-          <div
-            className={`transition-all duration-1000 ${
-              isVisible ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-12"
-            }`}
-          >
+        {/* Header */}
+        <div className="mb-16">
+          <div className={`transition-all duration-1000 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-8"}`}>
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#FFC72C]/10 mb-6">
               <Award className="w-4 h-4 text-[#002855]" />
-              <span className="text-[#002855] text-sm font-bold uppercase tracking-wider">
-                {t("aboutPage.whatWeDo")}
-              </span>
+              <span className="text-[#002855] text-sm font-bold uppercase tracking-wider">{t("aboutPage.whatWeDo")}</span>
             </div>
-            
-            <h2 className="text-5xl md:text-6xl font-black tracking-tight text-[#002855] mb-6 uppercase leading-tight">
-              {t("aboutPage.fullService")}
-              <br />
-              <span className="text-[#FFC72C]">{t("aboutPage.excellence")}</span>
-            </h2>
-            
-            <p className="text-luxury-body text-[#003D7A] leading-relaxed mb-8">
-              {t("aboutPage.fullServiceDesc")}
-            </p>
-            
-            <div className="flex gap-4">
-              <a href="#what-drives-us" className="luxury-button luxury-button-primary font-bold flex items-center gap-2">
-                {t("aboutPage.learnMore")}
-                <ArrowRight className="w-5 h-5" />
-              </a>
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center">
+              <h2 className="text-4xl md:text-5xl lg:text-6xl font-black uppercase leading-[1.05] tracking-tight text-[#002855]">
+                {t("aboutPage.introHeading")}
+                <br />
+                {t("aboutPage.introHeadingSpan")}
+              </h2>
+              <div className={`transition-all duration-1000 delay-200 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
+                <p className="text-base md:text-lg text-[#003D7A] leading-relaxed mb-8">
+                  {t("aboutPage.introDesc")}
+                </p>
+                <a
+                  href="/about#vision"
+                  className="inline-flex items-center gap-3 px-8 py-4 rounded-full bg-[#FFC72C] text-[#002855] text-sm font-medium uppercase tracking-wider hover:bg-[#e6b526] transition-colors duration-300"
+                >
+                  {t("aboutPage.learnMore")}
+                  <ArrowRight className="w-4 h-4" />
+                </a>
+              </div>
             </div>
           </div>
+        </div>
 
-          {/* Right: Image Grid */}
-          <div
-            className={`transition-all duration-1000 delay-200 ${
-              isVisible ? "opacity-100 translate-x-0" : "opacity-0 translate-x-12"
-            }`}
-          >
+        {/* Main content — images left, services right */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-start">
+
+          {/* Left — staggered image grid */}
+          <div className={`transition-all duration-1000 delay-300 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-12"}`}>
             {mediaLoaded ? (
-            <div className="grid grid-cols-2 gap-4">
-              <div className="space-y-4">
-                <div className="relative h-64 rounded-2xl overflow-hidden group">
-                  <img
+              <div className="grid grid-cols-2 gap-4">
+                <div className="space-y-4">
+                  <div className="relative rounded-2xl overflow-hidden h-72 group">
+                    <img
                       src={mediaOverrides.introImage1 || "/new-images/coca-cola-image2.jpg"}
-                    alt="Team collaboration"
-                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#002855]/60 to-transparent" />
+                      alt="Retail activation"
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#002855]/40 to-transparent" />
+                  </div>
+                  <div className="relative rounded-2xl overflow-hidden h-44 group">
+                    <img
+                      src={mediaOverrides.introImage3 || "/new-images/samsung-image1.jpg"}
+                      alt="Marketing"
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#002855]/40 to-transparent" />
+                  </div>
                 </div>
-                <div className="relative h-48 rounded-2xl overflow-hidden group">
-                  <img
-                      src={mediaOverrides.introImage2 || "/new-images/samsung-image1.jpg"}
-                    alt="Marketing event"
-                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#002855]/60 to-transparent" />
-                </div>
-              </div>
-              <div className="space-y-4 pt-8">
-                <div className="relative h-48 rounded-2xl overflow-hidden group">
-                  <img
-                      src={mediaOverrides.introImage3 || "/new-images/harman-image1.jpg"}
-                    alt="Retail activation"
-                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#002855]/60 to-transparent" />
-                </div>
-                <div className="relative h-64 rounded-2xl overflow-hidden group">
-                  <img
+                <div className="space-y-4 pt-10">
+                  <div className="relative rounded-2xl overflow-hidden h-44 group">
+                    <img
+                      src={mediaOverrides.introImage2 || "/new-images/harman-image1.jpg"}
+                      alt="Brand event"
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#002855]/40 to-transparent" />
+                  </div>
+                  <div className="relative rounded-2xl overflow-hidden h-72 group">
+                    <img
                       src={mediaOverrides.introImage4 || "/new-images/coca-cola-image3.jpg"}
-                    alt="Experiential marketing"
-                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#002855]/60 to-transparent" />
+                      alt="Campaign"
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#002855]/40 to-transparent" />
+                  </div>
                 </div>
               </div>
-            </div>
             ) : (
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-4">
-                  <div className="relative h-64 rounded-2xl overflow-hidden bg-gray-200 animate-pulse" />
-                  <div className="relative h-48 rounded-2xl overflow-hidden bg-gray-200 animate-pulse" />
+                  <div className="h-72 rounded-2xl bg-gray-100 animate-pulse" />
+                  <div className="h-44 rounded-2xl bg-gray-100 animate-pulse" />
                 </div>
-                <div className="space-y-4 pt-8">
-                  <div className="relative h-48 rounded-2xl overflow-hidden bg-gray-200 animate-pulse" />
-                  <div className="relative h-64 rounded-2xl overflow-hidden bg-gray-200 animate-pulse" />
+                <div className="space-y-4 pt-10">
+                  <div className="h-44 rounded-2xl bg-gray-100 animate-pulse" />
+                  <div className="h-72 rounded-2xl bg-gray-100 animate-pulse" />
                 </div>
               </div>
             )}
           </div>
-        </div>
 
-        {/* Feature Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {features.map((feature, index) => (
-            <div
-              key={index}
-              className={`glass-effect rounded-2xl p-8 luxury-border luxury-hover transition-all duration-1000 ${
-                isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-12"
-              }`}
-              style={{ transitionDelay: `${(index + 4) * 100}ms` }}
-            >
-              <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-[#002855] to-[#003D7A] flex items-center justify-center text-white mb-6">
-                {feature.icon}
-              </div>
-              <h3 className="text-xl font-black text-[#002855] mb-3 uppercase">
-                {feature.title}
-              </h3>
-              <p className="text-[#003D7A]">
-                {feature.description}
-              </p>
+          {/* Right — numbered services */}
+          <div className="flex flex-col justify-center">
+            {/* Service rows */}
+            <div className="space-y-0">
+              {services.map((s, i) => (
+                <div
+                  key={i}
+                  className={`py-6 border-b border-[#002855]/40 transition-all duration-700 ${
+                    isVisible ? "opacity-100 translate-x-0" : "opacity-0 translate-x-8"
+                  }`}
+                  style={{ transitionDelay: `${500 + i * 100}ms` }}
+                >
+                  <div className="flex items-center justify-between">
+                    <span className="text-lg font-semibold text-[#002855] uppercase tracking-wide">
+                      {s.label}
+                    </span>
+                    <span className="text-[#002855]/60">→</span>
+                  </div>
+                  <p className="text-sm font-light italic text-[#003D7A]/70 mt-2 leading-relaxed">
+                    {s.desc}
+                  </p>
+                </div>
+              ))}
             </div>
-          ))}
+          </div>
+
         </div>
       </div>
     </section>
@@ -346,7 +311,7 @@ function VisionCommitmentSection() {
   ]
 
   return (
-    <section id="what-drives-us" ref={sectionRef} className="py-32 relative overflow-hidden">
+    <section id="vision" ref={sectionRef} className="py-32 relative overflow-hidden">
       {/* Gradient Background */}
       <div className="absolute inset-0 bg-gradient-to-br from-[#002855] via-[#003D7A] to-[#002855]" />
       
@@ -430,24 +395,34 @@ function VisionCommitmentSection() {
 
 function CompanyHistoryTimeline({ mediaOverrides, mediaLoaded }: { mediaOverrides: Record<string, string>, mediaLoaded: boolean }) {
   const [isVisible, setIsVisible] = useState(false)
+  const [index, setIndex] = useState(0)
+  const trackRef = useRef<HTMLDivElement>(null)
   const sectionRef = useRef<HTMLElement>(null)
   const { t } = useLanguage()
 
+  const maxIndex = 2 // 4 cards − 2 visible = 2 possible steps
+  const wrapperRef = useRef<HTMLDivElement>(null)
+  const [cardWidth, setCardWidth] = useState(0)
+
   useEffect(() => {
     const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true)
-        }
-      },
+      ([entry]) => { if (entry.isIntersecting) setIsVisible(true) },
       { threshold: 0.1 },
     )
-
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current)
-    }
-
+    if (sectionRef.current) observer.observe(sectionRef.current)
     return () => observer.disconnect()
+  }, [])
+
+  useEffect(() => {
+    if (!wrapperRef.current) return
+    const gap = 24
+    const measure = () => {
+      if (wrapperRef.current) setCardWidth((wrapperRef.current.clientWidth - gap) / 2)
+    }
+    measure()
+    const ro = new ResizeObserver(measure)
+    ro.observe(wrapperRef.current)
+    return () => ro.disconnect()
   }, [])
 
   const timeline = [
@@ -459,7 +434,7 @@ function CompanyHistoryTimeline({ mediaOverrides, mediaLoaded }: { mediaOverride
       mediaKey: "timeline1"
     },
     {
-      year: "2000-2017",
+      year: "2000–2017",
       title: t("aboutPage.growthExcellence"),
       description: t("aboutPage.growthExcellenceDesc"),
       image: "/new-images/coca-cola-image7.jpg",
@@ -481,9 +456,20 @@ function CompanyHistoryTimeline({ mediaOverrides, mediaLoaded }: { mediaOverride
     }
   ]
 
+  const navigate = (dir: "left" | "right") => {
+    const next = dir === "right" ? Math.min(index + 1, maxIndex) : Math.max(index - 1, 0)
+    if (next === index) return
+    setIndex(next)
+    if (trackRef.current && cardWidth > 0) {
+      trackRef.current.scrollTo({ left: next * (cardWidth + 24), behavior: "smooth" })
+    }
+  }
+
   return (
-    <section ref={sectionRef} className="pt-32 pb-16 bg-white relative overflow-hidden">
+    <section ref={sectionRef} className="pt-32 pb-16 bg-white relative">
       <div className="luxury-container relative z-10">
+
+        {/* Header */}
         <div
           className={`text-center mb-20 transition-all duration-1000 ${
             isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-12"
@@ -495,71 +481,137 @@ function CompanyHistoryTimeline({ mediaOverrides, mediaLoaded }: { mediaOverride
               {t("aboutPage.ourJourney")}
             </span>
           </div>
-          
           <h2 className="text-5xl md:text-7xl font-black tracking-tight text-[#002855] mb-6 uppercase leading-tight">
             {t("aboutPage.companyHistory")}
             <br />
             <span className="text-[#003D7A]">{t("aboutPage.companyHistorySubtitle")}</span>
           </h2>
-          
           <p className="text-luxury-body max-w-3xl mx-auto">
             {t("aboutPage.companyHistoryDesc")}
           </p>
         </div>
 
-        {/* Timeline */}
-        <div className="relative max-w-6xl mx-auto">
-          {/* Timeline Line */}
-          <div className="absolute left-1/2 transform -translate-x-1/2 h-full w-1 bg-gradient-to-b from-[#FFC72C] via-[#003D7A] to-[#002855] hidden lg:block" />
+        {/* Horizontal timeline bar */}
+        <div
+          className={`relative mb-16 transition-all duration-1000 delay-300 ${
+            isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+          }`}
+        >
+          <div className="absolute top-[18px] left-0 right-0 h-[2px] bg-gray-100" />
+          <div
+            className="absolute top-[18px] h-[2px] bg-gradient-to-r from-[#FFC72C] to-[#003D7A] transition-all duration-700"
+            style={{ width: `${((index + 1) / (timeline.length - 1)) * 100}%` }}
+          />
+          <div className="relative flex justify-between items-start">
+            {timeline.map((item, i) => {
+              const inView = i === index || i === index + 1
+              const passed = i < index
+              return (
+                <div key={i} className="flex flex-col items-center gap-3">
+                  <div
+                    className={`w-9 h-9 rounded-full border-2 flex items-center justify-center transition-all duration-500 ${
+                      inView
+                        ? "bg-[#FFC72C] border-[#FFC72C] shadow-[0_0_0_4px_rgba(255,199,44,0.15)] scale-110"
+                        : passed
+                          ? "bg-[#003D7A] border-[#003D7A]"
+                          : "bg-white border-gray-200"
+                    }`}
+                  >
+                    <div className={`w-3 h-3 rounded-full transition-all duration-300 ${inView || passed ? "bg-white" : "bg-gray-300"}`} />
+                  </div>
+                  <span className={`text-xs font-bold tracking-wide text-center leading-tight transition-colors duration-500 ${inView ? "text-[#002855]" : "text-gray-300"}`}>
+                    {item.year}
+                  </span>
+                </div>
+              )
+            })}
+          </div>
+        </div>
 
-          <div className="space-y-16">
-            {timeline.map((item, index) => (
+        {/* Nav row */}
+        <div
+          className={`flex items-center justify-between mb-8 transition-all duration-700 delay-400 ${
+            isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+          }`}
+        >
+          <div className="text-2xl md:text-3xl font-black text-[#002855] uppercase tracking-tight">
+            {["1999", "2000", "2024"][index]}
+            <span className="text-[#FFC72C] mx-3">→</span>
+            {["2017", "2024", "2026"][index]}
+          </div>
+
+          <div className="flex items-center gap-3">
+            <button
+              onClick={() => navigate("left")}
+              disabled={index === 0}
+              aria-label="Previous"
+              className={`w-12 h-12 rounded-full border-2 flex items-center justify-center transition-all duration-300 ${
+                index === 0
+                  ? "border-gray-100 text-gray-200 cursor-not-allowed"
+                  : "border-[#002855] text-[#002855] hover:bg-[#002855] hover:text-white"
+              }`}
+            >
+              <ChevronLeft className="w-5 h-5" />
+            </button>
+
+            <div className="flex gap-2">
+              {Array.from({ length: maxIndex + 1 }).map((_, i) => (
+                <div
+                  key={i}
+                  className={`h-1.5 rounded-full transition-all duration-300 ${
+                    i === index ? "bg-[#002855] w-6" : "bg-gray-200 w-3"
+                  }`}
+                />
+              ))}
+            </div>
+
+            <button
+              onClick={() => navigate("right")}
+              disabled={index === maxIndex}
+              aria-label="Next"
+              className={`w-12 h-12 rounded-full border-2 flex items-center justify-center transition-all duration-300 ${
+                index === maxIndex
+                  ? "border-gray-100 text-gray-200 cursor-not-allowed"
+                  : "border-[#002855] text-[#002855] hover:bg-[#002855] hover:text-white"
+              }`}
+            >
+              <ChevronRight className="w-5 h-5" />
+            </button>
+          </div>
+        </div>
+
+        {/* Slider — all 4 cards in one row, scrolls horizontally */}
+        <style>{`.timeline-track::-webkit-scrollbar { display: none; }`}</style>
+        <div ref={wrapperRef} className="overflow-hidden">
+          <div
+            ref={trackRef}
+            className="timeline-track flex gap-6"
+            style={{ overflowX: "scroll", scrollbarWidth: "none", msOverflowStyle: "none" } as React.CSSProperties}
+          >
+            {timeline.map((item, i) => (
               <div
-                key={index}
-                className={`transition-all duration-1000 ${
-                  isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-12"
-                }`}
-                style={{ transitionDelay: `${index * 200}ms` }}
+                key={i}
+                className="flex flex-col group flex-shrink-0"
+                style={{ width: cardWidth > 0 ? `${cardWidth}px` : "calc(50% - 12px)" }}
               >
-                <div className={`flex flex-col lg:flex-row gap-8 items-center ${index % 2 === 0 ? 'lg:flex-row' : 'lg:flex-row-reverse'}`}>
-                  {/* Content */}
-                  <div className="flex-1 w-full lg:w-auto">
-                    <div className="glass-effect rounded-3xl p-8 md:p-12 luxury-border hover:shadow-2xl transition-all duration-500 group min-h-[240px] flex flex-col">
-                      <div className="flex items-center gap-4 mb-6">
-                        <div className="w-24 h-24 rounded-2xl bg-gradient-to-br from-[#FFC72C] to-[#E6B526] flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform duration-500">
-                          <span className="text-xl font-black text-[#002855] text-center leading-tight whitespace-pre-line">{item.year.replace('-', '\n')}</span>
-                        </div>
-                        <h3 className="text-xl md:text-3xl font-black text-[#002855] uppercase">{item.title}</h3>
-                      </div>
-                      <p className="text-luxury-body text-[#003D7A] leading-relaxed flex-grow">
-                        {item.description}
-                      </p>
-                    </div>
+                <div className="relative h-72 rounded-t-3xl overflow-hidden">
+                  {mediaLoaded ? (
+                    <img
+                      src={mediaOverrides[item.mediaKey] || item.image}
+                      alt={item.title}
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    />
+                  ) : (
+                    <div className="w-full h-full bg-gray-100 animate-pulse" />
+                  )}
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#002855]/70 to-transparent" />
+                  <div className="absolute bottom-5 left-6">
+                    <span className="text-5xl font-black text-white/20 leading-none">{item.year}</span>
                   </div>
-
-                  {/* Center Dot */}
-                  <div className="relative hidden lg:block">
-                    <div className="w-6 h-6 rounded-full bg-[#FFC72C] border-4 border-white shadow-lg" />
-                  </div>
-
-                  {/* Image */}
-                  <div className="flex-1 w-full lg:w-auto lg:min-w-0">
-                    <div className="relative h-80 rounded-3xl overflow-hidden group w-full">
-                      {mediaLoaded ? (
-                      <img
-                          src={mediaOverrides[item.mediaKey] || item.image}
-                        alt={item.title}
-                        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                      />
-                      ) : (
-                        <div className="w-full h-full bg-gray-200 animate-pulse" />
-                      )}
-                      <div className="absolute inset-0 bg-gradient-to-t from-[#002855]/80 to-transparent" />
-                      <div className="absolute bottom-6 left-6 right-6">
-                        <div className="text-4xl font-black text-white/20">{item.year}</div>
-                      </div>
-                    </div>
-                  </div>
+                </div>
+                <div className="bg-[#F8F9FC] rounded-b-3xl p-8 flex flex-col flex-1 border border-t-0 border-gray-100">
+                  <h3 className="text-xl font-black text-[#002855] uppercase mb-3 leading-tight">{item.title}</h3>
+                  <p className="text-sm text-[#003D7A] leading-relaxed">{item.description}</p>
                 </div>
               </div>
             ))}
@@ -575,7 +627,6 @@ function CompanyHistoryTimeline({ mediaOverrides, mediaLoaded }: { mediaOverride
           <div className="relative rounded-3xl overflow-hidden">
             <div className="absolute inset-0 bg-gradient-to-br from-[#002855] via-[#003D7A] to-[#002855]" />
             <div className="absolute inset-0 bg-[url('/new-images/promopers.jpg')] bg-cover bg-center opacity-10" />
-            
             <div className="relative z-10 p-12 md:p-16 text-center">
               <h3 className="text-4xl md:text-5xl font-black text-white mb-6 uppercase">
                 {t("aboutPage.joinSuccessStory")}
@@ -594,301 +645,6 @@ function CompanyHistoryTimeline({ mediaOverrides, mediaLoaded }: { mediaOverride
               </div>
             </div>
           </div>
-        </div>
-      </div>
-    </section>
-  )
-}
-
-function TeamStatsSection() {
-  const [activeTab, setActiveTab] = useState("office")
-  const sectionRef = useRef<HTMLElement>(null)
-  const { t, language } = useLanguage()
-  const [officeTeam, setOfficeTeam] = useState<any[]>([])
-  const [experienceConsultants, setExperienceConsultants] = useState<any[]>([])
-  const [fieldForce, setFieldForce] = useState<any[]>([])
-  const [loading, setLoading] = useState(true)
-
-  useEffect(() => {
-    fetchTeamData()
-  }, [])
-
-  const fetchTeamData = async () => {
-    try {
-      const response = await fetch('/api/team')
-      if (response.ok) {
-        const data = await response.json()
-        setOfficeTeam(data.officeTeam?.sort((a: any, b: any) => a.order - b.order) || [])
-        setExperienceConsultants(data.experienceConsultants?.sort((a: any, b: any) => a.order - b.order) || [])
-        setFieldForce(data.fieldForce?.sort((a: any, b: any) => a.order - b.order) || [])
-      } else {
-        // Fallback to default data if API fails
-        setOfficeTeam([
-          { name: "Feissli Fritz", roleKey: "coCeoFinance", image: "/new-images/logo.png", funImage: "/new-images/logo.png", linkedin: "#" },
-          { name: "Purpura Nicolas", roleKey: "coCeoIt", image: "/new-images/purpura-nicolas.jpg", funImage: "/new-images/purpura-nicolas-funny.jpg", linkedin: "#" },
-          { name: "Albisser Carmela", roleKey: "finance", image: "/new-images/albisser-carmela.jpg", funImage: "/new-images/albisser-carmela-funny.jpg", linkedin: "#" },
-          { name: "Kurz Martin", roleKey: "teamLeaderMerchandising", image: "/new-images/kurz-martin.jpg", funImage: "/new-images/kurz-martin-funny.jpg", linkedin: "#" },
-          { name: "Teotino Angelo", roleKey: "headOfPromotion", image: "/new-images/teotino-angelo.jpg", funImage: "/new-images/teotino-angelo-funny.jpg", linkedin: "#" },
-          { name: "Kevin Zanotta", roleKey: "seniorProjectManager", image: "/new-images/kevin-zanotta.jpg", funImage: "/new-images/kevin-zanotta-funny.jpg", linkedin: "#" },
-          { name: "Jessica Makwala", roleKey: "projectManager", image: "/new-images/jessica-makwala.jpg", funImage: "/new-images/jessica-makwala-funny.jpg", linkedin: "#" },
-          { name: "Benammar Samir", roleKey: "projectManager", image: "/new-images/benammar-samir.jpg", funImage: "/new-images/benammar-samir-funny.jpg", linkedin: "#" },
-          { name: "Santos Cristina", roleKey: "juniorProjectManager", image: "/new-images/santos-cristina.jpg", funImage: "/new-images/santos-cristina-funny.jpg", linkedin: "#" },
-          { name: "Müller Paula", roleKey: "backOffice", image: "/new-images/müller-paula.jpg", funImage: "/new-images/müller-paula-funny.jpg", linkedin: "#" },
-          { name: "Berger Lukas", roleKey: "juniorProjectManager", image: "/new-images/lukas-berger.jpg", funImage: "/new-images/lukas-berger-funny.jpg", linkedin: "#" },
-          { name: "Demelas Giuseppe", roleKey: "logisticsManager", image: "/new-images/demelas-giuseppe.jpg", funImage: "/new-images/demelas-giuseppe-funny.jpg", linkedin: "#" },
-        ])
-        setExperienceConsultants([
-          "Anderson Al", "Baig Ayman", "Dario Iannelli", "Chafiha Messaouden",
-          "Muneeb Sheikh", "Amir Uruqi", "Dannacher Lukas", "Indelicato Cristian",
-          "King Stefan", "Losilla Alexis", "Maccia Giuseppe", "Manser Gibson",
-          "Ylli Karakushi", "Kaan Özoguz", "Ghada Jouahri", "Hadj-Arab Samy",
-          "Muanza Milton", "Singer Barbara", "Wuhrmann Kevin",
-        ])
-        setFieldForce([])
-      }
-    } catch (error) {
-      console.error('Error fetching team data:', error)
-      // Use fallback data on error
-      setOfficeTeam([
-        { name: "Feissli Fritz", roleKey: "coCeoFinance", image: "/new-images/logo.png", funImage: "/new-images/logo.png", linkedin: "#" },
-      ])
-      setExperienceConsultants([])
-      setFieldForce([])
-    } finally {
-      setLoading(false)
-    }
-  }
-
-  const stats = [
-    {
-      icon: <Users className="w-12 h-12" />,
-      number: "65",
-      label: t("aboutPage.fieldForce"),
-      description: t("aboutPage.fieldForceDesc")
-    },
-    {
-      icon: <Map className="w-12 h-12" />,
-      number: "151",
-      label: t("aboutPage.circumnavigation"),
-      description: t("aboutPage.circumnavigationDesc")
-    },
-    {
-      icon: <Car className="w-12 h-12" />,
-      number: "25",
-      label: t("aboutPage.vehicleFleet"),
-      description: t("aboutPage.vehicleFleetDesc")
-    }
-  ]
-
-  const tabs = [
-    { id: "office", labelKey: "officeTeam", count: officeTeam.length },
-    { id: "field", labelKey: "fieldForceLabel", count: fieldForce.length },
-    { id: "consultants", labelKey: "experienceConsultants", count: experienceConsultants.length },
-  ]
-
-  return (
-    <section id="team-stats" ref={sectionRef} className="pt-16 pb-32 bg-white relative">
-      <div className="luxury-container relative z-10">
-        {/* Stats Section */}
-        <div>
-          <div className="text-center mb-16">
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#FFC72C]/10 mb-6">
-              <Sparkles className="w-4 h-4 text-[#002855]" />
-              <span className="text-[#002855] text-sm font-bold uppercase tracking-wider">
-                {t("aboutPage.byTheNumbers")}
-              </span>
-            </div>
-            
-            <h2 className="text-5xl md:text-7xl font-black tracking-tight text-[#002855] mb-6 uppercase leading-tight">
-              {t("aboutPage.weHaveTeam")}
-              <br />
-              <span className="text-[#003D7A]">{t("aboutPage.teamsBack")}</span>
-            </h2>
-          </div>
-
-          <div className="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto">
-            {stats.map((stat, index) => (
-              <div key={index} className="group">
-                <div className="relative glass-effect rounded-3xl p-10 text-center luxury-border h-full flex flex-col justify-between min-h-[340px] overflow-hidden hover:shadow-2xl hover:shadow-[#FFC72C]/20 transition-all duration-500 group-hover:-translate-y-2">
-                  {/* Gold Gradient Background on Hover */}
-                  <div className="absolute inset-0 bg-gradient-to-br from-[#FFC72C]/0 to-[#FFC72C]/0 group-hover:from-[#FFC72C]/5 group-hover:to-[#FFC72C]/10 transition-all duration-500" />
-                  
-                  {/* Content */}
-                  <div className="relative">
-                    <div className="mb-6 flex justify-center">
-                      <div className="w-20 h-20 rounded-2xl bg-gradient-to-br from-[#FFC72C] to-[#E6B526] flex items-center justify-center text-[#002855] shadow-lg shadow-[#FFC72C]/30 group-hover:scale-110 transition-transform duration-500">
-                        {stat.icon}
-                      </div>
-                    </div>
-                    
-                    <div className="text-7xl font-black text-[#002855] mb-4 group-hover:text-[#FFC72C] transition-colors duration-500">
-                      {stat.number}
-                    </div>
-                    
-                    <h3 className="text-xl font-black text-[#002855] mb-4 uppercase tracking-wide">
-                      {stat.label}
-                    </h3>
-                    
-                    <p className="text-[#003D7A] text-base leading-relaxed">
-                      {stat.description}
-                    </p>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {/* Team Section */}
-        <div className="mt-32">
-          <div className="text-center mb-16">
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#FFC72C]/10 mb-6">
-              <Users className="w-4 h-4 text-[#002855]" />
-              <span className="text-[#002855] text-sm font-bold uppercase tracking-wider">
-                {t("aboutPage.meetTheTeam")}
-              </span>
-            </div>
-            
-            <h2 className="text-5xl md:text-7xl font-black tracking-tight text-[#002855] mb-6 uppercase leading-tight">
-              {t("aboutPage.talentedPeople")}
-              <br />
-              <span className="text-[#003D7A]">{t("aboutPage.drivingSuccess")}</span>
-            </h2>
-            
-            <p className="text-luxury-body max-w-3xl mx-auto mb-12">
-              {t("aboutPage.meetTeamDesc")}
-            </p>
-
-            {/* Tabs */}
-            <div className="flex flex-wrap justify-center gap-4">
-              {tabs.map((tab) => (
-                <button
-                  key={tab.id}
-                  onClick={() => setActiveTab(tab.id)}
-                  className={`px-8 py-4 rounded-full font-semibold text-base transition-all duration-300 w-full sm:w-auto sm:min-w-[200px] ${
-                    activeTab === tab.id
-                      ? "bg-[#FFC72C] text-[#002855] shadow-lg shadow-[#FFC72C]/30"
-                      : "bg-white text-[#002855] hover:text-[#FFC72C] border border-gray-200 hover:border-[#FFC72C] hover:shadow-md"
-                  }`}
-                >
-                  {t(`aboutPage.${tab.labelKey}`)}
-                  <span className="ml-2 text-sm opacity-70">({tab.count})</span>
-                </button>
-              ))}
-            </div>
-          </div>
-
-        {/* Office Team */}
-        {activeTab === "office" && (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6 lg:gap-8 max-w-7xl mx-auto w-full">
-            {officeTeam.map((member, index) => (
-              <div key={index} className="group" style={{ display: 'block', visibility: 'visible', opacity: 1 }}>
-                {/* Simple Card Style for Small Screens (< 400px) */}
-                <div className="office-team-simple glass-effect rounded-2xl p-6 text-center luxury-border luxury-hover">
-                  <div className="w-20 h-20 rounded-2xl bg-gradient-to-br from-[#002855] to-[#003D7A] mx-auto mb-4 flex items-center justify-center group-hover:scale-110 transition-transform duration-500">
-                    <span className="text-3xl font-black text-white">
-                      {member.name.split(' ')[0].charAt(0)}{member.name.split(' ')[1]?.charAt(0) || ''}
-                    </span>
-                  </div>
-                  <h3 className="text-base font-black text-[#002855] mb-1">
-                    {member.name}
-                  </h3>
-                  <p className="text-xs text-[#003D7A]">{getRoleDisplayLabel(member.roleKey, t, language)}</p>
-                </div>
-
-                {/* Image Card Style for Screens >= 400px */}
-                <div className="office-team-image relative bg-white rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 h-[480px] w-full">
-                  {/* Professional Image - Default State */}
-                  <div className="absolute inset-0 transition-opacity duration-500 group-hover:opacity-0">
-                    <img
-                      src={member.image}
-                      alt={member.name}
-                      className="w-full h-full object-cover"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-[#002855] via-[#002855]/50 to-transparent opacity-80" />
-                    <div className="absolute bottom-0 left-0 right-0 p-6 text-center">
-                      <h3 className="text-2xl md:text-3xl font-black text-white mb-2 uppercase leading-tight">
-                        {member.name}
-                      </h3>
-                      <p className="text-sm md:text-base text-white/90 font-semibold">{getRoleDisplayLabel(member.roleKey, t, language)}</p>
-                    </div>
-                  </div>
-
-                  {/* Fun Image - Hover State */}
-                  <div className="absolute inset-0 transition-opacity duration-500 opacity-0 group-hover:opacity-100">
-                    <img
-                      src={member.funImage}
-                      alt={`${member.name} - casual`}
-                      className="w-full h-full object-cover"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-[#002855]/90 via-[#002855]/40 to-transparent" />
-                    
-                    {/* Connect Section */}
-                    <div className="absolute inset-0 flex flex-col items-center justify-end p-8">
-                      <a
-                        href="https://linkedin.com"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="bg-white rounded-full px-8 py-4 shadow-xl hover:shadow-2xl transition-all duration-300 inline-flex items-center justify-center"
-                      >
-                        <span className="text-lg md:text-xl font-bold text-[#002855]">
-                          {t("aboutPage.letsConnect")}
-                        </span>
-                      </a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        )}
-
-        {/* Field Force */}
-        {activeTab === "field" && (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 gap-6 max-w-7xl mx-auto">
-            {fieldForce.map((member, index) => (
-              <div key={member.id ?? index} className="group">
-                <div className="glass-effect rounded-2xl p-6 text-center luxury-border luxury-hover">
-                  <div className="w-20 h-20 rounded-2xl bg-gradient-to-br from-[#002855] to-[#003D7A] mx-auto mb-4 flex items-center justify-center group-hover:scale-110 transition-transform duration-500">
-                    <span className="text-3xl font-black text-white">
-                      {member.name?.split(' ')[0]?.charAt(0) ?? ''}{member.name?.split(' ')[1]?.charAt(0) ?? ''}
-                    </span>
-                  </div>
-                  <h3 className="text-base font-black text-[#002855] mb-1">
-                    {member.name}
-                  </h3>
-                  <p className="text-xs text-[#003D7A]">{getRoleDisplayLabel(member.roleKey, t, language)}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        )}
-
-          {/* Experience Consultants */}
-          {activeTab === "consultants" && (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 gap-6 max-w-7xl mx-auto">
-              {experienceConsultants.map((member, index) => {
-                // Handle both string (name) and object (TeamMember) formats
-                const name = typeof member === 'string' ? member : member.name
-                const roleKey = typeof member === 'object' ? member.roleKey : 'experienceConsultant'
-                return (
-                  <div key={typeof member === 'object' ? member.id : index} className="group">
-                    <div className="bg-white rounded-2xl p-6 text-center border-2 border-gray-100 hover:border-[#FFC72C] transition-all duration-500 hover:shadow-xl luxury-hover">
-                      <div className="w-20 h-20 rounded-2xl bg-gradient-to-br from-[#FFC72C] to-[#E6B526] mx-auto mb-4 flex items-center justify-center group-hover:scale-110 transition-transform duration-500">
-                        <span className="text-3xl font-black text-[#002855]">
-                          {name.split(' ')[0].charAt(0)}{name.split(' ')[1]?.charAt(0) || ''}
-                        </span>
-                      </div>
-                      <h3 className="text-base font-black text-[#002855]">
-                        {name}
-                      </h3>
-                      <p className="text-xs text-[#003D7A] mt-1">{getRoleDisplayLabel(roleKey, t, language)}</p>
-                    </div>
-                  </div>
-                )
-              })}
-            </div>
-          )}
         </div>
       </div>
     </section>

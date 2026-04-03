@@ -2,177 +2,213 @@
 
 import { useState, useEffect } from "react"
 import Link from "next/link"
-import { usePathname } from "next/navigation"
-import { Menu, X, ArrowRight } from "lucide-react"
+import { Menu, X } from "lucide-react"
+import ReactCountryFlag from "react-country-flag"
 import { useLanguage } from "@/contexts/language-context"
-import { LanguageSwitcher } from "@/components/language-switcher"
+import { languages, Language } from "@/lib/i18n"
+import { usePathname } from "next/navigation"
+
+const langToCountry: Record<Language, string> = {
+  en: "GB",
+  fr: "FR",
+  de: "DE",
+  it: "IT",
+}
+
+const langNames: Record<Language, string> = {
+  en: "English",
+  fr: "Français",
+  de: "Deutsch",
+  it: "Italiano",
+}
+
+const navLinks = [
+  { href: "/", label: "Home" },
+  { href: "/about", label: "About us" },
+  { href: "/team", label: "Team" },
+  { href: "/references", label: "References" },
+  { href: "/career", label: "Career" },
+  { href: "/contact", label: "Contact" },
+]
 
 export function Navigation() {
-  const [isInHero, setIsInHero] = useState(true)
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+  const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const [isLangOpen, setIsLangOpen] = useState(false)
+  const [isPastHero, setIsPastHero] = useState(false)
+  const { language, setLanguage } = useLanguage()
   const pathname = usePathname()
-  const { t } = useLanguage()
-  const isHomePage = pathname === "/"
+  const isHome = pathname === "/"
+  const solidNavPages = [
+    "/admin",
+    "/admin/edit/reference",
+    "/admin/edit/blog",
+    "/admin/edit/testimonial",
+    "/admin/edit/job",
+    "/admin/team",
+  ]
+  const isAdmin = solidNavPages.includes(pathname)
 
   useEffect(() => {
-    // On non-home pages, always use old navbar style
-    if (!isHomePage) {
-      setIsInHero(false)
+    // Specific admin pages always use solid navbar — no scroll logic needed.
+    if (isAdmin) {
+      setIsPastHero(true)
       return
     }
-
-    // Only on home page, use scroll-based logic
     const handleScroll = () => {
-      // Hero section is 100vh, so check if scroll position is less than viewport height
-      const heroHeight = window.innerHeight
-      setIsInHero(window.scrollY < heroHeight - 100) // 100px threshold for smooth transition
+      // On the home page: switch after the full-height hero.
+      // On all other pages: switch as soon as the user scrolls at all (50px).
+      const threshold = isHome ? window.innerHeight - 80 : 50
+      setIsPastHero(window.scrollY > threshold)
     }
-    
-    // Check initial state
     handleScroll()
-    
-    window.addEventListener("scroll", handleScroll)
+    window.addEventListener("scroll", handleScroll, { passive: true })
     return () => window.removeEventListener("scroll", handleScroll)
-  }, [isHomePage])
+  }, [isHome, isAdmin])
 
-  const navLinks = [
-    { href: "/", label: t("nav.home") },
-    { href: "/about", label: t("nav.about") },
-    { href: "/references", label: t("nav.references") },
-    { href: "/blog", label: t("nav.blog") },
-    { href: "/contact", label: t("nav.contact") },
-    { href: "https://promopers.staff.cloud/recruiting", label: t("nav.application"), external: true },
-    { href: "https://saas.retaildashboard.io/site/login", label: t("nav.customersLogin"), external: true },
-  ]
+  const closeAll = () => {
+    setIsMenuOpen(false)
+    setIsLangOpen(false)
+  }
 
   return (
     <>
-      <div className="fixed top-4 left-0 right-0 z-50 w-screen">
-        <nav className="relative transition-all duration-500 w-full flex justify-center">
-          <div className={`rounded-full px-nav-small h-20 flex items-center justify-between transition-all duration-500 w-[90%] ${
-              isInHero 
-                ? "bg-transparent" 
-                : "glass-effect shadow-lg"
-            }`}>
-          <Link href="/" className="flex items-center">
-            <img 
-              src="/images/logo-pp.png" 
-              alt="PromoPers Logo" 
-                className={`w-10 h-10 object-contain transition-all duration-500 ${
-                  isInHero ? "brightness-0 invert" : ""
-                }`}
-            />
-          </Link>
+      {/* ── Top bar ─────────────────────────────────────── */}
+      <div className={`fixed top-0 left-0 right-0 z-50 h-28 flex items-center justify-between px-16 transition-all duration-300 ${
+        isPastHero ? "bg-white shadow-md" : "bg-transparent"
+      }`}>
+        {/* Logo */}
+        <Link href="/" onClick={closeAll} className="flex items-center gap-4">
+          <img
+            src="/images/logo-pp.png"
+            alt="PromoPers"
+            className={`w-7 h-7 object-contain transition-all duration-300 ${isPastHero ? "" : "brightness-0 invert"}`}
+          />
+          <span
+            className={`tracking-tight transition-colors duration-300 ${
+              isPastHero ? "text-[#002855]" : "text-white"
+            }`}
+            style={{ fontSize: "clamp(1.1rem, 2vw, 1.4rem)", lineHeight: 1, fontWeight: 600 }}
+          >
+            PromoPers
+          </span>
+        </Link>
 
-          {/* Desktop Navigation */}
-          <div className="hidden min-[1320px]:flex items-center gap-8">
-            {navLinks.map((link) => (
-              link.external ? (
-                <a
-                  key={link.href}
-                  href={link.href}
-                    className={`text-sm font-medium transition-colors duration-200 cursor-default ${
-                      isInHero 
-                        ? "text-white hover:text-[#FFC72C]" 
-                        : "text-[#002855] hover:text-[#FFC72C]"
-                    }`}
-                >
-                  {link.label}
-                </a>
-              ) : (
-                <Link
-                  key={link.href}
-                  href={link.href}
-                    className={`text-sm font-medium transition-colors duration-200 cursor-default ${
-                      isInHero 
-                        ? "text-white hover:text-[#FFC72C]" 
-                        : "text-[#002855] hover:text-[#FFC72C]"
-                    }`}
-                >
-                  {link.label}
-                </Link>
-              )
-            ))}
-              <LanguageSwitcher isInHero={isInHero} />
-              <a 
-                href="https://promopers.staff.cloud/auth/employee/login" 
-                className={`px-6 py-3 rounded-full font-bold text-sm flex items-center gap-2 transition-all duration-200 ${
-                  isInHero
-                    ? "border-2 border-white/30 text-white hover:bg-white/10"
-                    : "bg-[#002855] text-white hover:bg-[#003D7A]"
-                }`}
-              >
-              {t("nav.promoPersLogin")}
-              <ArrowRight className="w-4 h-4" />
-            </a>
-          </div>
-
-          {/* Mobile Menu Button */}
+        {/* Right controls */}
+        <div className="flex items-center gap-6 select-none">
+          {/* MENU + hamburger */}
           <button
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className={`min-[1320px]:hidden p-2 rounded-full transition-colors ${
-                isInHero
-                  ? "text-white hover:bg-white/20"
-                  : "text-[#002855] hover:bg-[#002855]/10"
-              }`}
+            onClick={() => { setIsMenuOpen(!isMenuOpen); setIsLangOpen(false) }}
+            className={`flex items-center gap-2.5 font-semibold text-base uppercase tracking-widest transition-colors ${
+              isPastHero
+                ? "text-[#002855] hover:text-[#FFC72C]"
+                : "text-white hover:text-[#FFC72C]"
+            }`}
             aria-label="Toggle menu"
           >
-            {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+            <span className="leading-none">Menu</span>
+            {isMenuOpen ? <X size={22} strokeWidth={2} /> : <Menu size={22} strokeWidth={2} />}
           </button>
-          </div>
 
-          {/* Mobile Menu Dropdown */}
-          {isMobileMenuOpen && (
-            <>
-              {/* Backdrop */}
-      <div
-                className="fixed inset-0 z-40 bg-black/20 min-[1320px]:hidden"
-                onClick={() => setIsMobileMenuOpen(false)}
-              />
-              
-              {/* Dropdown Menu */}
-              <div className="absolute top-full right-0 mt-[20px] mr-[20px] z-50 min-[1320px]:hidden">
-                <div className="glass-effect shadow-lg rounded-2xl p-4 space-y-3 w-64">
-          {navLinks.map((link) => (
-            link.external ? (
-              <a
-                key={link.href}
-                href={link.href}
-                onClick={() => setIsMobileMenuOpen(false)}
-                        className="block text-sm font-medium text-[#002855] hover:text-[#FFC72C] transition-colors py-2"
-              >
-                {link.label}
-              </a>
-            ) : (
-              <Link
-                key={link.href}
-                href={link.href}
-                onClick={() => setIsMobileMenuOpen(false)}
-                        className="block text-sm font-medium text-[#002855] hover:text-[#FFC72C] transition-colors py-2"
-              >
-                {link.label}
-              </Link>
-            )
-          ))}
-                  
-                  <div className="pt-4 border-t border-gray-200 space-y-4">
-                    <div className="flex justify-center">
-                      <LanguageSwitcher isInHero={false} />
-                    </div>
-            <a
-              href="https://promopers.staff.cloud/auth/employee/login"
-              onClick={() => setIsMobileMenuOpen(false)}
-                      className="block w-full text-center px-6 py-3 rounded-full bg-[#002855] text-white font-bold text-sm hover:bg-[#003D7A] transition-all duration-200 flex items-center justify-center gap-2"
+          {/* Separator */}
+          <span className={`font-thin text-xl leading-none transition-colors duration-300 ${isPastHero ? "text-[#002855]/30" : "text-white/30"}`}>|</span>
+
+          {/* Language flag */}
+          <div className="relative">
+            <button
+              onClick={() => { setIsLangOpen(!isLangOpen); setIsMenuOpen(false) }}
+              className="flex items-center hover:scale-110 transition-transform"
+              aria-label="Change language"
             >
-              {t("nav.promoPersLogin")}
-                      <ArrowRight className="w-4 h-4" />
-            </a>
+              <ReactCountryFlag
+                countryCode={langToCountry[language]}
+                svg
+                style={{ width: "1.8rem", height: "1.8rem", borderRadius: "4px", display: "block" }}
+              />
+            </button>
+
+            {/* Language dropdown */}
+            {isLangOpen && (
+              <>
+                <div className="fixed inset-0 z-40" onClick={() => setIsLangOpen(false)} />
+                <div className="absolute right-0 top-full mt-3 z-50 bg-white rounded-xl shadow-2xl overflow-hidden border border-gray-100 w-44">
+                  {languages.map((lang) => (
+                    <button
+                      key={lang}
+                      onClick={() => { setLanguage(lang); setIsLangOpen(false) }}
+                      className={`w-full flex items-center gap-3 px-4 py-3 text-sm font-medium transition-colors ${
+                        language === lang
+                          ? "bg-[#002855] text-white"
+                          : "text-[#002855] hover:bg-gray-50"
+                      }`}
+                    >
+                      <ReactCountryFlag
+                        countryCode={langToCountry[lang]}
+                        svg
+                        style={{ width: "1.25rem", height: "1.25rem", borderRadius: "2px" }}
+                      />
+                      <span>{langNames[lang]}</span>
+                    </button>
+                  ))}
+                </div>
+              </>
+            )}
           </div>
         </div>
-              </div>
-            </>
-          )}
+      </div>
+
+      {/* ── Drawer backdrop ─────────────────────────────── */}
+      <div
+        className={`fixed inset-0 z-40 bg-black/50 transition-opacity duration-500 ${
+          isMenuOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
+        }`}
+        onClick={() => setIsMenuOpen(false)}
+      />
+
+      {/* ── Drawer panel ────────────────────────────────── */}
+      <div
+        className={`fixed top-0 right-0 h-full z-50 w-[340px] bg-white flex flex-col transition-transform duration-500 ease-in-out ${
+          isMenuOpen ? "translate-x-0" : "translate-x-full"
+        }`}
+      >
+        {/* Drawer header */}
+        <div className="flex items-center justify-between px-8 pt-8 pb-6 border-b border-gray-100">
+          <Link href="/" onClick={closeAll} className="flex items-center gap-2">
+            <img src="/images/logo-pp.png" alt="PromoPers" className="w-8 h-8 object-contain" />
+            <span className="text-[#002855] tracking-tight text-xl" style={{ fontWeight: 600 }}>PromoPers</span>
+          </Link>
+          <button
+            onClick={() => setIsMenuOpen(false)}
+            className="text-[#002855] hover:text-[#FFC72C] transition-colors"
+            aria-label="Close menu"
+          >
+            <X size={24} />
+          </button>
+        </div>
+
+        {/* Nav links */}
+        <nav className="flex-1 flex flex-col justify-center px-10 gap-1">
+          {navLinks.map((link, i) => (
+            <Link
+              key={link.href}
+              href={link.href}
+              onClick={closeAll}
+              className="group flex items-center justify-between py-4 border-b border-gray-100 last:border-0"
+              style={{ animationDelay: `${i * 60}ms` }}
+            >
+              <span className="text-[#002855] text-2xl font-semibold tracking-tight group-hover:text-[#FFC72C] transition-colors duration-200">
+                {link.label}
+              </span>
+              <span className="text-gray-300 group-hover:text-[#FFC72C] transition-colors duration-200 text-lg">
+                →
+              </span>
+            </Link>
+          ))}
         </nav>
+
+        {/* Drawer footer */}
+        <div className="px-10 py-8 border-t border-gray-100">
+          <p className="text-xs text-gray-400 tracking-wide">X-Tool Services (Schweiz) AG</p>
+        </div>
       </div>
     </>
   )

@@ -2,6 +2,7 @@
 
 import { Navigation } from "@/components/navigation"
 import { HeroSection } from "@/components/hero-section"
+import { ServicesSection } from "@/components/services-section"
 import { HeroStatsSection } from "@/components/hero-stats-section"
 import { FloatingFeaturesSection } from "@/components/floating-features-section"
 import { ImageCarouselsSection } from "@/components/image-carousels-section"
@@ -13,19 +14,28 @@ import { Footer } from "@/components/footer"
 
 export default function HomePage() {
   return (
-    <div className="min-h-screen bg-white">
+    <div className="bg-white">
       <Navigation />
       <main>
+        {/* Hero is fixed behind everything */}
         <HeroSection />
-        <FloatingFeaturesSection />
-        <ImageCarouselsSection />
-        <AboutSection />
-        <HeroStatsSection />
-        <WorksSection />
-        <TestimonialsSection />
-        <ContactCTA />
+        {/* Spacer creates scroll room so hero is visible first */}
+        <div style={{ height: "100vh" }} />
+        {/* Content slides up over the fixed hero */}
+        <div className="relative bg-white" style={{ zIndex: 10 }}>
+          <FloatingFeaturesSection />
+          <ServicesSection />
+          <WorksSection />
+          <HeroStatsSection />
+          <AboutSection />
+          <ImageCarouselsSection />
+          <TestimonialsSection />
+          <ContactCTA />
+        </div>
       </main>
-      <Footer />
+      <div className="relative" style={{ zIndex: 10 }}>
+        <Footer />
+      </div>
     </div>
   )
 }

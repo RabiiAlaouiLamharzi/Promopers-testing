@@ -15,12 +15,14 @@ const KNOWN_BIN_IDS = {
   references: '6936a950d0ea881f401a6f82',
   blogs: '69369e9143b1c97be9df4def',
   testimonials: '69369e92d0ea881f401a5c39',
+  jobs: 'default-jobs',
 }
 
 const BIN_IDS = {
   references: process.env.JSONBIN_REFERENCES_BIN_ID || KNOWN_BIN_IDS.references,
   blogs: process.env.JSONBIN_BLOGS_BIN_ID || KNOWN_BIN_IDS.blogs,
   testimonials: process.env.JSONBIN_TESTIMONIALS_BIN_ID || KNOWN_BIN_IDS.testimonials,
+  jobs: process.env.JSONBIN_JOBS_BIN_ID || KNOWN_BIN_IDS.jobs,
 }
 
 // Cache for actual bin IDs returned by JSONBin.io (they're auto-generated)
@@ -306,5 +308,13 @@ export async function readTestimonials<T>(): Promise<T> {
 
 export async function writeTestimonials<T>(data: T): Promise<string> {
   return writeJsonToBin(BIN_IDS.testimonials, data)
+}
+
+export async function readJobs<T>(): Promise<T> {
+  return readJsonFromBin<T>(BIN_IDS.jobs)
+}
+
+export async function writeJobs<T>(data: T): Promise<string> {
+  return writeJsonToBin(BIN_IDS.jobs, data)
 }
 
