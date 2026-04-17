@@ -149,27 +149,36 @@ function ContactFormAndMapSection() {
           {/* Contact Form */}
           <form onSubmit={handleSubmit} className="space-y-5 bg-[#F7F8FA] rounded-3xl p-8 border border-gray-200">
             <div>
-              <label className="block text-xs font-bold text-[#121830]/50 uppercase tracking-widest mb-2">{t("contact.yourName")} *</label>
+              <label className="block text-xs font-bold text-[#121830]/50 uppercase tracking-widest mb-2">
+                <span>{t("contact.yourName")}</span>
+              </label>
               <input type="text" name="name" placeholder="John Doe" value={formData.name} onChange={handleChange} required className={inputCls} />
             </div>
             <div>
-              <label className="block text-xs font-bold text-[#121830]/50 uppercase tracking-widest mb-2">{t("contact.yourMail")} *</label>
+              <label className="block text-xs font-bold text-[#121830]/50 uppercase tracking-widest mb-2">
+                <span>{t("contact.yourMail")}</span>
+              </label>
               <input type="email" name="email" placeholder="you@company.com" value={formData.email} onChange={handleChange} required className={inputCls} />
             </div>
             <div>
-              <label className="block text-xs font-bold text-[#121830]/50 uppercase tracking-widest mb-2">{t("contact.projectDetails")}</label>
+              <label className="block text-xs font-bold text-[#121830]/50 uppercase tracking-widest mb-2">
+                <span>{t("contact.projectDetails")}</span>
+              </label>
               <textarea name="message" placeholder="Tell us about your project..." value={formData.message} onChange={handleChange} required rows={9} className={`${inputCls} resize-none`} />
             </div>
             <button
               type="submit"
-              disabled={isSubmitting}
-              className="w-full bg-[#FFCE5C] text-[#121830] px-12 py-4 rounded-full font-bold text-sm uppercase tracking-wider hover:bg-[#F5C440] transition-colors inline-flex items-center justify-center gap-3 disabled:opacity-50 disabled:cursor-not-allowed"
+              className="w-full bg-[#FFCE5C] text-[#121830] px-12 py-4 rounded-full font-bold text-sm uppercase tracking-wider hover:bg-[#F5C440] transition-colors inline-flex items-center justify-center gap-3"
+              style={{ opacity: isSubmitting ? 0.5 : 1, cursor: isSubmitting ? 'not-allowed' : 'pointer' }}
             >
-              {isSubmitting ? (
-                <><Loader2 className="w-4 h-4 animate-spin" />{t("contact.sending")}</>
-              ) : (
-                <>{t("contact.sendMessage")}<ArrowRight className="w-4 h-4" /></>
-              )}
+              <span style={{ display: isSubmitting ? 'none' : 'inline-flex', alignItems: 'center', gap: '0.75rem' }}>
+                <span>{t("contact.sendMessage")}</span>
+                <ArrowRight className="w-4 h-4" />
+              </span>
+              <span style={{ display: isSubmitting ? 'inline-flex' : 'none', alignItems: 'center', gap: '0.75rem' }}>
+                <Loader2 className="w-4 h-4 animate-spin" />
+                <span>{t("contact.sending")}</span>
+              </span>
             </button>
           </form>
 
