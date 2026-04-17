@@ -138,7 +138,7 @@ function ContactFormAndMapSection() {
     })
   }
 
-  const inputCls = "w-full px-5 py-3.5 rounded-xl border border-gray-200 focus:border-[#121830] outline-none transition-colors text-[#121830] bg-white text-sm"
+  const inputCls = "w-full px-5 py-3.5 rounded-xl border-2 border-gray-200 focus:border-[#121830] outline-none transition-colors text-[#121830] bg-white text-sm"
 
   return (
     <section id="contact-form" className="pb-8 bg-white" style={{ scrollMarginTop: '30px' }}>
@@ -147,7 +147,7 @@ function ContactFormAndMapSection() {
         <div className="grid lg:grid-cols-2 gap-12 items-stretch">
 
           {/* Contact Form */}
-          <form onSubmit={handleSubmit} className="space-y-5">
+          <form onSubmit={handleSubmit} className="space-y-5 bg-[#F7F8FA] rounded-3xl p-8 border border-gray-200">
             <div>
               <label className="block text-xs font-bold text-[#121830]/50 uppercase tracking-widest mb-2">{t("contact.yourName")} *</label>
               <input type="text" name="name" placeholder="John Doe" value={formData.name} onChange={handleChange} required className={inputCls} />
