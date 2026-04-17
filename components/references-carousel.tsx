@@ -73,7 +73,7 @@ export function ReferencesCarousel() {
           }`}
         >
           <button className="w-14 h-14 luxury-button luxury-button-primary rounded-full flex items-center justify-center">
-            <span className="text-[#002855] font-bold text-xl">→</span>
+            <span className="text-[#121830] font-bold text-xl">→</span>
           </button>
         </div>
 
@@ -82,7 +82,7 @@ export function ReferencesCarousel() {
             <div
               key={plan.name}
               className={`rounded-3xl p-10 transition-all duration-1000 ${
-                plan.highlight ? "bg-[#FFC72C] text-[#002855] scale-105 shadow-2xl" : "bg-white shadow-lg"
+                plan.highlight ? "bg-[#FFCE5C] text-[#121830] scale-105 shadow-2xl" : "bg-white shadow-lg"
               } ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
               style={{ transitionDelay: `${index * 150}ms` }}
             >

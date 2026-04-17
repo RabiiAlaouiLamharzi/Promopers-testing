@@ -293,8 +293,8 @@ export function WorksSection() {
               isVisible ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-8"
             }`}
           >
-            <h2 className="text-headline text-[#002855] mb-4 uppercase">{t("works.title")}</h2>
-            <h3 className="text-subheadline text-[#003D7A] mb-8 uppercase">{t("works.subtitle")}</h3>
+            <h2 className="text-headline text-[#121830] mb-4 uppercase">{t("works.title")}</h2>
+            <h3 className="text-subheadline text-[#2B2F36] mb-8 uppercase">{t("works.subtitle")}</h3>
           </div>
 
           {/* Right: Description & CTA */}
@@ -303,12 +303,12 @@ export function WorksSection() {
               isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
             }`}
           >
-            <p className="text-luxury-body text-[#003D7A] leading-relaxed mb-6 max-w-md">
+            <p className="text-luxury-body text-[#2B2F36] leading-relaxed mb-6 max-w-md">
               {t("works.description")}
             </p>
             <Link href="/blog" className="luxury-button luxury-button-primary">
               <span className="font-semibold">{t("works.readAllPosts")}</span>
-              <span className="text-[#002855] font-bold text-xl ml-2">→</span>
+              <span className="text-[#121830] font-bold text-xl ml-2">→</span>
             </Link>
           </div>
         </div>

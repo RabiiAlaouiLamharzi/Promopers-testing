@@ -49,21 +49,19 @@ export function Navigation() {
   const isAdmin = solidNavPages.includes(pathname)
 
   useEffect(() => {
-    // Specific admin pages always use solid navbar — no scroll logic needed.
-    if (isAdmin) {
-      setIsPastHero(true)
-      return
-    }
     const handleScroll = () => {
-      // On the home page: switch after the full-height hero.
-      // On all other pages: switch as soon as the user scrolls at all (50px).
-      const threshold = isHome ? window.innerHeight - 80 : 50
-      setIsPastHero(window.scrollY > threshold)
+      if (isHome) {
+        // Home page: switch after the full-height hero
+        setIsPastHero(window.scrollY > window.innerHeight - 80)
+      } else {
+        // All other pages: fade in background after any scroll
+        setIsPastHero(window.scrollY > 10)
+      }
     }
     handleScroll()
     window.addEventListener("scroll", handleScroll, { passive: true })
     return () => window.removeEventListener("scroll", handleScroll)
-  }, [isHome, isAdmin])
+  }, [isHome])
 
   const closeAll = () => {
     setIsMenuOpen(false)
@@ -81,11 +79,11 @@ export function Navigation() {
           <img
             src="/images/logo-pp.png"
             alt="PromoPers"
-            className={`w-7 h-7 object-contain transition-all duration-300 ${isPastHero ? "" : "brightness-0 invert"}`}
+            className={`w-7 h-7 object-contain transition-all duration-300 ${!isHome || isPastHero ? "" : "brightness-0 invert"}`}
           />
           <span
             className={`tracking-tight transition-colors duration-300 ${
-              isPastHero ? "text-[#002855]" : "text-white"
+              !isHome || isPastHero ? "text-[#121830]" : "text-white"
             }`}
             style={{ fontSize: "clamp(1.1rem, 2vw, 1.4rem)", lineHeight: 1, fontWeight: 600 }}
           >
@@ -99,9 +97,9 @@ export function Navigation() {
           <button
             onClick={() => { setIsMenuOpen(!isMenuOpen); setIsLangOpen(false) }}
             className={`flex items-center gap-2.5 font-semibold text-base uppercase tracking-widest transition-colors ${
-              isPastHero
-                ? "text-[#002855] hover:text-[#FFC72C]"
-                : "text-white hover:text-[#FFC72C]"
+              !isHome || isPastHero
+                ? "text-[#121830] hover:text-[#FFCE5C]"
+                : "text-white hover:text-[#FFCE5C]"
             }`}
             aria-label="Toggle menu"
           >
@@ -110,7 +108,7 @@ export function Navigation() {
           </button>
 
           {/* Separator */}
-          <span className={`font-thin text-xl leading-none transition-colors duration-300 ${isPastHero ? "text-[#002855]/30" : "text-white/30"}`}>|</span>
+          <span className={`font-thin text-xl leading-none transition-colors duration-300 ${!isHome || isPastHero ? "text-[#121830]/30" : "text-white/30"}`}>|</span>
 
           {/* Language flag */}
           <div className="relative">
@@ -137,8 +135,8 @@ export function Navigation() {
                       onClick={() => { setLanguage(lang); setIsLangOpen(false) }}
                       className={`w-full flex items-center gap-3 px-4 py-3 text-sm font-medium transition-colors ${
                         language === lang
-                          ? "bg-[#002855] text-white"
-                          : "text-[#002855] hover:bg-gray-50"
+                          ? "bg-[#121830] text-white"
+                          : "text-[#121830] hover:bg-gray-50"
                       }`}
                     >
                       <ReactCountryFlag
@@ -174,11 +172,11 @@ export function Navigation() {
         <div className="flex items-center justify-between px-8 pt-8 pb-6 border-b border-gray-100">
           <Link href="/" onClick={closeAll} className="flex items-center gap-2">
             <img src="/images/logo-pp.png" alt="PromoPers" className="w-8 h-8 object-contain" />
-            <span className="text-[#002855] tracking-tight text-xl" style={{ fontWeight: 600 }}>PromoPers</span>
+            <span className="text-[#121830] tracking-tight text-xl" style={{ fontWeight: 600 }}>PromoPers</span>
           </Link>
           <button
             onClick={() => setIsMenuOpen(false)}
-            className="text-[#002855] hover:text-[#FFC72C] transition-colors"
+            className="text-[#121830] hover:text-[#FFCE5C] transition-colors"
             aria-label="Close menu"
           >
             <X size={24} />
@@ -195,10 +193,10 @@ export function Navigation() {
               className="group flex items-center justify-between py-4 border-b border-gray-100 last:border-0"
               style={{ animationDelay: `${i * 60}ms` }}
             >
-              <span className="text-[#002855] text-2xl font-semibold tracking-tight group-hover:text-[#FFC72C] transition-colors duration-200">
+              <span className="text-[#121830] text-2xl font-semibold tracking-tight group-hover:text-[#FFCE5C] transition-colors duration-200">
                 {link.label}
               </span>
-              <span className="text-gray-300 group-hover:text-[#FFC72C] transition-colors duration-200 text-lg">
+              <span className="text-gray-300 group-hover:text-[#FFCE5C] transition-colors duration-200 text-lg">
                 →
               </span>
             </Link>

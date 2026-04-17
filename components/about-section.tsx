@@ -140,10 +140,10 @@ export function AboutSection() {
               isVisible ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-8"
             }`}
           >
-                    <h2 className="text-headline text-[#002855] mb-6 uppercase">
+                    <h2 className="text-headline text-[#121830] mb-6 uppercase">
                       {t("about.title")}
                       <br />
-                      <span className="text-[#003D7A]">{t("about.titleHighlight")}</span>
+                      <span className="text-[#2B2F36]">{t("about.titleHighlight")}</span>
                     </h2>
           </div>
 
@@ -153,7 +153,7 @@ export function AboutSection() {
               isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
             }`}
           >
-            <p className="text-luxury-body text-[#003D7A] mb-8 leading-relaxed">
+            <p className="text-luxury-body text-[#2B2F36] mb-8 leading-relaxed">
               {t("about.description")}
             </p>
                     <Link href="/contact" className="luxury-button luxury-button-primary font-bold text-lg flex items-center gap-3">
@@ -187,7 +187,7 @@ export function AboutSection() {
                   {/* Number Badge */}
                   <div className="absolute top-4 left-4">
                     <div className="w-8 h-8 bg-white rounded-full flex items-center justify-center shadow-sm">
-                      <span className="text-[#002855] font-bold text-xs">{feature.number}</span>
+                      <span className="text-[#121830] font-bold text-xs">{feature.number}</span>
                     </div>
                   </div>
                 </div>
@@ -195,12 +195,12 @@ export function AboutSection() {
                 {/* Content */}
                 <div className="p-8 space-y-6">
                   {/* Title */}
-                  <h3 className="text-xl font-black text-[#002855] leading-tight uppercase" style={{ fontFamily: 'var(--font-archivo)' }}>
+                  <h3 className="text-xl font-black text-[#121830] leading-tight uppercase">
                     {feature.title}
                   </h3>
 
                   {/* Description */}
-                  <p className="text-base text-[#003D7A] leading-relaxed">
+                  <p className="text-base text-[#2B2F36] leading-relaxed">
                     {feature.description}
                   </p>
 
@@ -208,8 +208,8 @@ export function AboutSection() {
                   <div className="space-y-3">
                     {feature.benefits.map((benefit, benefitIndex) => (
                       <div key={benefitIndex} className="flex items-center gap-2">
-                        <div className="w-1.5 h-1.5 bg-[#FFC72C] rounded-full flex-shrink-0"></div>
-                        <span className="text-[#002855] font-medium text-sm">{benefit}</span>
+                        <div className="w-1.5 h-1.5 bg-[#FFCE5C] rounded-full flex-shrink-0"></div>
+                        <span className="text-[#121830] font-medium text-sm">{benefit}</span>
                       </div>
                     ))}
                   </div>

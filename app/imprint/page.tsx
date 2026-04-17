@@ -11,8 +11,6 @@ export default function ImprintPage() {
     <div className="min-h-screen bg-white">
       <Navigation />
       <main>
-        <Hero />
-
         <section className="py-20 bg-white relative overflow-hidden">
           <BackgroundDots />
 
@@ -70,24 +68,20 @@ export default function ImprintPage() {
             </article>
             <style jsx>{`
               .legal-article {
-                font-family: var(--font-roboto-condensed);
-              }
-              .legal-article h2:first-of-type {
-                padding-left: 20%;
-                padding-right: 20%;
+                font-family: var(--font-poppins), 'Poppins', sans-serif;
               }
               .legal-article h2 {
                 margin-top: 2.75rem;
                 margin-bottom: 0.75rem;
-                font-size: 2.25rem;
-                line-height: 1.1;
+                font-size: 3rem;
+                line-height: 1.0;
                 text-transform: uppercase;
                 font-weight: 900;
-                letter-spacing: -0.01em;
-                color: #002855;
+                letter-spacing: -0.03em;
+                color: #121830;
               }
               @media (min-width: 768px) {
-                .legal-article h2 { font-size: 3rem; }
+                .legal-article h2 { font-size: 4.5rem; }
               }
               .legal-article h3 {
                 margin-top: 1.5rem;
@@ -97,7 +91,7 @@ export default function ImprintPage() {
                 text-transform: uppercase;
                 font-weight: 900;
                 letter-spacing: 0.02em;
-                color: #002855;
+                color: #121830;
               }
               @media (min-width: 768px) {
                 .legal-article h3 { font-size: 1.75rem; }
@@ -128,33 +122,6 @@ export default function ImprintPage() {
   )
 }
 
-function Hero() {
-  const [isVisible, setIsVisible] = useState(false)
-  const { t } = useLanguage()
-  useEffect(() => setIsVisible(true), [])
-  return (
-    <section className="relative bg-[#002855] h-[50vh] min-h-[400px] flex items-center justify-center overflow-hidden">
-      <div className="absolute inset-0">
-        <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-[#FFC72C]/30 to-transparent" />
-        <div className="absolute inset-0 opacity-[0.02]" style={{
-            backgroundImage: 'radial-gradient(circle at 2px 2px, #FFC72C 1px, transparent 0)',
-          backgroundSize: '32px 32px'
-        }} />
-      </div>
-      <div className="relative z-10 luxury-container text-center px-6">
-        <div className={`transition-all duration-700 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
-          <div className="inline-block mb-6 px-6 py-2 rounded-full border-2 border-[#FFC72C] bg-white/5 mt-16">
-            <span className="text-[#FFC72C] text-sm font-bold uppercase tracking-[0.15em]">{t("imprint.badge")}</span>
-          </div>
-          <h1 className="text-5xl md:text-6xl lg:text-7xl font-black text-white mb-3 uppercase leading-none tracking-tight">
-            <span className="text-[#FFC72C]">{t("imprint.title")}</span>
-          </h1>
-          <div className="w-16 h-0.5 bg-[#FFC72C]/50 mx-auto" />
-        </div>
-      </div>
-    </section>
-  )
-}
 
 function BackgroundDots() {
   return (
@@ -162,7 +129,7 @@ function BackgroundDots() {
       <div
         className="absolute inset-0"
         style={{
-          backgroundImage: "radial-gradient(circle at 2px 2px, #002855 1px, transparent 0)",
+          backgroundImage: "radial-gradient(circle at 2px 2px, #121830 1px, transparent 0)",
           backgroundSize: "40px 40px",
         }}
       />

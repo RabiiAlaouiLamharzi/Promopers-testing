@@ -149,30 +149,18 @@ export function TestimonialsSection() {
   }
 
   return (
-    <section ref={sectionRef} className="luxury-section bg-white pt-0">
+    <section ref={sectionRef} className="luxury-section bg-white pt-0 pb-4">
       <div className="luxury-container">
         {/* Header — same style as works/about sections */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-start mb-16 mt-0">
+        <div className="mb-16 mt-0">
           <div
             className={`transition-all duration-1000 ${
               isVisible ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-8"
             }`}
           >
-            <h2 className="text-headline text-[#002855] mb-6 uppercase">
+            <h2 className="text-headline text-[#121830] mb-6 uppercase">
               {t("testimonials.title")}
-              <br />
-              <span className="text-[#003D7A]">{t("testimonials.titleHighlight")}</span>
             </h2>
-          </div>
-
-          <div
-            className={`transition-all duration-1000 delay-200 ${
-              isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
-            }`}
-          >
-            <p className="text-luxury-body text-[#003D7A] leading-relaxed">
-              {t("testimonials.description")}
-            </p>
           </div>
         </div>
 
@@ -199,7 +187,7 @@ export function TestimonialsSection() {
               className={`grid grid-cols-1 min-[1000px]:grid-cols-[1fr_2fr] items-center gap-8 lg:gap-16 transition-all duration-1000 ${
                 isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-12"
               }`}
-              style={{ transitionDelay: "400ms", overflow: "hidden" }}
+              style={{ transitionDelay: "400ms" }}
             >
               {/* Left: Brand logo matching testimonial index (1/3 width) */}
               <div
@@ -242,9 +230,9 @@ export function TestimonialsSection() {
                 }}
               >
                 <div className="relative">
-                  <Quote className="absolute -top-8 -left-4 w-24 h-24 text-[#FFC72C] opacity-20" />
+                  <Quote className="absolute -top-8 -left-4 w-24 h-24 text-[#FFCE5C] opacity-20" />
 
-                  <blockquote className="text-lg md:text-xl lg:text-2xl text-[#002855] leading-relaxed mb-8 relative z-10 pl-16 text-justify">
+                  <blockquote className="text-lg md:text-xl lg:text-2xl text-[#2B2F36] leading-relaxed mb-8 relative z-10 pl-16 text-justify">
                     "{current.quote}"
                   </blockquote>
 
@@ -259,8 +247,8 @@ export function TestimonialsSection() {
                         />
                       </div>
                       <div>
-                        <h4 className="font-bold text-lg text-[#002855] mb-0.5">{current.author}</h4>
-                        <p className="text-[#003D7A] text-sm">{current.position}</p>
+                        <h4 className="font-bold text-lg text-[#121830] mb-0.5">{current.author}</h4>
+                        <p className="text-[#2B2F36] text-sm">{current.position}</p>
                       </div>
                     </div>
 
@@ -269,7 +257,7 @@ export function TestimonialsSection() {
                       <div className="flex items-center gap-4 flex-shrink-0">
                         <button
                           onClick={prev}
-                          className="w-10 h-10 rounded-full border border-gray-200 flex items-center justify-center text-[#002855] hover:bg-[#002855] hover:text-white hover:border-[#002855] transition-all duration-300"
+                          className="w-10 h-10 rounded-full border border-gray-200 flex items-center justify-center text-[#121830] hover:bg-[#121830] hover:text-white hover:border-[#121830] transition-all duration-300"
                           aria-label="Previous testimonial"
                         >
                           <ChevronLeft className="w-5 h-5" />
@@ -280,14 +268,14 @@ export function TestimonialsSection() {
                               key={index}
                               onClick={() => goToTestimonial(index, index > safeIndex ? "left" : "right")}
                               className={`h-1.5 rounded-full transition-all duration-300 ${
-                                index === safeIndex ? "bg-[#002855] w-6" : "bg-gray-200 w-3 hover:bg-gray-300"
+                                index === safeIndex ? "bg-[#121830] w-6" : "bg-gray-200 w-3 hover:bg-gray-300"
                               }`}
                             />
                           ))}
                         </div>
                         <button
                           onClick={next}
-                          className="w-10 h-10 rounded-full border border-gray-200 flex items-center justify-center text-[#002855] hover:bg-[#002855] hover:text-white hover:border-[#002855] transition-all duration-300"
+                          className="w-10 h-10 rounded-full border border-gray-200 flex items-center justify-center text-[#121830] hover:bg-[#121830] hover:text-white hover:border-[#121830] transition-all duration-300"
                           aria-label="Next testimonial"
                         >
                           <ChevronRight className="w-5 h-5" />
@@ -305,12 +293,12 @@ export function TestimonialsSection() {
         {/* No testimonials */}
         {!loading && !current && translatedTestimonials.length === 0 && (
           <div className="text-center py-12">
-            <p className="text-[#003D7A] text-lg">No testimonials available at the moment.</p>
+            <p className="text-[#2B2F36] text-lg">No testimonials available at the moment.</p>
           </div>
         )}
       </div>
 
-      {/* Separator line with space above */}
+      {/* Separator line */}
       <div className="luxury-container" style={{ marginTop: "3rem" }}>
         <div className="border-t border-gray-100" />
       </div>
@@ -323,6 +311,7 @@ export function TestimonialsSection() {
       >
         <LogoScroller />
       </div>
+
     </section>
   )
 }

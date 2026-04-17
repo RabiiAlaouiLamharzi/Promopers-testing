@@ -4,12 +4,8 @@ import { Navigation } from "@/components/navigation"
 import { HeroSection } from "@/components/hero-section"
 import { ServicesSection } from "@/components/services-section"
 import { HeroStatsSection } from "@/components/hero-stats-section"
-import { FloatingFeaturesSection } from "@/components/floating-features-section"
-import { ImageCarouselsSection } from "@/components/image-carousels-section"
-import { AboutSection } from "@/components/about-section"
 import { WorksSection } from "@/components/works-section"
 import { TestimonialsSection } from "@/components/testimonials-section"
-import { ContactCTA } from "@/components/contact-cta"
 import { Footer } from "@/components/footer"
 
 export default function HomePage() {
@@ -23,14 +19,10 @@ export default function HomePage() {
         <div style={{ height: "100vh" }} />
         {/* Content slides up over the fixed hero */}
         <div className="relative bg-white" style={{ zIndex: 10 }}>
-          <FloatingFeaturesSection />
           <ServicesSection />
           <WorksSection />
           <HeroStatsSection />
-          <AboutSection />
-          <ImageCarouselsSection />
           <TestimonialsSection />
-          <ContactCTA />
         </div>
       </main>
       <div className="relative" style={{ zIndex: 10 }}>

@@ -68,8 +68,8 @@ export function SuccessFactorsSection() {
               isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
             }`}
           >
-            <div className="inline-flex items-center gap-2 px-4 py-2 bg-[#002855] rounded-full text-white text-sm font-medium mb-6 md:mb-8">
-              <div className="w-2 h-2 rounded-full bg-[#FFC72C]" />
+            <div className="inline-flex items-center gap-2 px-4 py-2 bg-[#121830] rounded-full text-white text-sm font-medium mb-6 md:mb-8">
+              <div className="w-2 h-2 rounded-full bg-[#FFCE5C]" />
               {t("successFactors.badge")}
             </div>
             <h2 className="text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-black text-black mb-4 md:mb-6 lg:mb-8 uppercase leading-tight">
@@ -95,14 +95,14 @@ export function SuccessFactorsSection() {
                 <div>
                   <div className="glass-effect rounded-3xl p-6 md:p-8 lg:p-12 luxury-border">
                     <div className="mb-6 md:mb-8">
-                      <div className="inline-flex items-center gap-1.5 px-3 py-1 bg-[#002855] rounded-full text-white text-xs font-bold mb-4 md:mb-6">
-                        <div className="w-1.5 h-1.5 rounded-full bg-[#FFC72C]" />
+                      <div className="inline-flex items-center gap-1.5 px-3 py-1 bg-[#121830] rounded-full text-white text-xs font-bold mb-4 md:mb-6">
+                        <div className="w-1.5 h-1.5 rounded-full bg-[#FFCE5C]" />
                         FACTOR {String(index + 1).padStart(2, '0')}
                       </div>
                       <h3 className="text-2xl md:text-3xl lg:text-4xl font-black text-black mb-4 md:mb-6 uppercase leading-tight">
                         {factor.title}
                       </h3>
-                      <h4 className="text-lg md:text-xl font-bold text-[#002855] mb-6 md:mb-8">
+                      <h4 className="text-lg md:text-xl font-bold text-[#121830] mb-6 md:mb-8">
                         {factor.subtitle}
                       </h4>
                     </div>
@@ -111,7 +111,7 @@ export function SuccessFactorsSection() {
                     </p>
                     
                     {/* Decorative Line */}
-                    <div className="mt-8 h-1 w-20 bg-[#FFC72C] rounded-full" />
+                    <div className="mt-8 h-1 w-20 bg-[#FFCE5C] rounded-full" />
                   </div>
                 </div>
 
@@ -127,7 +127,7 @@ export function SuccessFactorsSection() {
                     
                     {/* Image Badge */}
                     <div className="absolute top-6 right-6">
-                      <div className="bg-[#FFC72C] text-black px-4 py-2 rounded-full text-sm font-bold">
+                      <div className="bg-[#FFCE5C] text-[#121830] px-4 py-2 rounded-full text-sm font-bold">
                         {String(index + 1).padStart(2, '0')}
                       </div>
                     </div>

@@ -55,10 +55,10 @@ export function ServicesSection() {
             </span>
 
             {/* Text */}
-            <span className="text-[#002855] text-3xl md:text-5xl font-black leading-tight uppercase">
+            <span className="text-[#121830] text-3xl md:text-5xl font-black leading-tight uppercase">
               {item.title}
             </span>
-            <span className="text-[#002855]/55 text-lg md:text-xl font-normal leading-snug italic">
+            <span className="text-[#2B2F36]/70 text-lg md:text-xl font-normal leading-snug italic">
               {item.subtitle}
             </span>
           </div>

@@ -114,7 +114,7 @@ export default function ClientDetailPage() {
       <div className="min-h-screen bg-white">
         <Navigation />
         <div className="flex items-center justify-center min-h-[60vh]">
-          <div className="text-center text-[#002855]">Loading...</div>
+          <div className="text-center text-[#121830]">Loading...</div>
         </div>
         <Footer />
       </div>
@@ -127,8 +127,8 @@ export default function ClientDetailPage() {
         <Navigation />
         <div className="flex items-center justify-center min-h-[60vh]">
           <div className="text-center">
-            <h1 className="text-4xl font-bold text-[#002855] mb-4">{t("references.clientNotFound")}</h1>
-            <Link href="/references" className="text-[#FFC72C] hover:underline">
+            <h1 className="text-4xl font-bold text-[#121830] mb-4">{t("references.clientNotFound")}</h1>
+            <Link href="/references" className="text-[#FFCE5C] hover:underline">
               {t("references.backToReferences")}
             </Link>
           </div>
@@ -141,93 +141,71 @@ export default function ClientDetailPage() {
   return (
     <div className="min-h-screen bg-white">
       <Navigation />
-      <HeroSection data={clientData} t={t} />
+      <TitleSection data={clientData} t={t} />
       <ContentSection data={clientData} t={t} />
       <RelatedReferencesSection references={relatedReferences} t={t} />
-      <CTASection t={t} />
       <Footer />
     </div>
   )
 }
 
-function HeroSection({ data, t }: { data: any, t: (key: string) => string }) {
-  const [isVisible, setIsVisible] = useState(false)
 
-  useEffect(() => {
-    setIsVisible(true)
-  }, [])
-
+function TitleSection({ data, t }: { data: any, t: (key: string) => string }) {
   return (
-    <section className="relative bg-[#002855] h-[50vh] min-h-[400px] flex items-center justify-center overflow-hidden">
-      <div className="absolute inset-0">
-        <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-[#FFC72C]/30 to-transparent" />
-        <div className="absolute inset-0 opacity-[0.02]" style={{
-          backgroundImage: 'radial-gradient(circle at 2px 2px, #FFC72C 1px, transparent 0)',
-          backgroundSize: '32px 32px'
-        }} />
-      </div>
+    <section className="luxury-section bg-white">
+      <div className="luxury-container">
+        {/* Back link */}
+        <Link href="/references" className="inline-flex items-center gap-2 text-sm text-[#2B2F36]/60 hover:text-[#121830] transition-colors mb-6 group">
+          <ArrowRight className="w-4 h-4 rotate-180 group-hover:-translate-x-1 transition-transform" />
+          {t("references.backToReferences")}
+        </Link>
 
-      <div className="relative z-10 luxury-container text-center px-6">
-        <div
-          className={`transition-all duration-700 ${
-            isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
-          }`}
-        >
-          <div className="inline-block mb-6 px-6 py-2 rounded-full border-2 border-[#FFC72C] bg-white/5 mt-16">
-            <span className="text-[#FFC72C] text-sm font-bold uppercase tracking-[0.15em]">{t("references.ourWork")}</span>
-          </div>
-
-          <h1 className="text-5xl md:text-6xl lg:text-7xl font-black text-white mb-3 uppercase leading-none tracking-tight">
-            <span className="text-[#FFC72C]">{data.name}</span>
-          </h1>
-          
-          {data.tagline && (
-            <p className="text-white/80 text-lg md:text-xl max-w-2xl mx-auto">
-              {data.tagline}
-            </p>
+        {/* Meta */}
+        <div className="flex flex-wrap items-center gap-3 mb-4">
+          {data.tags && data.tags.length > 0 && (
+            <span className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-[#121830] text-white text-xs font-bold rounded-full uppercase tracking-wide">
+              <Tag className="w-3 h-3 text-[#FFCE5C]" />
+              {data.tags[0]}
+            </span>
           )}
-          
-          <div className="w-16 h-0.5 bg-[#FFC72C]/50 mx-auto" />
+          {data.location && (
+            <span className="flex items-center gap-1.5 text-sm text-gray-400">
+              <MapPin className="w-3.5 h-3.5" />
+              {data.location}
+            </span>
+          )}
+          {data.date && (
+            <span className="flex items-center gap-1.5 text-sm text-gray-400">
+              <Calendar className="w-3.5 h-3.5" />
+              {data.date}
+            </span>
+          )}
         </div>
+
+        {/* Title */}
+        <h1 className="text-4xl md:text-5xl lg:text-6xl font-black text-[#121830] uppercase max-w-4xl leading-none tracking-tight">
+          {data.name}
+        </h1>
       </div>
     </section>
   )
 }
 
 function ContentSection({ data, t }: { data: any, t: (key: string) => string }) {
-  const [isVisible, setIsVisible] = useState(false)
-  const sectionRef = useRef<HTMLElement>(null)
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true)
-        }
-      },
-      { threshold: 0.1 },
-    )
-
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current)
-    }
-
-    return () => observer.disconnect()
-  }, [])
-
   return (
-    <section ref={sectionRef} className="py-20 bg-white relative">
+    <section className="pb-8 bg-white">
       <div className="luxury-container">
-        <div className="grid lg:grid-cols-3 gap-12">
-          {/* Main Content - Left Side (2 columns) */}
-          <div className="lg:col-span-2 space-y-12">
+        <div className="grid lg:grid-cols-[1fr_300px] gap-16 items-start">
+
+          {/* Main Content */}
+          <div className="space-y-10">
             {/* Hero Image */}
             {data.heroImage && (
               <div className="w-full">
                 <img
                   src={data.heroImage}
                   alt={data.name}
-                  className="w-full h-auto rounded-2xl shadow-xl"
+                  className="w-full h-auto rounded-3xl shadow-xl"
                 />
               </div>
             )}
@@ -236,85 +214,63 @@ function ContentSection({ data, t }: { data: any, t: (key: string) => string }) 
             {data.images && data.images.length > 0 && (
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 {data.images.map((imageUrl: string, index: number) => (
-                  <div key={index} className="w-full">
-                    <img
-                      src={imageUrl}
-                      alt={`${data.name} - Image ${index + 1}`}
-                      className="w-full h-auto rounded-2xl shadow-xl"
-                    />
-                  </div>
+                  <img
+                    key={index}
+                    src={imageUrl}
+                    alt={`${data.name} - Image ${index + 1}`}
+                    className="w-full h-auto rounded-3xl shadow-xl"
+                  />
                 ))}
               </div>
             )}
 
-            {/* Content from Rich Text Editor - Only show HTML content */}
+            {/* Rich text content */}
             {data.additionalText && typeof data.additionalText === 'string' && data.additionalText.trim() ? (
               <div className="prose prose-lg max-w-none">
-                <div 
-                  className="text-lg text-[#003D7A] leading-relaxed rich-text-content"
+                <div
+                  className="text-base text-[#2B2F36] leading-relaxed rich-text-content"
                   dangerouslySetInnerHTML={{ __html: data.additionalText }}
                 />
               </div>
             ) : null}
-
-
           </div>
 
-          {/* Project Details Sidebar - Right Side (1 column) */}
-          <div className="lg:col-span-1">
-            <div className="sticky top-24 bg-gray-50 rounded-2xl p-8 border border-gray-200">
-              <h3 className="text-2xl font-bold text-[#002855] mb-8">{t("references.projectDetails")}</h3>
-              
-              <div className="space-y-8">
-                <div>
-                  <div className="flex items-center gap-3 mb-3">
-                    <div className="w-8 h-8 bg-[#FFC72C]/20 rounded-lg flex items-center justify-center">
-                      <Tag className="w-4 h-4 text-[#002855]" />
-                    </div>
-                    <span className="text-sm font-bold text-[#002855] uppercase tracking-wide">{t("references.client")}</span>
-                  </div>
-                  <p className="text-[#003D7A] ml-11">{data.client || data.name}</p>
-                </div>
+          {/* Sidebar */}
+          <div className="sticky top-24 space-y-8">
+            <h3 className="text-sm font-bold text-[#121830] uppercase tracking-widest">{t("references.projectDetails")}</h3>
 
+            <div className="space-y-6">
+              {(data.client || data.name) && (
                 <div>
-                  <div className="flex items-center gap-3 mb-3">
-                    <div className="w-8 h-8 bg-[#FFC72C]/20 rounded-lg flex items-center justify-center">
-                      <MapPin className="w-4 h-4 text-[#002855]" />
-                    </div>
-                    <span className="text-sm font-bold text-[#002855] uppercase tracking-wide">{t("references.location")}</span>
-                  </div>
-                  <p className="text-[#003D7A] ml-11">{data.location || 'N/A'}</p>
+                  <p className="text-xs text-gray-400 uppercase tracking-widest mb-1">{t("references.client")}</p>
+                  <p className="text-sm font-medium text-[#121830]">{data.client || data.name}</p>
                 </div>
-
+              )}
+              {data.location && (
                 <div>
-                  <div className="flex items-center gap-3 mb-3">
-                    <div className="w-8 h-8 bg-[#FFC72C]/20 rounded-lg flex items-center justify-center">
-                      <Calendar className="w-4 h-4 text-[#002855]" />
-                    </div>
-                    <span className="text-sm font-bold text-[#002855] uppercase tracking-wide">{t("references.date")}</span>
-                  </div>
-                  <p className="text-[#003D7A] ml-11">{data.date || 'N/A'}</p>
+                  <p className="text-xs text-gray-400 uppercase tracking-widest mb-1">{t("references.location")}</p>
+                  <p className="text-sm font-medium text-[#121830]">{data.location}</p>
                 </div>
-
-                {data.tags && data.tags.length > 0 && (
-                  <div>
-                    <div className="flex items-center gap-3 mb-3">
-                      <div className="w-8 h-8 bg-[#FFC72C]/20 rounded-lg flex items-center justify-center">
-                        <Tag className="w-4 h-4 text-[#002855]" />
-                      </div>
-                      <span className="text-sm font-bold text-[#002855] uppercase tracking-wide">{t("references.tags")}</span>
-                    </div>
-                    <div className="ml-11 flex flex-wrap gap-2">
-                      {data.tags.map((tag: string, index: number) => (
-                        <span key={index} className="inline-flex items-center gap-1.5 px-3 py-1 bg-[#002855] text-white rounded-full text-sm font-medium">
-                          <Tag className="w-3.5 h-3.5 text-[#FFC72C]" />
-                          {tag}
-                        </span>
-                      ))}
-                    </div>
+              )}
+              {data.date && (
+                <div>
+                  <p className="text-xs text-gray-400 uppercase tracking-widest mb-1">{t("references.date")}</p>
+                  <p className="text-sm font-medium text-[#121830]">{data.date}</p>
+                </div>
+              )}
+              {data.tags && data.tags.length > 0 && (
+                <div>
+                  <p className="text-xs text-gray-400 uppercase tracking-widest mb-2">{t("references.tags")}</p>
+                  <div className="flex flex-wrap gap-2">
+                    {data.tags.map((tag: string, index: number) => (
+                      <span key={index} className="inline-flex items-center gap-1.5 px-3 py-1 bg-[#121830] text-white rounded-full text-xs font-medium">
+                        <Tag className="w-3 h-3 text-[#FFCE5C]" />
+                        {tag}
+                      </span>
+                    ))}
                   </div>
-                )}
-              </div>
+                </div>
+              )}
             </div>
           </div>
         </div>
@@ -327,31 +283,39 @@ function RelatedReferencesSection({ references, t }: { references: any[], t: (ke
   if (references.length === 0) return null
 
   return (
-    <section className="py-20 bg-gray-50">
+    <section className="pt-12 pb-8 bg-white">
       <div className="luxury-container">
-        <h2 className="text-4xl md:text-5xl font-black text-[#002855] mb-4 uppercase text-center">
-          {t("references.relatedReferences") || "Related References"}
-        </h2>
-        <div className="w-20 h-0.5 bg-[#FFC72C] mx-auto mb-12" />
-        
+        {/* Header */}
+        <div className="grid grid-cols-1 lg:grid-cols-[1fr_1.5fr] gap-8 lg:gap-20 items-start mb-16">
+          <div>
+            <h2 className="text-headline text-[#121830] uppercase">Related</h2>
+            <h3 className="text-headline text-[#2B2F36] uppercase">References</h3>
+          </div>
+        </div>
+
         <div className="grid md:grid-cols-3 gap-8">
           {references.map((ref) => (
             <Link key={ref.slug} href={`/references/${ref.slug}`}>
-              <div className="bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-500 cursor-pointer group">
-                <div className="relative h-48 overflow-hidden">
+              <div className="group bg-white rounded-3xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 h-full flex flex-col cursor-pointer">
+                <div className="relative h-56 overflow-hidden">
                   <img
                     src={ref.image}
                     alt={ref.name}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#002855]/60 to-transparent" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#121830]/70 via-[#121830]/20 to-transparent" />
                 </div>
-                <div className="p-6">
-                  <h3 className="text-xl font-bold text-[#002855] mb-3">{ref.name}</h3>
-                  <p className="text-[#003D7A] leading-relaxed mb-6 flex-grow">{ref.description}</p>
-                  <div className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-[#FFC72C] text-[#002855] font-bold hover:bg-[#E6B526] hover:gap-4 transition-all duration-300 shadow-lg shadow-[#FFC72C]/30">
-                    {t("references.readMore")}
-                    <ArrowRight className="w-5 h-5 text-[#002855]" />
+                <div className="p-7 flex-grow flex flex-col">
+                  <h3 className="text-base font-bold text-[#121830] mb-2 leading-tight">{ref.name}</h3>
+                  {ref.description && (
+                    <p className="text-gray-500 text-sm leading-relaxed mb-4 flex-grow">{ref.description}</p>
+                  )}
+                  <div className="flex items-center justify-between pt-4 border-t border-gray-100">
+                    {ref.date && <span className="text-xs text-gray-400">{ref.date}</span>}
+                    <div className="inline-flex items-center gap-1.5 text-[#121830] text-sm font-semibold group-hover:gap-3 transition-all duration-300">
+                      {t("references.readMore")}
+                      <ArrowRight className="w-4 h-4" />
+                    </div>
                   </div>
                 </div>
               </div>
@@ -363,23 +327,3 @@ function RelatedReferencesSection({ references, t }: { references: any[], t: (ke
   )
 }
 
-function CTASection({ t }: { t: (key: string) => string }) {
-  return (
-    <section className="py-20 bg-gray-100">
-      <div className="max-w-6xl mx-auto px-6 md:px-16 lg:px-24">
-        <div className="text-center">
-          <h2 className="text-4xl md:text-5xl font-black text-[#002855] leading-tight mb-6 uppercase" style={{ fontFamily: 'var(--font-archivo)' }}>
-            {t("contact.readyToWork")}
-          </h2>
-          <p className="text-lg md:text-xl text-gray-600 mb-12 max-w-2xl mx-auto">
-            {t("contact.discussBrand")}
-          </p>
-          <Link href="/contact" className="bg-[#FFC72C] text-[#002855] px-12 py-4 rounded-full font-semibold text-lg hover:bg-[#E6B526] transition-colors flex items-center gap-3 mx-auto inline-flex w-auto">
-            {t("contact.scheduleCall")}
-            <ArrowRight className="w-5 h-5 text-[#002855]" />
-          </Link>
-        </div>
-      </div>
-    </section>
-  )
-}

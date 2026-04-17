@@ -1,6 +1,6 @@
 @import "tailwindcss";
 @import "tw-animate-css";
-@import url('https://fonts.googleapis.com/css2?family=Archivo:wght@300;400;500;600;700;800;900&family=Roboto+Condensed:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Archivo:wght@300;400;500;600;700;800;900&family=Roboto+Condensed:wght@300;400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap');
 
 /* Hide Next.js error portal for video capture */
 nextjs-portal {
@@ -10,12 +10,12 @@ nextjs-portal {
 @custom-variant dark (&:is(.dark *));
 
 :root {
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.145 0 0);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.145 0 0);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.145 0 0);
+  --background: #F7F8FA;
+  --foreground: #121830;
+  --card: #FFFFFF;
+  --card-foreground: #121830;
+  --popover: #FFFFFF;
+  --popover-foreground: #121830;
   --primary: oklch(0.205 0 0);
   --primary-foreground: oklch(0.985 0 0);
   --secondary: oklch(0.97 0 0);
@@ -44,10 +44,14 @@ nextjs-portal {
   --sidebar-border: oklch(0.922 0 0);
   --sidebar-ring: oklch(0.708 0 0);
 
-  --yellow-accent: #FFC72C;
-  --dark-blue: #002855;
-  --gold: #FFC72C;
-  --light-blue: #003D7A;
+  --yellow-accent: #FFCE5C;
+  --promo-yellow: #FFCE5C;
+  --dark-blue: #121830;
+  --promo-blue: #121830;
+  --gold: #FFCE5C;
+  --light-blue: #2B2F36;
+  --text-primary: #121830;
+  --text-secondary: #2B2F36;
 }
 
 /* Admin page animations */
@@ -101,11 +105,11 @@ nextjs-portal {
   gap: 2rem;
 }
 
-/* Logo: site blue (#002855) via mask */
+/* Logo: site blue (#121830) via mask */
 .loading-screen-logo-wrap {
   width: 72px;
   height: 36px;
-  background: #002855;
+  background: #121830;
   mask: url("/images/logo-pp.png") center/contain no-repeat;
   -webkit-mask: url("/images/logo-pp.png") center/contain no-repeat;
   animation: loadingLogoZoom 2s ease-in-out infinite;
@@ -124,7 +128,7 @@ nextjs-portal {
 .loading-screen-bar {
   width: 120px;
   height: 4px;
-  background: rgba(0, 40, 85, 0.12);
+  background: rgba(18, 24, 48, 0.12);
   border-radius: 2px;
   overflow: hidden;
 }
@@ -132,7 +136,7 @@ nextjs-portal {
 .loading-screen-bar-fill {
   width: 30%;
   height: 100%;
-  background: #002855;
+  background: #121830;
   border-radius: 2px;
   animation: loadingBarSlide 1.4s ease-in-out infinite;
 }
@@ -220,6 +224,16 @@ nextjs-portal {
   }
   body {
     @apply bg-background text-foreground;
+    font-family: 'Poppins', var(--font-poppins), sans-serif;
+    color: var(--text-primary);
+  }
+  p, span, li, td, th, label, input, textarea, select, button {
+    font-family: 'Poppins', var(--font-poppins), sans-serif;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Poppins', var(--font-poppins), sans-serif;
+    font-weight: 500;
+    color: var(--text-primary);
   }
 }
 
@@ -282,11 +296,11 @@ nextjs-portal {
   }
 
   .text-luxury-large {
-    font-family: var(--font-archivo);
+    font-family: var(--font-poppins), 'Poppins', sans-serif;
     font-size: clamp(1.25rem, 3vw, 1.75rem);
     font-weight: 400;
-    letter-spacing: -0.02em;
-    line-height: 1.3;
+    letter-spacing: -0.01em;
+    line-height: 1.4;
     color: var(--dark-blue);
   }
 
@@ -297,11 +311,11 @@ nextjs-portal {
   }
 
   .text-luxury-large-light {
-    font-family: var(--font-archivo);
+    font-family: var(--font-poppins), 'Poppins', sans-serif;
     font-size: clamp(1.25rem, 3vw, 1.75rem);
     font-weight: 400;
-    letter-spacing: -0.02em;
-    line-height: 1.3;
+    letter-spacing: -0.01em;
+    line-height: 1.4;
     color: #fff;
   }
 
@@ -312,20 +326,20 @@ nextjs-portal {
   }
 
   .text-luxury-body {
-    font-family: var(--font-roboto-condensed);
-    font-size: 1.125rem;
+    font-family: var(--font-poppins), 'Poppins', sans-serif;
+    font-size: 1.0625rem;
     font-weight: 400;
-    letter-spacing: -0.01em;
-    line-height: 1.6;
+    letter-spacing: 0;
+    line-height: 1.7;
     color: var(--light-blue);
   }
 
   .text-luxury-body-light {
-    font-family: var(--font-roboto-condensed);
-    font-size: 1.125rem;
+    font-family: var(--font-poppins), 'Poppins', sans-serif;
+    font-size: 1.0625rem;
     font-weight: 400;
-    letter-spacing: -0.01em;
-    line-height: 1.6;
+    letter-spacing: 0;
+    line-height: 1.7;
     color: rgba(255, 255, 255, 0.8);
   }
 
@@ -342,7 +356,10 @@ nextjs-portal {
   }
 
   .luxury-section {
-    padding: 8rem 0;
+    padding-top: 8rem;
+    padding-right: 0px;
+    padding-bottom: 1rem;
+    padding-left: 0px;
   }
 
   .luxury-grid {
@@ -375,11 +392,11 @@ nextjs-portal {
   }
 
   .gold-accent {
-    background: linear-gradient(135deg, var(--gold) 0%, #E6B526 50%, var(--gold) 100%);
+    background: linear-gradient(135deg, var(--gold) 0%, #F5C440 50%, var(--gold) 100%);
   }
 
   .dark-blue-gradient {
-    background: linear-gradient(135deg, var(--dark-blue) 0%, var(--light-blue) 100%);
+    background: linear-gradient(135deg, #121830 0%, #2B2F36 100%);
   }
 
   .glass-effect {
@@ -416,18 +433,18 @@ nextjs-portal {
   }
 
   .luxury-button-primary {
-    background: linear-gradient(135deg, var(--gold) 0%, #E6B526 100%);
-    color: #002855;
-    border: 1px solid rgba(255, 199, 44, 0.3);
+    background: linear-gradient(135deg, var(--gold) 0%, #F5C440 100%);
+    color: #121830;
+    border: 1px solid rgba(255, 206, 92, 0.3);
     font-weight: 500;
     letter-spacing: 0.05em;
     text-transform: uppercase;
   }
 
   .luxury-button-primary:hover {
-    background: linear-gradient(135deg, #E6B526 0%, #CC9F1F 100%);
+    background: linear-gradient(135deg, #F5C440 0%, #E0AF30 100%);
     transform: translateY(-3px);
-    box-shadow: 0 25px 50px -12px rgba(255, 199, 44, 0.4);
+    box-shadow: 0 25px 50px -12px rgba(255, 206, 92, 0.4);
   }
 
   .luxury-border {
@@ -763,14 +780,15 @@ nextjs-portal {
 .rich-text-content {
   font-size: 1.125rem !important;
   line-height: 1.75 !important;
-  color: #003D7A !important;
+  color: #2B2F36 !important;
+  font-family: 'Poppins', sans-serif !important;
 }
 
 .rich-text-content p {
   margin: 1rem 0 !important;
   font-size: 1.125rem !important;
   line-height: 1.75 !important;
-  color: #003D7A !important;
+  color: #2B2F36 !important;
 }
 
 .rich-text-content p:first-child {
@@ -795,7 +813,7 @@ nextjs-portal {
 .rich-text-content h6 {
   margin: 1.5rem 0 1rem 0 !important;
   font-weight: 700 !important;
-  color: #002855 !important;
+  color: #121830 !important;
   line-height: 1.3 !important;
 }
 
@@ -883,7 +901,7 @@ nextjs-portal {
 .rich-text-content div {
   font-size: 1.125rem !important;
   line-height: 1.75 !important;
-  color: #003D7A !important;
+  color: #2B2F36 !important;
 }
 
 .rich-text-content span {

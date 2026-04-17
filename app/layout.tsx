@@ -1,6 +1,6 @@
 import type React from "react"
 import type { Metadata } from "next"
-import { Archivo, Roboto_Condensed } from "next/font/google"
+import { Archivo, Roboto_Condensed, Poppins } from "next/font/google"
 import { Analytics } from "@vercel/analytics/next"
 import { Suspense } from "react"
 import "./globals.css"
@@ -19,6 +19,13 @@ const archivo = Archivo({
 const robotoCondensed = Roboto_Condensed({
   subsets: ["latin"],
   variable: "--font-roboto-condensed",
+  weight: ["300", "400", "500", "600", "700"],
+  display: "swap",
+})
+
+const poppins = Poppins({
+  subsets: ["latin"],
+  variable: "--font-poppins",
   weight: ["300", "400", "500", "600", "700"],
   display: "swap",
 })
@@ -115,7 +122,7 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body className={`font-sans ${archivo.variable} ${robotoCondensed.variable} antialiased overflow-x-hidden`}>
+      <body className={`${archivo.variable} ${robotoCondensed.variable} ${poppins.variable} antialiased overflow-x-hidden`} style={{ fontFamily: "var(--font-poppins), 'Poppins', sans-serif" }}>
         <LoadingScreen />
         <LanguageProvider>
           <Suspense fallback={null}>{children}</Suspense>

@@ -48,8 +48,8 @@ export function ClientsSection() {
               isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
             }`}
           >
-            <div className="inline-flex items-center gap-2 px-4 py-2 bg-[#002855] rounded-full text-white text-sm font-medium mb-8">
-              <div className="w-2 h-2 rounded-full bg-[#FFC72C]" />
+            <div className="inline-flex items-center gap-2 px-4 py-2 bg-[#121830] rounded-full text-white text-sm font-medium mb-8">
+              <div className="w-2 h-2 rounded-full bg-[#FFCE5C]" />
               Trusted Partners
             </div>
               Trusted Partners
@@ -97,8 +97,8 @@ export function ClientsSection() {
           style={{ transitionDelay: "800ms" }}
         >
           <div className="inline-flex items-center gap-3 bg-white/80 px-6 py-3 rounded-full luxury-border">
-            <div className="w-8 h-8 bg-[#FFC72C] rounded-full flex items-center justify-center">
-              <Check className="w-5 h-5 text-[#002855]" />
+            <div className="w-8 h-8 bg-[#FFCE5C] rounded-full flex items-center justify-center">
+              <Check className="w-5 h-5 text-[#121830]" />
             </div>
             <span className="text-sm font-medium text-gray-700">Swiss Quality Assurance</span>
           </div>

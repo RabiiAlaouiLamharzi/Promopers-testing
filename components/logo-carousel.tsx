@@ -33,7 +33,7 @@ export function LogoCarousel() {
   const duplicatedLogos = [...logos, ...logos, ...logos, ...logos]
 
   return (
-    <section ref={sectionRef} className="py-16 flex items-center justify-center" style={{ background: 'linear-gradient(135deg, #FFC72C 0%, #E6B526 50%, #FFC72C 100%)' }}>
+    <section ref={sectionRef} className="py-16 flex items-center justify-center" style={{ background: 'linear-gradient(135deg, #FFCE5C 0%, #F5C440 50%, #FFCE5C 100%)' }}>
       <div className="w-full px-0">
         {/* Logo Carousel */}
         <div className="relative overflow-hidden">

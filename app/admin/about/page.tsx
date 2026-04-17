@@ -744,7 +744,7 @@ function CompanyHistoryTimeline({ mediaOverrides, onImageChange }: { mediaOverri
   ]
 
   return (
-    <section ref={sectionRef} className="pt-32 pb-16 bg-white relative overflow-hidden">
+    <section ref={sectionRef} className="pt-32 bg-white relative overflow-hidden">
       <div className="luxury-container relative z-10">
         <div
           className={`text-center mb-20 transition-all duration-1000 ${

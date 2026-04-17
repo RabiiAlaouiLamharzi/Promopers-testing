@@ -59,10 +59,10 @@ export function StatsSection() {
               <div className="glass-effect rounded-3xl p-12 text-center luxury-border">
                 {/* Number */}
                 <div className="mb-8">
-                  <div className="text-7xl md:text-8xl font-black text-[#FFC72C] mb-4 leading-none">
+                  <div className="text-7xl md:text-8xl font-black text-[#FFCE5C] mb-4 leading-none">
                     {stat.number}
                   </div>
-                  <div className="h-1 w-16 bg-[#FFC72C] mx-auto rounded-full" />
+                  <div className="h-1 w-16 bg-[#FFCE5C] mx-auto rounded-full" />
                 </div>
 
                 {/* Labels */}
@@ -82,8 +82,8 @@ export function StatsSection() {
 
                 {/* Decorative Element */}
                 <div className="mt-8 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                  <div className="w-12 h-12 bg-[#FFC72C]/20 rounded-full mx-auto flex items-center justify-center">
-                    <div className="w-6 h-6 bg-[#002855] rounded-full" />
+                  <div className="w-12 h-12 bg-[#FFCE5C]/20 rounded-full mx-auto flex items-center justify-center">
+                    <div className="w-6 h-6 bg-[#121830] rounded-full" />
                   </div>
                 </div>
               </div>

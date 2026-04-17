@@ -71,7 +71,7 @@ export function TeamSection() {
               Discover insights, trends, and success stories from our retail activation campaigns that will inspire your next brand experience.
             </p>
             <button className="w-14 h-14 luxury-button luxury-button-primary rounded-full flex items-center justify-center flex-shrink-0">
-              <span className="text-[#002855] font-bold text-xl">→</span>
+              <span className="text-[#121830] font-bold text-xl">→</span>
             </button>
           </div>
         </div>
@@ -92,7 +92,7 @@ export function TeamSection() {
                   className="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-500"
                 />
                 <div className="absolute top-4 left-4">
-                  <span className="bg-[#FFC72C] text-[#002855] text-xs font-bold px-4 py-2 rounded-full">
+                  <span className="bg-[#FFCE5C] text-[#121830] text-xs font-bold px-4 py-2 rounded-full">
                     {caseStudy.title}
                   </span>
                 </div>

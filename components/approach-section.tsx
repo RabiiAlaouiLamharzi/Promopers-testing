@@ -75,7 +75,7 @@ export function ApproachSection() {
               thrive in competitive markets.
             </p>
             <button className="w-14 h-14 luxury-button luxury-button-primary rounded-full flex items-center justify-center flex-shrink-0">
-              <span className="text-[#002855] font-bold text-xl">→</span>
+              <span className="text-[#121830] font-bold text-xl">→</span>
             </button>
           </div>
         </div>
@@ -98,7 +98,7 @@ export function ApproachSection() {
               <h3 className="text-5xl font-black text-white mb-3">{projects[0].title}</h3>
               <p className="text-white/90 mb-6 text-sm">{projects[0].subtitle}</p>
               <button className="w-14 h-14 luxury-button luxury-button-primary rounded-full flex items-center justify-center">
-                <span className="text-[#002855] font-bold text-xl">→</span>
+                <span className="text-[#121830] font-bold text-xl">→</span>
               </button>
             </div>
           </div>
@@ -121,7 +121,7 @@ export function ApproachSection() {
               <div className="absolute bottom-0 left-0 right-0 p-6">
                 <p className="text-white text-sm mb-4">{project.title}</p>
                 <button className="w-12 h-12 luxury-button luxury-button-primary rounded-full flex items-center justify-center">
-                  <span className="text-[#002855] font-bold">→</span>
+                  <span className="text-[#121830] font-bold">→</span>
                 </button>
               </div>
             </div>

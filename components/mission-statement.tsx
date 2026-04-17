@@ -59,7 +59,7 @@ export function MissionStatement() {
             </div>
 
             <div>
-              <div className="text-4xl md:text-6xl lg:text-8xl font-serif text-black mb-4 md:mb-6 lg:mb-8">"</div>
+              <div className="text-4xl md:text-6xl lg:text-8xl font-bold text-black mb-4 md:mb-6 lg:mb-8">"</div>
               <blockquote className="text-lg md:text-xl lg:text-2xl xl:text-3xl font-medium text-black leading-relaxed mb-6 md:mb-8">
                 Working with Sandro Design Agency was a game-changer for our brand. Their team understood our vision and
                 transformed it into a cohesive, visually stunning identity. The level of creativity, attention to
