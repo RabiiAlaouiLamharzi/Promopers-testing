@@ -174,17 +174,31 @@ function ContactFormAndMapSection() {
           </form>
 
           {/* Map */}
-          <div className="relative w-full rounded-3xl overflow-hidden shadow-xl min-h-[400px]">
-            <iframe
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2701.445844755859!2d8.450222!3d47.4005313!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47900c7657a0233b%3A0xb597a1aec1b990cc!2sX-Tool%20Services%20(Schweiz)%20AG!5e0!3m2!1sen!2sch!4v1699999999999!5m2!1sen!2sch"
-              className="absolute top-0 left-0 w-full h-full"
-              style={{ border: 0 }}
-              allowFullScreen
-              loading="lazy"
-              referrerPolicy="no-referrer-when-downgrade"
-              title="X-Tool Services (Schweiz) AG Location"
-            />
-          </div>
+          <a
+            href="https://maps.google.com/?q=Rütistrasse+12,+8952+Schlieren"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="relative w-full rounded-3xl overflow-hidden shadow-xl min-h-[400px] flex flex-col items-center justify-center gap-6 bg-[#F7F8FA] border border-gray-100 group hover:border-[#121830]/20 transition-all duration-300 no-underline"
+          >
+            {/* Map grid background */}
+            <div className="absolute inset-0 opacity-20" style={{
+              backgroundImage: 'linear-gradient(#121830 1px, transparent 1px), linear-gradient(90deg, #121830 1px, transparent 1px)',
+              backgroundSize: '40px 40px'
+            }} />
+            {/* Pin */}
+            <div className="relative z-10 flex flex-col items-center gap-4">
+              <div className="w-16 h-16 rounded-full bg-[#121830] flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300">
+                <MapPin className="w-8 h-8 text-[#FFCE5C]" />
+              </div>
+              <div className="text-center">
+                <p className="text-sm font-bold text-[#121830] uppercase tracking-widest mb-1">X-Tool Services (Schweiz) AG</p>
+                <p className="text-sm text-[#2B2F36]">Rütistrasse 12, 8952 Schlieren</p>
+              </div>
+              <span className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#121830] text-white text-xs font-bold uppercase tracking-wider group-hover:bg-[#FFCE5C] group-hover:text-[#121830] transition-all duration-300">
+                Open in Google Maps <ArrowRight className="w-3.5 h-3.5" />
+              </span>
+            </div>
+          </a>
         </div>
       </div>
     </section>
